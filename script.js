@@ -1,26 +1,36 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // ১. ডিফল্ট শব্দগুলো (System এবং B2 ঠিক রাখা হয়েছে)
+    // 1. Initial System/B2 words
     const defaultWords = [
         { de: "Hallo", en: "Hello", mastered: false, origin: "system" },
         { de: "Tisch", en: "Table", mastered: false, origin: "system" },
-        { de: "Voraussetzung", en: "Requirement/Condition", mastered: false, origin: "b2" },
+        { de: "Voraussetzung", en: "Requirement", mastered: false, origin: "b2" },
         { de: "Beeinflussen", en: "To influence", mastered: false, origin: "b2" }
     ];
 
     let words = JSON.parse(localStorage.getItem('deutschWords'));
-
-    // ২. যদি LocalStorage খালি থাকে, তবে B1word.json থেকে ডেটা লোড করবে
+    
+    // 2. Fetch B1 words ONLY if we haven't saved them yet
     if (!words) {
         try {
+            console.log("Fetching B1word.json...");
             const response = await fetch('B1word.json');
+            if (!response.ok) throw new Error("File not found");
+            
             const b1Data = await response.json();
             
-            // ডিফল্ট শব্দের সাথে JSON-এর B1 শব্দগুলো যুক্ত করা হচ্ছে
-            words = [...defaultWords, ...b1Data];
+            // Map B1 data to ensure they have the correct properties
+            const formattedB1 = b1Data.map(w => ({
+                ...w,
+                mastered: false,
+                origin: "b1"
+            }));
+
+            words = [...defaultWords, ...formattedB1];
             localStorage.setItem('deutschWords', JSON.stringify(words));
+            console.log("B1 Words loaded successfully!");
         } catch (error) {
-            console.error("B1word.json লোড করতে সমস্যা হয়েছে:", error);
-            words = defaultWords; // ফেইল করলে শুধু ডিফল্টগুলো থাকবে
+            console.error("Error fetching JSON:", error);
+            words = defaultWords; // Fallback if fetch fails
         }
     }
 
@@ -33,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const englishText = document.getElementById('englishText');
     const remainingCount = document.getElementById('remainingCount');
 
-    // ৩. ড্রপডাউন রেঞ্জ তৈরি করা (System words এর ওপর ভিত্তি করে)
+    // 3. Dynamic Range Builder
     function buildRanges() {
         const staticOptions = `
             <option value="all">All Words</option>
@@ -43,16 +53,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         `;
         rangeSelect.innerHTML = staticOptions;
         
-        const systemWordsCount = words.filter(w => w.origin === "system").length;
+        const systemWords = words.filter(w => w.origin === "system");
         const batchSize = 50;
-        const numBatches = Math.ceil(systemWordsCount / batchSize);
-
-        for (let i = 0; i < numBatches; i++) {
+        for (let i = 0; i < Math.ceil(systemWords.length / batchSize); i++) {
             let start = i * batchSize;
-            let end = (i + 1) * batchSize;
+            let end = Math.min((i + 1) * batchSize, systemWords.length);
             let option = document.createElement('option');
             option.value = `range-${start}-${end}`;
-            option.textContent = `Range: ${start + 1} - ${end > systemWordsCount ? systemWordsCount : end}`;
+            option.textContent = `Range: ${start + 1} - ${end}`;
             rangeSelect.appendChild(option);
         }
     }
@@ -83,23 +91,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             englishText.innerText = filteredWords[currentIndex].en;
         } else {
             germanText.innerText = "Set Complete!";
-            englishText.innerText = "Choose another level.";
+            englishText.innerText = "No words left in this category.";
         }
     }
 
-    // শিখে ফেলা শব্দের লজিক
-    document.getElementById('learnedBtn').addEventListener('click', () => {
-        if (filteredWords.length === 0) return;
-        const currentDe = filteredWords[currentIndex].de;
-        const idx = words.findIndex(w => w.de === currentDe);
-        words[idx].mastered = true;
-        localStorage.setItem('deutschWords', JSON.stringify(words));
-        filterWords();
-    });
-
-    // নেভিগেশন এবং ফ্লিপ
+    // --- Button Event Listeners ---
     card.addEventListener('click', () => card.classList.toggle('flipped'));
-    
+
     document.getElementById('nextBtn').addEventListener('click', () => {
         if (filteredWords.length > 0) {
             currentIndex = (currentIndex + 1) % filteredWords.length;
@@ -114,7 +112,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // নতুন শব্দ যোগ করার লজিক
+    document.getElementById('learnedBtn').addEventListener('click', () => {
+        if (filteredWords.length === 0) return;
+        const currentDe = filteredWords[currentIndex].de;
+        const idx = words.findIndex(w => w.de === currentDe);
+        words[idx].mastered = true;
+        localStorage.setItem('deutschWords', JSON.stringify(words));
+        filterWords();
+    });
+
     document.getElementById('addBtn').addEventListener('click', () => {
         const de = document.getElementById('newGerman').value.trim();
         const en = document.getElementById('newEnglish').value.trim();
@@ -123,7 +129,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             localStorage.setItem('deutschWords', JSON.stringify(words));
             document.getElementById('newGerman').value = '';
             document.getElementById('newEnglish').value = '';
-            alert("Added to 'Self' level!");
             filterWords();
         }
     });
@@ -136,7 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     rangeSelect.addEventListener('change', filterWords);
 
-    // অ্যাপ চালু করা
+    // Initial Start
     buildRanges();
     filterWords();
 });
