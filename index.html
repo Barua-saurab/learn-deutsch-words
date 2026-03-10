@@ -10,11 +10,13 @@
     <div class="container">
         <h1>Learn Deutsch</h1>
 
-        <div class="range-selector">
-            <label>Level:</label>
+        <div class="level-box">
+            <label>Select Level:</label>
             <select id="rangeSelect">
                 <option value="all">All Words</option>
                 <option value="self">Self (My Added Words)</option>
+                <option value="b1">B1 (Intermediate)</option>
+                <option value="b2">B2 (Upper Intermediate)</option>
                 </select>
         </div>
 
@@ -26,7 +28,7 @@
         </div>
 
         <div class="controls">
-            <button id="prevBtn">← Previous</button>
+            <button id="prevBtn">← Prev</button>
             <button id="nextBtn">Next →</button>
         </div>
 
@@ -36,17 +38,17 @@
         </div>
 
         <div class="stats">
-            <p>Cards in this set: <span id="remainingCount">0</span></p>
-            <button id="resetMastered">Reset All Progress</button>
+            <p>Words left: <span id="remainingCount">0</span></p>
+            <button id="resetMastered">Reset Progress</button>
         </div>
 
         <hr>
 
         <div class="add-word-form">
             <h3>Add to "Self" List</h3>
-            <input type="text" id="newGerman" placeholder="German Word (e.g. Der Hund)">
-            <input type="text" id="newEnglish" placeholder="English Meaning (e.g. The Dog)">
-            <button id="addBtn">Save Word</button>
+            <input type="text" id="newGerman" placeholder="German Word">
+            <input type="text" id="newEnglish" placeholder="English Meaning">
+            <button id="addBtn">Save to My List</button>
         </div>
     </div>
     <script src="script.js"></script>
