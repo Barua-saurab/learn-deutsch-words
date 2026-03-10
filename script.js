@@ -3,37 +3,37 @@ let filteredWords = [];
 let currentIndex = 0;
 
 const card = document.getElementById('flashcard');
-const wordText = document.getElementById('wordText');
-const translationText = document.getElementById('translationText');
-const exampleText = document.getElementById('exampleText');
-const progress = document.getElementById('progress');
+const germanEl = document.getElementById('wordGerman');
+const englishEl = document.getElementById('wordEnglish');
+const exampleEl = document.getElementById('wordExample');
+const progressEl = document.getElementById('progress');
 
-// 1. Fetch Data
+// 1. Load Data
 async function loadWords() {
     try {
         const response = await fetch('B1word.json');
         allWords = await response.json();
         filteredWords = [...allWords];
         updateCard();
-    } catch (err) {
-        wordText.innerText = "Error loading JSON";
+    } catch (error) {
+        germanEl.textContent = "Error loading data.";
     }
 }
 
-// 2. UI Updates
+// 2. Update UI
 function updateCard() {
     if (filteredWords.length === 0) return;
     
-    const current = filteredWords[currentIndex];
-    wordText.innerText = current.word;
-    translationText.innerText = current.translation;
-    exampleText.innerText = `"${current.example}"`;
+    const word = filteredWords[currentIndex];
+    germanEl.textContent = word.german;
+    englishEl.textContent = word.english;
+    exampleEl.textContent = word.example;
     
-    progress.innerText = `Card ${currentIndex + 1} / ${filteredWords.length}`;
+    progressEl.textContent = `Card ${currentIndex + 1} / ${filteredWords.length}`;
     card.classList.remove('flipped');
 }
 
-// 3. Navigation Functions
+// 3. Navigation
 function nextCard() {
     currentIndex = (currentIndex + 1) % filteredWords.length;
     updateCard();
@@ -44,30 +44,27 @@ function prevCard() {
     updateCard();
 }
 
-// 4. Event Listeners
+function randomCard() {
+    currentIndex = Math.floor(Math.random() * filteredWords.length);
+    updateCard();
+}
+
+// 4. Events
 card.addEventListener('click', () => card.classList.toggle('flipped'));
 
 document.getElementById('nextBtn').addEventListener('click', nextCard);
 document.getElementById('prevBtn').addEventListener('click', prevCard);
+document.getElementById('randomBtn').addEventListener('click', randomCard);
 
-document.getElementById('randomBtn').addEventListener('click', () => {
-    currentIndex = Math.floor(Math.random() * filteredWords.length);
-    updateCard();
-});
-
-document.getElementById('shuffleBtn').addEventListener('click', () => {
-    filteredWords.sort(() => Math.random() - 0.5);
-    currentIndex = 0;
-    updateCard();
-});
-
+// Filtering
 document.getElementById('categoryFilter').addEventListener('change', (e) => {
     const cat = e.target.value;
-    filteredWords = cat === 'all' ? [...allWords] : allWords.filter(w => w.category === cat);
+    filteredWords = cat === 'all' ? allWords : allWords.filter(w => w.category === cat);
     currentIndex = 0;
     updateCard();
 });
 
+// Dark Mode
 document.getElementById('darkModeToggle').addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
