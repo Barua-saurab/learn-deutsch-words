@@ -1,56 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deutsch Master Flashcards</title>
+    <title>Learn Deutsch Words</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Learn Deutsch</h1>
-
-        <div class="level-box">
-            <label>Select Level:</label>
-            <select id="rangeSelect">
-                <option value="all">All Words</option>
-                <option value="self">Self (My Added Words)</option>
-                <option value="b1">B1 (Intermediate)</option>
-                <option value="b2">B2 (Upper Intermediate)</option>
-                </select>
+        <h1>Mein Wortschatz</h1>
+        
+        <div class="input-group">
+            <label for="wordInput">German Word:</label>
+            <input type="text" id="wordInput" placeholder="e.g. Tisch" required>
+            
+            <label for="genderSelect">Gender:</label>
+            <select id="genderSelect">
+                <option value="der">der (Masculine)</option>
+                <option value="die">die (Feminine)</option>
+                <option value="das">das (Neuter)</option>
+            </select>
+            
+            <button id="addBtn">Add Word</button>
         </div>
 
-        <div class="card-container">
-            <div class="card" id="card">
-                <div class="card-front"><p id="germanText">Word</p></div>
-                <div class="card-back"><p id="englishText">Meaning</p></div>
-            </div>
-        </div>
-
-        <div class="controls">
-            <button id="prevBtn">← Prev</button>
-            <button id="nextBtn">Next →</button>
-        </div>
-
-        <div class="learning-controls">
-            <button id="learnedBtn" class="success">I Know This! ✅</button>
-            <button id="forgotBtn" class="danger">Study Again ❌</button>
-        </div>
-
-        <div class="stats">
-            <p>Words left: <span id="remainingCount">0</span></p>
-            <button id="resetMastered">Reset Progress</button>
-        </div>
-
-        <hr>
-
-        <div class="add-word-form">
-            <h3>Add to "Self" List</h3>
-            <input type="text" id="newGerman" placeholder="German Word">
-            <input type="text" id="newEnglish" placeholder="English Meaning">
-            <button id="addBtn">Save to My List</button>
-        </div>
+        <ul id="wordList"></ul>
     </div>
-    <script src="script.js"></script>
+
+    <script src="app.js" defer></script>
 </body>
 </html>
