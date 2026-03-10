@@ -22,20 +22,24 @@
 
         <div class="card-container">
             <div class="card" id="card">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <p id="germanText">Word</p>
-                    </div>
-                    <div class="card-back">
-                        <p id="englishText">Meaning</p>
-                    </div>
-                </div>
+                <div class="card-front"><p id="germanText">Word</p></div>
+                <div class="card-back"><p id="englishText">Meaning</p></div>
             </div>
         </div>
 
         <div class="controls">
             <button id="prevBtn">Previous</button>
             <button id="nextBtn">Next</button>
+        </div>
+
+        <div class="learning-controls">
+            <button id="learnedBtn" class="success">I Know This! ✅</button>
+            <button id="forgotBtn" class="danger">Study Again ❌</button>
+        </div>
+
+        <div class="stats">
+            <p>Remaining in set: <span id="remainingCount">0</span></p>
+            <button id="resetMastered">Reset Progress</button>
         </div>
 
         <hr>
