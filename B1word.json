@@ -1,20 +1,23 @@
 [
   {
-    "word": "die Herausforderung",
-    "translation": "the challenge",
-    "example": "Eine neue Sprache zu lernen ist eine große Herausforderung.",
+    "id": 1,
+    "german": "die Herausforderung",
+    "english": "challenge",
+    "example": "Das ist eine große Herausforderung für mich.",
     "category": "noun"
   },
   {
-    "word": "erfolgreich",
-    "translation": "successful",
-    "example": "Das Projekt war sehr erfolgreich.",
-    "category": "adjective"
+    "id": 2,
+    "german": "entscheiden",
+    "english": "to decide",
+    "example": "Ich muss mich bald entscheiden.",
+    "category": "verb"
   },
   {
-    "word": "entscheiden",
-    "translation": "to decide",
-    "example": "Ich kann mich nicht entscheiden.",
-    "category": "verb"
+    "id": 3,
+    "german": "geduldig",
+    "english": "patient",
+    "example": "Sei bitte geduldig mit den Kindern.",
+    "category": "adjective"
   }
 ]
