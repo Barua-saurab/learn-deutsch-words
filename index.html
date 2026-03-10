@@ -1,48 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deutsch Flashcards</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>German Flashcards</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="app-container">
-        <header>
-            <h1>Deutsch B1</h1>
-            <div class="controls">
-                <select id="categoryFilter">
-                    <option value="all">All Categories</option>
-                    <option value="noun">Nouns</option>
-                    <option value="verb">Verbs</option>
-                    <option value="adjective">Adjectives</option>
-                </select>
-                <button id="darkModeToggle">🌓</button>
-            </div>
-            <p id="progress">Card 0 / 0</p>
-        </header>
 
-        <main>
-            <div class="flashcard-container">
-                <div class="flashcard" id="flashcard">
-                    <div class="card-face card-front">
-                        <h2 id="wordGerman">Laden...</h2>
-                        <small>Click to flip</small>
-                    </div>
-                    <div class="card-face card-back">
-                        <h2 id="wordEnglish">Translation</h2>
-                        <p id="wordExample">Example sentence goes here.</p>
-                    </div>
-                </div>
-            </div>
+<h1>German Flashcard Learning</h1>
 
-            <div class="navigation">
-                <button id="prevBtn">← Previous</button>
-                <button id="randomBtn">Shuffle</button>
-                <button id="nextBtn">Next →</button>
-            </div>
-        </main>
-    </div>
-    <script src="script.js"></script>
+<div class="card-container">
+
+<div class="card" id="flashcard">
+
+<div class="front">
+<h2 id="germanWord"></h2>
+<button id="speakBtn">🔊</button>
+</div>
+
+<div class="back">
+<h3 id="englishWord"></h3>
+<p id="exampleSentence"></p>
+</div>
+
+</div>
+
+</div>
+
+<div class="controls">
+
+<button id="prevBtn">Previous</button>
+<button id="nextBtn">Next</button>
+
+</div>
+
+<div class="difficulty">
+
+<button onclick="setDifficulty('easy')">Easy</button>
+<button onclick="setDifficulty('medium')">Medium</button>
+<button onclick="setDifficulty('hard')">Hard</button>
+
+</div>
+
+<hr>
+
+<h2>Quiz Mode</h2>
+
+<div id="quizContainer">
+
+<h3 id="quizWord"></h3>
+
+<div id="options"></div>
+
+<p id="result"></p>
+
+<button id="nextQuiz">Next Question</button>
+
+</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
