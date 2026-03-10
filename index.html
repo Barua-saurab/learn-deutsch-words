@@ -1,65 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>German Flashcards</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>German Vocab Builder</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <header>
+        <h1>German Vocab Builder</h1>
+        <nav>
+            <button id="btn-flashcards">Flashcards</button>
+            <button id="btn-quiz">Quiz Mode</button>
+        </nav>
+    </header>
 
-<h1>German Flashcard Learning</h1>
+    <main>
+        <section id="flashcard-section">
+            <div class="card-container" id="flashcard">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <button id="btn-audio" title="Listen">🔊</button>
+                        <h2 id="word-german">Loading...</h2>
+                    </div>
+                    <div class="card-back">
+                        <h2 id="word-english"></h2>
+                        <p id="word-example"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="controls">
+                <div class="nav-controls">
+                    <button id="btn-prev">Previous</button>
+                    <button id="btn-next">Next</button>
+                </div>
+                <div class="difficulty-controls">
+                    <button class="diff-btn" data-level="easy">Easy</button>
+                    <button class="diff-btn" data-level="medium">Medium</button>
+                    <button class="diff-btn" data-level="hard">Hard</button>
+                </div>
+            </div>
+        </section>
 
-<div class="card-container">
+        <section id="quiz-section" class="hidden">
+            <h2>Quiz Mode</h2>
+            <p>Score: <span id="quiz-score">0</span></p>
+            <div class="quiz-card">
+                <h3 id="quiz-word">Loading...</h3>
+                <div id="quiz-options" class="options-grid"></div>
+                <p id="quiz-feedback"></p>
+                <button id="btn-next-quiz" class="hidden">Next Question</button>
+            </div>
+        </section>
+    </main>
 
-<div class="card" id="flashcard">
-
-<div class="front">
-<h2 id="germanWord"></h2>
-<button id="speakBtn">🔊</button>
-</div>
-
-<div class="back">
-<h3 id="englishWord"></h3>
-<p id="exampleSentence"></p>
-</div>
-
-</div>
-
-</div>
-
-<div class="controls">
-
-<button id="prevBtn">Previous</button>
-<button id="nextBtn">Next</button>
-
-</div>
-
-<div class="difficulty">
-
-<button onclick="setDifficulty('easy')">Easy</button>
-<button onclick="setDifficulty('medium')">Medium</button>
-<button onclick="setDifficulty('hard')">Hard</button>
-
-</div>
-
-<hr>
-
-<h2>Quiz Mode</h2>
-
-<div id="quizContainer">
-
-<h3 id="quizWord"></h3>
-
-<div id="options"></div>
-
-<p id="result"></p>
-
-<button id="nextQuiz">Next Question</button>
-
-</div>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
