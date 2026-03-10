@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async () => 
     const defaultWords = [
         { de: "Hallo", en: "Hello", mastered: false, origin: "system" },
         { de: "Voraussetzung", en: "Requirement", mastered: false, origin: "b2" }
@@ -109,6 +109,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         localStorage.setItem('deutschWords', JSON.stringify(words));
         filterWords();
     });
+
+    document.getElementById('forgotBtn').addEventListener('click', () => {
+    if (filteredWords.length === 0) return;
+    
+    // 1. Flip the card back to the German side
+    card.classList.remove('flipped');
+    
+    // 2. Wait a split second for the flip animation, then go to the next word
+    setTimeout(() => {
+        currentIndex = (currentIndex + 1) % filteredWords.length;
+        updateUI();
+    }, 300);
+});
 
     document.getElementById('addBtn').addEventListener('click', () => {
         const de = document.getElementById('newGerman').value.trim();
