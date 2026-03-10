@@ -22,10 +22,28 @@ body {
 
 /* Flashcard Flip Logic */
 .flashcard-container {
-    perspective: 1000px;
-    width: 320px;
-    height: 400px;
-    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Ensure the main area spaces the card and buttons correctly */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Add margin to the navigation to push it away from the card */
+.navigation {
+    margin-top: 30px; 
+    display: flex;
+    gap: 15px;
+    z-index: 10; /* Ensures buttons stay clickable */
 }
 
 .flashcard {
