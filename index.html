@@ -1,32 +1,48 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn Deutsch Words</title>
+    <title>Deutsch Flashcards B1</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Mein Wortschatz</h1>
-        
-        <div class="input-group">
-            <label for="wordInput">German Word:</label>
-            <input type="text" id="wordInput" placeholder="e.g. Tisch" required>
-            
-            <label for="genderSelect">Gender:</label>
-            <select id="genderSelect">
-                <option value="der">der (Masculine)</option>
-                <option value="die">die (Feminine)</option>
-                <option value="das">das (Neuter)</option>
-            </select>
-            
-            <button id="addBtn">Add Word</button>
+        <header>
+            <h1>B1 Wortschatz</h1>
+            <div class="controls">
+                <select id="categoryFilter">
+                    <option value="all">All Categories</option>
+                    <option value="noun">Nouns</option>
+                    <option value="verb">Verbs</option>
+                    <option value="adjective">Adjectives</option>
+                </select>
+                <button id="darkModeToggle">🌓</button>
+            </div>
+        </header>
+
+        <div class="progress" id="progress">Card 0 / 0</div>
+
+        <div class="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="card-face card-front">
+                    <h2 id="wordText">Loading...</h2>
+                    <p class="hint">Click to flip</p>
+                </div>
+                <div class="card-face card-back">
+                    <h2 id="translationText">Translation</h2>
+                    <p id="exampleText">Example sentence goes here.</p>
+                </div>
+            </div>
         </div>
 
-        <ul id="wordList"></ul>
+        <div class="nav-buttons">
+            <button id="prevBtn">Previous</button>
+            <button id="randomBtn">Random</button>
+            <button id="shuffleBtn">Shuffle</button>
+            <button id="nextBtn">Next</button>
+        </div>
     </div>
-
-    <script src="app.js" defer></script>
+    <script src="script.js"></script>
 </body>
 </html>
