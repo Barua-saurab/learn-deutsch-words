@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // If words are null, it means we need to fetch
     if (!words) {
         try {
-            const response = await fetch('B1word.json');
+            const response = await fetch('./B1word.json');
             if (!response.ok) throw new Error("Could not find B1word.json");
             
             const b1Data = await response.json();
