@@ -1,104 +1,112 @@
-let allWords = [];
-let filteredWords = [];
-let currentIndex = 0;
+let words=[]
+let currentIndex=0
 
-const card = document.getElementById('flashcard');
-const germanEl = document.getElementById('wordGerman');
-const englishEl = document.getElementById('wordEnglish');
-const exampleEl = document.getElementById('wordExample');
-const progressEl = document.getElementById('progress');
+fetch("words.json")
+.then(res=>res.json())
+.then(data=>{
+words=data
+loadCard()
+loadQuiz()
+})
 
-// 1. Load Data
-async function loadWords() {
-    try {
-        const response = await fetch('B1word.json');
-        allWords = await response.json();
-        filteredWords = [...allWords];
-        updateCard();
-    } catch (error) {
-        germanEl.textContent = "Error loading data.";
-    }
+const card=document.getElementById("flashcard")
+
+card.addEventListener("click",()=>{
+card.classList.toggle("flip")
+})
+
+function loadCard(){
+
+const word=words[currentIndex]
+
+document.getElementById("germanWord").textContent=word.german
+document.getElementById("englishWord").textContent=word.english
+document.getElementById("exampleSentence").textContent=word.example
+
 }
 
-// 2. Update UI
-function updateCard() {
-    if (filteredWords.length === 0) return;
-    
-    const word = filteredWords[currentIndex];
-    germanEl.textContent = word.german;
-    englishEl.textContent = word.english;
-    exampleEl.textContent = word.example;
-    
-    progressEl.textContent = `Card ${currentIndex + 1} / ${filteredWords.length}`;
-    card.classList.remove('flipped');
+document.getElementById("nextBtn").onclick=()=>{
+
+currentIndex=(currentIndex+1)%words.length
+card.classList.remove("flip")
+loadCard()
+
 }
 
-// 3. Navigation
-function nextCard() {
-    currentIndex = (currentIndex + 1) % filteredWords.length;
-    updateCard();
+document.getElementById("prevBtn").onclick=()=>{
+
+currentIndex=(currentIndex-1+words.length)%words.length
+card.classList.remove("flip")
+loadCard()
+
 }
 
-function prevCard() {
-    currentIndex = (currentIndex - 1 + filteredWords.length) % filteredWords.length;
-    updateCard();
+document.getElementById("speakBtn").onclick=()=>{
+
+let word=words[currentIndex].german
+
+let speech=new SpeechSynthesisUtterance(word)
+speech.lang="de-DE"
+
+speechSynthesis.speak(speech)
+
 }
 
-function randomCard() {
-    currentIndex = Math.floor(Math.random() * filteredWords.length);
-    updateCard();
+function setDifficulty(level){
+
+let word=words[currentIndex].german
+
+localStorage.setItem(word,level)
+
 }
 
-// 4. Events
-card.addEventListener('click', () => card.classList.toggle('flipped'));
+function loadQuiz(){
 
-document.getElementById('nextBtn').addEventListener('click', nextCard);
-document.getElementById('prevBtn').addEventListener('click', prevCard);
-document.getElementById('randomBtn').addEventListener('click', randomCard);
+let randomIndex=Math.floor(Math.random()*words.length)
 
-// Filtering
-document.getElementById('categoryFilter').addEventListener('change', (e) => {
-    const cat = e.target.value;
-    filteredWords = cat === 'all' ? allWords : allWords.filter(w => w.category === cat);
-    currentIndex = 0;
-    updateCard();
-});
+let correct=words[randomIndex]
 
-// Dark Mode
-document.getElementById('darkModeToggle').addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-});
+document.getElementById("quizWord").textContent=correct.german
 
-// Keyboard Nav
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') nextCard();
-    if (e.key === 'ArrowLeft') prevCard();
-    if (e.key === ' ') card.classList.toggle('flipped');
-});
+let options=[correct.english]
 
-// Function to speak German text
-function speakGerman(text) {
-    // Cancel any ongoing speech
-    window.speechSynthesis.cancel();
-    
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'de-DE'; // Set language to German
-    utterance.rate = 0.9;     // Slightly slower for learners
-    window.speechSynthesis.speak(utterance);
+while(options.length<4){
+
+let rand=words[Math.floor(Math.random()*words.length)].english
+
+if(!options.includes(rand)) options.push(rand)
+
 }
 
-// 
-// Remove the old click listeners and use this one
-card.addEventListener('click', () => {
-    const isFlippingToBack = !card.classList.contains('flipped');
-    card.classList.toggle('flipped');
-    
-    // Speak German ONLY when flipping back to the front (German side)
-    // or when the card is first shown.
-    if (!isFlippingToBack) {
-        const currentWord = filteredWords[currentIndex].german;
-        speakGerman(currentWord);
-    }
-});
+options.sort(()=>Math.random()-0.5)
 
-loadWords();
+let optionsDiv=document.getElementById("options")
+optionsDiv.innerHTML=""
+
+options.forEach(opt=>{
+
+let btn=document.createElement("button")
+btn.textContent=opt
+
+btn.onclick=()=>{
+
+if(opt===correct.english){
+document.getElementById("result").textContent="Correct!"
+}else{
+document.getElementById("result").textContent="Wrong!"
+}
+
+}
+
+optionsDiv.appendChild(btn)
+
+})
+
+}
+
+document.getElementById("nextQuiz").onclick=()=>{
+
+document.getElementById("result").textContent=""
+loadQuiz()
+
+}
