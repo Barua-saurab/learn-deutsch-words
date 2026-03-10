@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deutsch Flashcards B1</title>
+    <title>Deutsch Flashcards</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="app-container">
         <header>
-            <h1>B1 Wortschatz</h1>
+            <h1>Deutsch B1</h1>
             <div class="controls">
                 <select id="categoryFilter">
                     <option value="all">All Categories</option>
@@ -19,29 +19,29 @@
                 </select>
                 <button id="darkModeToggle">🌓</button>
             </div>
+            <p id="progress">Card 0 / 0</p>
         </header>
 
-        <div class="progress" id="progress">Card 0 / 0</div>
-
-        <div class="flashcard-container">
-            <div class="flashcard" id="flashcard">
-                <div class="card-face card-front">
-                    <h2 id="wordText">Loading...</h2>
-                    <p class="hint">Click to flip</p>
-                </div>
-                <div class="card-face card-back">
-                    <h2 id="translationText">Translation</h2>
-                    <p id="exampleText">Example sentence goes here.</p>
+        <main>
+            <div class="flashcard-container">
+                <div class="flashcard" id="flashcard">
+                    <div class="card-face card-front">
+                        <h2 id="wordGerman">Laden...</h2>
+                        <small>Click to flip</small>
+                    </div>
+                    <div class="card-face card-back">
+                        <h2 id="wordEnglish">Translation</h2>
+                        <p id="wordExample">Example sentence goes here.</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="nav-buttons">
-            <button id="prevBtn">Previous</button>
-            <button id="randomBtn">Random</button>
-            <button id="shuffleBtn">Shuffle</button>
-            <button id="nextBtn">Next</button>
-        </div>
+            <div class="navigation">
+                <button id="prevBtn">← Previous</button>
+                <button id="randomBtn">Shuffle</button>
+                <button id="nextBtn">Next →</button>
+            </div>
+        </main>
     </div>
     <script src="script.js"></script>
 </body>
