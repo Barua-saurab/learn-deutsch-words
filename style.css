@@ -1,50 +1,45 @@
 :root {
-    --bg: #f4f7f6;
+    --bg: #f0f2f5;
     --card-bg: #ffffff;
     --text: #333;
-    --primary: #2d5a27;
-    --accent: #e74c3c;
+    --primary: #007bff;
 }
 
 body.dark-mode {
     --bg: #1a1a1a;
     --card-bg: #2d2d2d;
-    --text: #f4f7f6;
+    --text: #f0f0f0;
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
     background-color: var(--bg);
     color: var(--text);
+    font-family: 'Segoe UI', sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    transition: background 0.3s;
+    transition: 0.3s;
 }
-
-.container { width: 90%; max-width: 500px; text-align: center; }
 
 /* Flashcard Flip Logic */
 .flashcard-container {
     perspective: 1000px;
-    margin: 20px 0;
-    height: 300px;
-    cursor: pointer;
+    width: 320px;
+    height: 400px;
+    margin: 20px auto;
 }
 
 .flashcard {
-    position: relative;
     width: 100%;
     height: 100%;
+    position: relative;
     transform-style: preserve-3d;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    border-radius: 15px;
+    cursor: pointer;
 }
 
-.flashcard.flipped { transform: rotateY(180deg); }
+.flashcard.flipped {
+    transform: rotateY(180deg);
+}
 
 .card-face {
     position: absolute;
@@ -53,25 +48,34 @@ body {
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
+    justify-content: center;
     border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     background: var(--card-bg);
+    padding: 20px;
+    text-align: center;
 }
 
-.card-back { transform: rotateY(180deg); border-top: 5px solid var(--primary); }
+.card-back {
+    transform: rotateY(180deg);
+    background: var(--primary);
+    color: white;
+}
 
-.nav-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+/* Layout & Buttons */
+.navigation {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
 
 button, select {
     padding: 10px 15px;
+    border-radius: 8px;
     border: none;
-    border-radius: 5px;
-    background: var(--primary);
-    color: white;
     cursor: pointer;
+    background: var(--card-bg);
+    color: var(--text);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-button:hover { opacity: 0.9; }
