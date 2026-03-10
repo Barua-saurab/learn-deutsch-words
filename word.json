@@ -1,27 +1,77 @@
 [
-{
-"german":"Haus",
-"english":"House",
-"example":"Das Haus ist groß."
-},
-{
-"german":"Buch",
-"english":"Book",
-"example":"Ich lese ein Buch."
-},
-{
-"german":"laufen",
-"english":"to run",
-"example":"Ich laufe jeden Morgen."
-},
-{
-"german":"Apfel",
-"english":"Apple",
-"example":"Der Apfel ist rot."
-},
-{
-"german":"lernen",
-"english":"to learn",
-"example":"Ich lerne Deutsch."
-}
+  {
+    "german": "Haus",
+    "english": "House",
+    "example": "Das Haus ist groß."
+  },
+  {
+    "german": "Hund",
+    "english": "Dog",
+    "example": "Der Hund bellt laut."
+  },
+  {
+    "german": "Katze",
+    "english": "Cat",
+    "example": "Die Katze schläft auf dem Sofa."
+  },
+  {
+    "german": "Apfel",
+    "english": "Apple",
+    "example": "Ich esse gerne Äpfel."
+  },
+  {
+    "german": "Wasser",
+    "english": "Water",
+    "example": "Ich trinke ein Glas Wasser."
+  },
+  {
+    "german": "Baum",
+    "english": "Tree",
+    "example": "Der Baum ist sehr hoch."
+  },
+  {
+    "german": "Buch",
+    "english": "Book",
+    "example": "Das Buch ist interessant."
+  },
+  {
+    "german": "Auto",
+    "english": "Car",
+    "example": "Mein Auto ist rot."
+  },
+  {
+    "german": "Brot",
+    "english": "Bread",
+    "example": "Ich kaufe frisches Brot."
+  },
+  {
+    "german": "Milch",
+    "english": "Milk",
+    "example": "Die Milch ist kalt."
+  },
+  {
+    "german": "Stadt",
+    "english": "City",
+    "example": "Berlin ist eine große Stadt."
+  },
+  {
+    "german": "Freund",
+    "english": "Friend",
+    "example": "Er ist mein bester Freund."
+  },
+  {
+    "german": "Zeit",
+    "english": "Time",
+    "example": "Ich habe keine Zeit."
+  },
+  {
+    "german": "Frau",
+    "english": "Woman",
+    "example": "Die Frau liest die Zeitung."
+  },
+  {
+    "german": "Mann",
+    "english": "Man",
+    "example": "Der Mann trinkt Kaffee."
+  }
 ]
