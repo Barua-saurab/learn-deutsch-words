@@ -1,36 +1,26 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Initial System/B2 words
     const defaultWords = [
         { de: "Hallo", en: "Hello", mastered: false, origin: "system" },
-        { de: "Tisch", en: "Table", mastered: false, origin: "system" },
-        { de: "Voraussetzung", en: "Requirement", mastered: false, origin: "b2" },
-        { de: "Beeinflussen", en: "To influence", mastered: false, origin: "b2" }
+        { de: "Voraussetzung", en: "Requirement", mastered: false, origin: "b2" }
     ];
 
     let words = JSON.parse(localStorage.getItem('deutschWords'));
     
-    // 2. Fetch B1 words ONLY if we haven't saved them yet
+    // If words are null, it means we need to fetch
     if (!words) {
         try {
-            console.log("Fetching B1word.json...");
             const response = await fetch('B1word.json');
-            if (!response.ok) throw new Error("File not found");
+            if (!response.ok) throw new Error("Could not find B1word.json");
             
             const b1Data = await response.json();
-            
-            // Map B1 data to ensure they have the correct properties
-            const formattedB1 = b1Data.map(w => ({
-                ...w,
-                mastered: false,
-                origin: "b1"
-            }));
+            console.log("Fetched B1 data:", b1Data);
 
-            words = [...defaultWords, ...formattedB1];
+            // Merge everything
+            words = [...defaultWords, ...b1Data];
             localStorage.setItem('deutschWords', JSON.stringify(words));
-            console.log("B1 Words loaded successfully!");
         } catch (error) {
-            console.error("Error fetching JSON:", error);
-            words = defaultWords; // Fallback if fetch fails
+            console.error("Fetch failed:", error);
+            words = defaultWords;
         }
     }
 
@@ -43,7 +33,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const englishText = document.getElementById('englishText');
     const remainingCount = document.getElementById('remainingCount');
 
-    // 3. Dynamic Range Builder
     function buildRanges() {
         const staticOptions = `
             <option value="all">All Words</option>
@@ -91,11 +80,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             englishText.innerText = filteredWords[currentIndex].en;
         } else {
             germanText.innerText = "Set Complete!";
-            englishText.innerText = "No words left in this category.";
+            englishText.innerText = "Zero words left here.";
         }
     }
 
-    // --- Button Event Listeners ---
+    // --- Events ---
     card.addEventListener('click', () => card.classList.toggle('flipped'));
 
     document.getElementById('nextBtn').addEventListener('click', () => {
@@ -141,7 +130,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     rangeSelect.addEventListener('change', filterWords);
 
-    // Initial Start
     buildRanges();
     filterWords();
 });
