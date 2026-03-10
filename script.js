@@ -1,60 +1,78 @@
-let words = [];
+let decks = {
+    b1: [],
+    b2: [],
+    myWords: JSON.parse(localStorage.getItem('myGermanWords')) || []
+};
+let currentDeck = 'b1';
+let words = []; 
 let currentWordIndex = 0;
 let srsData = JSON.parse(localStorage.getItem('germanSrsData')) || {};
 let quizScore = 0;
 let currentQuizWord = null;
 
 // DOM Elements
-const flashcardSection = document.getElementById('flashcard-section');
-const quizSection = document.getElementById('quiz-section');
+const views = document.querySelectorAll('.view-section');
+const navBtns = document.querySelectorAll('.nav-btn');
+const deckBtns = document.querySelectorAll('.deck-btn');
+
 const flashcard = document.getElementById('flashcard');
 const wordGerman = document.getElementById('word-german');
 const wordEnglish = document.getElementById('word-english');
 const wordExample = document.getElementById('word-example');
-const quizWord = document.getElementById('quiz-word');
-const quizOptions = document.getElementById('quiz-options');
-const quizFeedback = document.getElementById('quiz-feedback');
-const quizScoreDisplay = document.getElementById('quiz-score');
 
-// Navigation
-document.getElementById('btn-flashcards').addEventListener('click', () => {
-    flashcardSection.classList.remove('hidden');
-    quizSection.classList.add('hidden');
+// Switch Views (Flashcard, Quiz, Add Word)
+navBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        views.forEach(view => view.classList.add('hidden'));
+        document.getElementById(btn.dataset.target).classList.remove('hidden');
+        if (btn.dataset.target === 'quiz-section') loadQuizQuestion();
+    });
 });
 
-document.getElementById('btn-quiz').addEventListener('click', () => {
-    flashcardSection.classList.add('hidden');
-    quizSection.classList.remove('hidden');
-    loadQuizQuestion();
-});
-
-// Fetch Vocabulary
-fetch('words.json')
-    .then(res => res.json())
-    .then(data => {
-        words = data;
+// Switch Decks (B1, B2, My Words)
+deckBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        deckBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentDeck = btn.dataset.deck;
+        words = decks[currentDeck];
         loadNextFlashcard();
-    })
-    .catch(err => console.error("Error loading words:", err));
+    });
+});
+
+// Load JSON Files
+Promise.all([
+    fetch('b1.json').then(res => res.json()).catch(() => []),
+    fetch('b2.json').then(res => res.json()).catch(() => [])
+]).then(([b1Data, b2Data]) => {
+    decks.b1 = b1Data;
+    decks.b2 = b2Data;
+    words = decks.b1; // Default start
+    loadNextFlashcard();
+});
 
 // --- Flashcard Logic ---
 flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
 
 document.getElementById('btn-audio').addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevents the card from flipping
+    e.stopPropagation();
+    if (!words[currentWordIndex]) return;
     const utterance = new SpeechSynthesisUtterance(words[currentWordIndex].german);
     utterance.lang = 'de-DE';
     window.speechSynthesis.speak(utterance);
 });
 
-// SRS Logic: Weights determine appearance frequency
 function loadNextFlashcard() {
-    if (words.length === 0) return;
-    flashcard.classList.remove('flipped');
+    if (words.length === 0) {
+        wordGerman.textContent = "No words here yet!";
+        wordEnglish.textContent = "";
+        wordExample.textContent = "";
+        return;
+    }
     
     let pool = [];
     words.forEach((word, index) => {
-        let weight = srsData[word.german] || 2; // Default weight is 2 (Medium)
+        let weight = srsData[word.german] || 2; 
         for (let i = 0; i < weight; i++) pool.push(index);
     });
     
@@ -67,11 +85,12 @@ function updateFlashcardUI() {
     const word = words[currentWordIndex];
     wordGerman.textContent = word.german;
     wordEnglish.textContent = word.english;
-    wordExample.textContent = word.example;
+    wordExample.textContent = word.example || "";
 }
 
 document.getElementById('btn-next').addEventListener('click', loadNextFlashcard);
 document.getElementById('btn-prev').addEventListener('click', () => {
+    if (words.length === 0) return;
     currentWordIndex = currentWordIndex > 0 ? currentWordIndex - 1 : words.length - 1;
     updateFlashcardUI();
 });
@@ -79,10 +98,10 @@ document.getElementById('btn-prev').addEventListener('click', () => {
 // Difficulty Buttons
 document.querySelectorAll('.diff-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
+        if (words.length === 0) return;
         const level = e.target.dataset.level;
         const currentWord = words[currentWordIndex].german;
         
-        // Easy = weight 1, Medium = weight 2, Hard = weight 4
         if (level === 'easy') srsData[currentWord] = 1;
         if (level === 'medium') srsData[currentWord] = 2;
         if (level === 'hard') srsData[currentWord] = 4;
@@ -92,14 +111,48 @@ document.querySelectorAll('.diff-btn').forEach(btn => {
     });
 });
 
+// --- Add New Word Logic ---
+document.getElementById('btn-save-word').addEventListener('click', () => {
+    const ger = document.getElementById('new-german').value.trim();
+    const eng = document.getElementById('new-english').value.trim();
+    const ex = document.getElementById('new-example').value.trim();
+    const msg = document.getElementById('save-msg');
+
+    if (!ger || !eng) {
+        msg.textContent = "German and English fields are required.";
+        msg.style.color = "red";
+        return;
+    }
+
+    decks.myWords.push({ german: ger, english: eng, example: ex });
+    localStorage.setItem('myGermanWords', JSON.stringify(decks.myWords));
+    
+    if (currentDeck === 'myWords') words = decks.myWords;
+
+    document.getElementById('new-german').value = '';
+    document.getElementById('new-english').value = '';
+    document.getElementById('new-example').value = '';
+    
+    msg.textContent = "Word saved successfully!";
+    msg.style.color = "green";
+    setTimeout(() => msg.textContent = "", 2000);
+    
+    if (currentDeck === 'myWords') loadNextFlashcard();
+});
+
 // --- Quiz Logic ---
+const quizWord = document.getElementById('quiz-word');
+const quizOptions = document.getElementById('quiz-options');
+const quizFeedback = document.getElementById('quiz-feedback');
+const quizScoreDisplay = document.getElementById('quiz-score');
+
 function loadQuizQuestion() {
     quizFeedback.textContent = '';
     document.getElementById('btn-next-quiz').classList.add('hidden');
     quizOptions.innerHTML = '';
     
     if (words.length < 4) {
-        quizWord.textContent = "Need at least 4 words in JSON.";
+        quizWord.textContent = "Need at least 4 words in this deck.";
         return;
     }
 
@@ -112,7 +165,6 @@ function loadQuizQuestion() {
         if (!options.includes(randomWord)) options.push(randomWord);
     }
 
-    // Shuffle options array
     options.sort(() => Math.random() - 0.5);
 
     options.forEach(option => {
@@ -132,11 +184,11 @@ function handleQuizAnswer(btn, selected) {
         btn.classList.add('correct');
         quizFeedback.textContent = 'Correct!';
         quizScore++;
-        srsData[currentQuizWord.german] = 1; // Mark easy
+        srsData[currentQuizWord.german] = 1; 
     } else {
         btn.classList.add('incorrect');
-        quizFeedback.textContent = `Incorrect. The answer is ${currentQuizWord.english}.`;
-        srsData[currentQuizWord.german] = 4; // Mark hard
+        quizFeedback.textContent = `Incorrect. Answer is ${currentQuizWord.english}.`;
+        srsData[currentQuizWord.german] = 4; 
     }
     
     localStorage.setItem('germanSrsData', JSON.stringify(srsData));
