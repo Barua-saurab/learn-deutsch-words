@@ -1,0 +1,27 @@
+[
+{
+"german":"Haus",
+"english":"House",
+"example":"Das Haus ist groß."
+},
+{
+"german":"Buch",
+"english":"Book",
+"example":"Ich lese ein Buch."
+},
+{
+"german":"laufen",
+"english":"to run",
+"example":"Ich laufe jeden Morgen."
+},
+{
+"german":"Apfel",
+"english":"Apple",
+"example":"Der Apfel ist rot."
+},
+{
+"german":"lernen",
+"english":"to learn",
+"example":"Ich lerne Deutsch."
+}
+]
