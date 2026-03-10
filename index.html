@@ -3,32 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deutsch Master</title>
+    <title>Deutsch Master Flashcards</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="container">
         <h1>Learn Deutsch</h1>
 
-        <div class="selection-row">
-            <div class="input-group">
-                <label>Level:</label>
-                <select id="levelSelect">
-                    <option value="A1">A1</option>
-                    <option value="A2">A2</option>
-                    <option value="B1">B1</option>
-                    <option value="B2">B2</option>
+        <div class="range-selector">
+            <label>Level:</label>
+            <select id="rangeSelect">
+                <option value="all">All Words</option>
+                <option value="self">Self (My Added Words)</option>
                 </select>
-            </div>
-            <div class="input-group">
-                <label>Range:</label>
-                <select id="rangeSelect">
-                    <option value="all">All</option>
-                    <option value="0-50">1-50</option>
-                    <option value="50-100">51-100</option>
-                </select>
-            </div>
         </div>
 
         <div class="card-container">
@@ -49,20 +36,19 @@
         </div>
 
         <div class="stats">
-            <p>Words left in this set: <span id="remainingCount">0</span></p>
-            <button id="resetMastered">Reset Progress</button>
+            <p>Cards in this set: <span id="remainingCount">0</span></p>
+            <button id="resetMastered">Reset All Progress</button>
         </div>
 
         <hr>
 
         <div class="add-word-form">
-            <h3>Add to Current Level</h3>
-            <input type="text" id="newGerman" placeholder="German Word">
-            <input type="text" id="newEnglish" placeholder="English Meaning">
-            <button id="addBtn">Add Word</button>
+            <h3>Add to "Self" List</h3>
+            <input type="text" id="newGerman" placeholder="German Word (e.g. Der Hund)">
+            <input type="text" id="newEnglish" placeholder="English Meaning (e.g. The Dog)">
+            <button id="addBtn">Save Word</button>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
