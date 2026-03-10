@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deutsch Flashcards</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Learn Deutsch</h1>
+
+        <div class="range-selector">
+            <label>Select Range:</label>
+            <select id="rangeSelect">
+                <option value="all">All Words</option>
+                <option value="0-50">1 - 50</option>
+                <option value="50-100">51 - 100</option>
+            </select>
+        </div>
+
+        <div class="card-container">
+            <div class="card" id="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <p id="germanText">Word</p>
+                    </div>
+                    <div class="card-back">
+                        <p id="englishText">Meaning</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn">Previous</button>
+            <button id="nextBtn">Next</button>
+        </div>
+
+        <hr>
+
+        <div class="add-word-form">
+            <h3>Add New Word</h3>
+            <input type="text" id="newGerman" placeholder="German Word">
+            <input type="text" id="newEnglish" placeholder="English Meaning">
+            <button id="addBtn">Add to List</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
