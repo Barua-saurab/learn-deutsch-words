@@ -10,13 +10,20 @@
     <header>
         <h1>German Vocab Builder</h1>
         <nav>
-            <button id="btn-flashcards">Flashcards</button>
-            <button id="btn-quiz">Quiz Mode</button>
+            <button class="nav-btn" data-target="flashcard-section">Flashcards</button>
+            <button class="nav-btn" data-target="quiz-section">Quiz</button>
+            <button class="nav-btn" data-target="add-section">Add Word</button>
         </nav>
     </header>
 
     <main>
-        <section id="flashcard-section">
+        <div class="deck-selector">
+            <button class="deck-btn active" data-deck="b1">B1 Words</button>
+            <button class="deck-btn" data-deck="b2">B2 Words</button>
+            <button class="deck-btn" data-deck="myWords">My Words</button>
+        </div>
+
+        <section id="flashcard-section" class="view-section">
             <div class="card-container" id="flashcard">
                 <div class="card-inner">
                     <div class="card-front">
@@ -42,7 +49,7 @@
             </div>
         </section>
 
-        <section id="quiz-section" class="hidden">
+        <section id="quiz-section" class="view-section hidden">
             <h2>Quiz Mode</h2>
             <p>Score: <span id="quiz-score">0</span></p>
             <div class="quiz-card">
@@ -50,6 +57,17 @@
                 <div id="quiz-options" class="options-grid"></div>
                 <p id="quiz-feedback"></p>
                 <button id="btn-next-quiz" class="hidden">Next Question</button>
+            </div>
+        </section>
+
+        <section id="add-section" class="view-section hidden">
+            <h2>Add Your Own Word</h2>
+            <div class="add-form">
+                <input type="text" id="new-german" placeholder="German Word (e.g. Apfel)">
+                <input type="text" id="new-english" placeholder="English Translation (e.g. Apple)">
+                <input type="text" id="new-example" placeholder="Example Sentence">
+                <button id="btn-save-word">Save Word</button>
+                <p id="save-msg"></p>
             </div>
         </section>
     </main>
