@@ -76,4 +76,27 @@ document.addEventListener('keydown', (e) => {
     if (e.key === ' ') card.classList.toggle('flipped');
 });
 
+// Function to speak German text
+function speakGerman(text) {
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'de-DE'; // Set language to German
+    utterance.rate = 0.9;     // Slightly slower for learners
+    window.speechSynthesis.speak(utterance);
+}
+
+// Update your updateCard function to trigger speech (Optional)
+// Or add a button. To trigger on card click:
+card.addEventListener('click', () => {
+    card.classList.toggle('flipped');
+    
+    // Only speak if we are looking at the front (German side)
+    if (!card.classList.contains('flipped')) {
+        const currentWord = filteredWords[currentIndex].german;
+        speakGerman(currentWord);
+    }
+});
+
 loadWords();
