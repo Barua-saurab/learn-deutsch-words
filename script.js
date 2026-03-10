@@ -87,13 +87,15 @@ function speakGerman(text) {
     window.speechSynthesis.speak(utterance);
 }
 
-// Update your updateCard function to trigger speech (Optional)
-// Or add a button. To trigger on card click:
+// 
+// Remove the old click listeners and use this one
 card.addEventListener('click', () => {
+    const isFlippingToBack = !card.classList.contains('flipped');
     card.classList.toggle('flipped');
     
-    // Only speak if we are looking at the front (German side)
-    if (!card.classList.contains('flipped')) {
+    // Speak German ONLY when flipping back to the front (German side)
+    // or when the card is first shown.
+    if (!isFlippingToBack) {
         const currentWord = filteredWords[currentIndex].german;
         speakGerman(currentWord);
     }
