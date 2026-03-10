@@ -1,48 +1,56 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Initial Word Bank
     let words = JSON.parse(localStorage.getItem('deutschWords')) || [
-        { de: "Hallo", en: "Hello", mastered: false },
-        { de: "Apfel", en: "Apple", mastered: false }
+        { de: "Hallo", en: "Hello", level: "A1", mastered: false },
+        { de: "Apfel", en: "Apple", level: "A1", mastered: false },
+        { de: "Herausforderung", en: "Challenge", level: "B2", mastered: false }
     ];
 
     let currentIndex = 0;
     let filteredWords = [];
 
     const card = document.getElementById('card');
-    const germanText = document.getElementById('germanText');
-    const englishText = document.getElementById('englishText');
+    const levelSelect = document.getElementById('levelSelect');
     const rangeSelect = document.getElementById('rangeSelect');
-    const remainingCount = document.getElementById('remainingCount');
 
     function filterWords() {
-        const val = rangeSelect.value;
-        let baseList = words.filter(w => !w.mastered);
-        
-        if (val === 'all') filteredWords = baseList;
-        else {
-            const [start, end] = val.split('-').map(Number);
-            filteredWords = words.slice(start, end).filter(w => !w.mastered);
+        const level = levelSelect.value;
+        const range = rangeSelect.value;
+
+        // 1. Filter by Level and Mastery
+        let base = words.filter(w => w.level === level && !w.mastered);
+
+        // 2. Filter by Range
+        if (range !== 'all') {
+            const [start, end] = range.split('-').map(Number);
+            filteredWords = base.slice(start, end);
+        } else {
+            filteredWords = base;
         }
+
         currentIndex = 0;
         updateUI();
     }
 
     function updateUI() {
         card.classList.remove('flipped');
-        remainingCount.innerText = filteredWords.length;
+        document.getElementById('remainingCount').innerText = filteredWords.length;
+
         if (filteredWords.length > 0) {
-            germanText.innerText = filteredWords[currentIndex].de;
-            englishText.innerText = filteredWords[currentIndex].en;
+            document.getElementById('germanText').innerText = filteredWords[currentIndex].de;
+            document.getElementById('englishText').innerText = filteredWords[currentIndex].en;
         } else {
-            germanText.innerText = "All Done! 🎉";
-            englishText.innerText = "Great job!";
+            document.getElementById('germanText').innerText = "Empty!";
+            document.getElementById('englishText').innerText = "Add more words or change level.";
         }
     }
 
+    // Buttons
     document.getElementById('learnedBtn').addEventListener('click', () => {
         if (filteredWords.length === 0) return;
-        const currentWord = filteredWords[currentIndex];
-        const wordIndex = words.findIndex(w => w.de === currentWord.de);
-        words[wordIndex].mastered = true;
+        const wordDe = filteredWords[currentIndex].de;
+        const idx = words.findIndex(w => w.de === wordDe);
+        words[idx].mastered = true;
         localStorage.setItem('deutschWords', JSON.stringify(words));
         filterWords();
     });
@@ -53,23 +61,25 @@ document.addEventListener('DOMContentLoaded', () => {
         updateUI();
     });
 
-    document.getElementById('resetMastered').addEventListener('click', () => {
-        words.forEach(w => w.mastered = false);
-        localStorage.setItem('deutschWords', JSON.stringify(words));
-        filterWords();
-    });
-
-    card.addEventListener('click', () => card.classList.toggle('flipped'));
-    rangeSelect.addEventListener('change', filterWords);
     document.getElementById('addBtn').addEventListener('click', () => {
         const de = document.getElementById('newGerman').value;
         const en = document.getElementById('newEnglish').value;
+        const level = levelSelect.value;
         if (de && en) {
-            words.push({ de, en, mastered: false });
+            words.push({ de, en, level, mastered: false });
             localStorage.setItem('deutschWords', JSON.stringify(words));
-            location.reload();
+            document.getElementById('newGerman').value = '';
+            document.getElementById('newEnglish').value = '';
+            filterWords();
         }
     });
+
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    levelSelect.addEventListener('change', filterWords);
+    rangeSelect.addEventListener('change', filterWords);
+    document.getElementById('nextBtn').addEventListener('click', () => { currentIndex = (currentIndex + 1) % filteredWords.length; updateUI(); });
+    document.getElementById('prevBtn').addEventListener('click', () => { currentIndex = (currentIndex - 1 + filteredWords.length) % filteredWords.length; updateUI(); });
+    document.getElementById('resetMastered').addEventListener('click', () => { words.forEach(w => w.mastered = false); localStorage.setItem('deutschWords', JSON.stringify(words)); filterWords(); });
 
     filterWords();
 });
