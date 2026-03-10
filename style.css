@@ -152,3 +152,49 @@ button {
     background: #007bff;
     color: white;
 }
+
+/* New Navigation & Form Styles */
+.deck-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.deck-btn {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.deck-btn.active {
+    background: #333;
+    color: white;
+}
+
+.add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.add-form input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#btn-save-word {
+    background: #28a745;
+    color: white;
+}
+
+#save-msg {
+    color: #28a745;
+    font-weight: bold;
+    text-align: center;
+}
