@@ -3,6 +3,7 @@
     --card-bg: #ffffff;
     --text: #333;
     --primary: #007bff;
+    --shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 body.dark-mode {
@@ -14,36 +15,40 @@ body.dark-mode {
 body {
     background-color: var(--bg);
     color: var(--text);
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
     display: flex;
     justify-content: center;
-    transition: 0.3s;
+    transition: background 0.3s;
 }
 
-/* Flashcard Flip Logic */
-.flashcard-container {
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    padding: 20px;
     min-height: 100vh;
 }
 
-/* Ensure the main area spaces the card and buttons correctly */
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+header {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-/* Add margin to the navigation to push it away from the card */
-.navigation {
-    margin-top: 30px; 
+.controls {
+    margin: 10px 0;
     display: flex;
-    gap: 15px;
-    z-index: 10; /* Ensures buttons stay clickable */
+    gap: 10px;
+}
+
+/* FLASHCARD BOX */
+.flashcard-container {
+    perspective: 1000px;
+    width: 100%;
+    height: 350px; /* Fixed height prevents jumping */
+    margin-bottom: 30px;
 }
 
 .flashcard {
@@ -68,32 +73,57 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
     background: var(--card-bg);
-    padding: 20px;
+    padding: 30px;
     text-align: center;
+    box-sizing: border-box; /* Ensures padding doesn't break width */
 }
 
+/* FRONT SIDE */
+.card-front h2 {
+    font-size: 2rem;
+    word-wrap: break-word;
+}
+
+/* BACK SIDE */
 .card-back {
     transform: rotateY(180deg);
     background: var(--primary);
     color: white;
 }
 
-/* Layout & Buttons */
+.card-back h2 {
+    margin-bottom: 10px;
+}
+
+/* BUTTONS */
 .navigation {
     display: flex;
-    gap: 10px;
+    gap: 15px;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 button, select {
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 12px 20px;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
+    font-weight: 600;
     background: var(--card-bg);
     color: var(--text);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.1s, background 0.2s;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+#progress {
+    font-weight: bold;
+    margin-top: 10px;
+    opacity: 0.8;
 }
