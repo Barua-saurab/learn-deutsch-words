@@ -1,28 +1,25 @@
 body { font-family: 'Segoe UI', sans-serif; background-color: #0f172a; color: white; display: flex; justify-content: center; padding: 20px; }
-.container { width: 100%; max-width: 450px; text-align: center; background: #1e293b; padding: 20px; border-radius: 20px; }
+.container { width: 100%; max-width: 450px; text-align: center; background: #1e293b; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
-.selection-row { display: flex; justify-content: space-around; margin-bottom: 20px; }
-.input-group { display: flex; flex-direction: column; }
-select { padding: 8px; border-radius: 5px; background: #334155; color: white; border: none; }
-
-.card-container { perspective: 1000px; margin: 30px auto; width: 300px; height: 200px; }
+.card-container { perspective: 1000px; margin: 30px auto; width: 100%; height: 250px; }
 .card { width: 100%; height: 100%; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
 .card.flipped { transform: rotateY(180deg); }
 
 .card-front, .card-back { 
     width: 100%; height: 100%; position: absolute; backface-visibility: hidden; 
     display: flex; align-items: center; justify-content: center; 
-    border-radius: 15px; font-size: 1.8rem; font-weight: bold; padding: 15px;
+    border-radius: 20px; font-size: 1.8rem; font-weight: bold; padding: 15px; box-sizing: border-box;
 }
-.card-front { background: white; color: #1e293b; }
+.card-front { background: #334155; color: #f8fafc; border: 2px solid #475569; }
 .card-back { background: #10b981; color: white; transform: rotateY(180deg); }
 
-button { padding: 12px 18px; margin: 5px; cursor: pointer; border: none; border-radius: 8px; font-weight: bold; color: white; transition: 0.2s; }
-#nextBtn, #prevBtn { background: #3b82f6; }
-.success { background: #10b981; width: 45%; }
-.danger { background: #ef4444; width: 45%; }
-#resetMastered { background: #64748b; font-size: 11px; margin-top: 10px; }
+.controls button, .learning-controls button { padding: 12px 18px; margin: 5px; cursor: pointer; border: none; border-radius: 10px; font-weight: bold; transition: 0.3s; }
+#prevBtn, #nextBtn { background: #38bdf8; color: #082f49; }
+.success { background: #10b981; }
+.danger { background: #ef4444; }
+#resetMastered { background: transparent; border: 1px solid #475569; color: #94a3b8; font-size: 0.8rem; margin-top: 10px; }
 
-.add-word-form { margin-top: 30px; padding-top: 20px; border-top: 1px solid #334155; }
-input { padding: 10px; margin: 5px; border-radius: 5px; border: none; width: 85%; background: #334155; color: white; }
-#addBtn { background: #8b5cf6; width: 90%; margin-top: 10px; }
+input { width: 90%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; }
+#addBtn { background: #f59e0b; color: white; width: 95%; margin-top: 10px; }
+select { padding: 10px; border-radius: 8px; background: #334155; color: white; border: none; }
+hr { border: 0; border-top: 1px solid #334155; margin: 25px 0; }
