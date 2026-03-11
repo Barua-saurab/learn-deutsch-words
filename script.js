@@ -197,3 +197,6 @@ function handleQuizAnswer(btn, selected) {
 }
 
 document.getElementById('btn-next-quiz').addEventListener('click', loadQuizQuestion);
+document.getElementById('external-link-btn').addEventListener('click', () => {
+    window.open('https://barua-saurab.github.io/Deutsch/', '_blank');
+});
