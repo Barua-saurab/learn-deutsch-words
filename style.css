@@ -25,7 +25,20 @@ nav button {
     border: none;
     border-radius: 5px;
 }
+.nav-btn-link {
+    margin: 0 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background: #28a745; /* A green color to distinguish it */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
 
+.nav-btn-link:hover {
+    background: #218838;
+}
 main {
     width: 100%;
     max-width: 600px;
