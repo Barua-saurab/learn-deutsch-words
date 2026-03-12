@@ -55,11 +55,15 @@ Promise.all([
 flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
 
 document.getElementById('btn-audio').addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (!words[currentWordIndex]) return;
-    const utterance = new SpeechSynthesisUtterance(words[currentWordIndex].german);
-    utterance.lang = 'de-DE';
-    window.speechSynthesis.speak(utterance);
+    e.stopPropagation();
+    if (!words[currentWordIndex]) return;
+    const utterance = new SpeechSynthesisUtterance(words[currentWordIndex].german);
+    utterance.lang = 'de-DE';
+    
+    // Set the speed rate (1 is default, 0.5 is half speed, 2 is double speed)
+    utterance.rate = 0.8; 
+
+    window.speechSynthesis.speak(utterance);
 });
 
 function loadNextFlashcard() {
