@@ -1,7 +1,9 @@
 let decks = {
     b1: [],
     b2: [],
-    myWords: JSON.parse(localStorage.getItem('myGermanWords')) || []
+    myWords: JSON.parse(localStorage.getItem('myGermanWords')) || [],
+    travel: [], // New theme
+    food: []    // New theme
 };
 let currentDeck = 'b1';
 let words = []; 
@@ -43,10 +45,14 @@ deckBtns.forEach(btn => {
 // Load JSON Files
 Promise.all([
     fetch('b1.json').then(res => res.json()).catch(() => []),
-    fetch('b2.json').then(res => res.json()).catch(() => [])
-]).then(([b1Data, b2Data]) => {
+    fetch('b2.json').then(res => res.json()).catch(() => []),
+    fetch('travel.json').then(res => res.json()).catch(() => []),
+    fetch('food.json').then(res => res.json()).catch(() => [])
+]).then(([b1Data, b2Data, travelData, foodData]) => {
     decks.b1 = b1Data;
     decks.b2 = b2Data;
+    decks.travel = travelData;
+    decks.food = foodData;
     words = decks.b1; // Default start
     loadNextFlashcard();
 });
@@ -203,4 +209,18 @@ function handleQuizAnswer(btn, selected) {
 document.getElementById('btn-next-quiz').addEventListener('click', loadQuizQuestion);
 document.getElementById('external-link-btn').addEventListener('click', () => {
     window.open('https://barua-saurab.github.io/Deutsch/', '_blank');
+
+document.getElementById('theme-dropdown').addEventListener('change', (e) => {
+    const selectedTheme = e.target.value;
+    
+    if (selectedTheme) {
+        // Turn off the other buttons
+        document.querySelectorAll('.deck-btn').forEach(b => b.classList.remove('active'));
+        
+        // Switch the deck
+        currentDeck = selectedTheme;
+        words = decks[currentDeck];
+        loadNextFlashcard();
+    }
+});
 });
