@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Deutsch - Vocab Builder</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --dark: #333;
+            --light: #f4f4f9;
+            --white: #ffffff;
+            --card-bg: #eef;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--dark);
+        }
+
+        header {
+            background: var(--dark);
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 10px;
+        }
+
+        .nav-btn, .nav-btn-link {
+            padding: 10px 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+            font-weight: 600;
+        }
+
+        .nav-btn { background: #555; color: white; }
+        .nav-btn-link { background: var(--success); color: white; text-decoration: none; }
+        .nav-btn:hover, .nav-btn-link:hover { opacity: 0.9; }
+
+        main {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .deck-selector {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .deck-btn {
+            background: #e0e0e0;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .deck-btn.active {
+            background: var(--dark);
+            color: white;
+            border-color: var(--dark);
+        }
+
+        select.deck-btn {
+            appearance: none;
+            padding-right: 30px;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px;
+        }
+
+        .hidden { display: none !important; }
+
+        /* Flashcard Styles */
+        .card-container {
+            perspective: 1000px;
+            width: 100%;
+            height: 320px;
+            margin-bottom: 25px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .card-container.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background: var(--card-bg);
+        }
+
+        #btn-audio {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+        #btn-audio:hover { background: rgba(0,0,0,0.05); }
+
+        .card-front h2, .card-back h2 {
+            margin: 0;
+            font-size: 2.2rem;
+            color: var(--dark);
+        }
+
+        .card-back p {
+            margin-top: 15px;
+            font-style: italic;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-controls, .difficulty-controls {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        button.action-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.1s;
+        }
+        button.action-btn:active { transform: scale(0.98); }
+
+        .nav-controls button { background: var(--primary); color: white; flex: 1; max-width: 150px; }
+        .diff-btn { flex: 1; max-width: 100px; }
+        .diff-btn[data-level="easy"] { background: var(--success); color: white; }
+        .diff-btn[data-level="medium"] { background: var(--warning); color: black; }
+        .diff-btn[data-level="hard"] { background: var(--danger); color: white; }
+
+        /* Quiz Styles */
+        .quiz-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        #quiz-word { font-size: 2rem; margin-bottom: 20px; }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            padding: 18px;
+            border: 2px solid #eee;
+            background: #fafafa;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover:not(:disabled) { border-color: var(--primary); background: #f0f7ff; }
+        .option-btn:disabled { cursor: not-allowed; }
+
+        .correct { background: var(--success) !important; color: white; border-color: var(--success) !important; }
+        .incorrect { background: var(--danger) !important; color: white; border-color: var(--danger) !important; }
+
+        #quiz-feedback {
+            margin: 20px 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+            min-height: 1.5em;
+        }
+
+        #btn-next-quiz {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+        }
+
+        /* Add Word Form */
+        .add-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .add-form input {
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .add-form input:focus { border-color: var(--primary); }
+
+        #btn-save-word {
+            background: var(--success);
+            color: white;
+            margin-top: 10px;
+        }
+
+        #save-msg {
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .card-front h2, .card-back h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>German Vocab Builder</h1>
+        <nav>
+            <button class="nav-btn" data-target="flashcard-section">Flashcards</button>
+            <button class="nav-btn" data-target="quiz-section">Quiz</button>
+            <button class="nav-btn" data-target="add-section">Add Word</button>
+            <button id="external-link-btn" class="nav-btn-link">Deutsch Resources</button>
+        </nav>
+    </header>
+
+    <main>
+        <div class="deck-selector">
+            <button class="deck-btn active" data-deck="b1">B1 Words</button>
+            <button class="deck-btn" data-deck="b2">B2 Words</button>
+            <button class="deck-btn" data-deck="myWords">My Words</button>
+            <select id="theme-dropdown" class="deck-btn">
+                <option value="">-- Theme --</option>
+                <option value="travel">Travel</option>
+                <option value="food">Food</option>
+            </select>
+        </div>
+
+        <!-- Flashcard Section -->
+        <section id="flashcard-section" class="view-section">
+            <div class="card-container" id="flashcard">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <button id="btn-audio" title="Listen">🔊</button>
+                        <h2 id="word-german">Loading...</h2>
+                    </div>
+                    <div class="card-back">
+                        <h2 id="word-english"></h2>
+                        <p id="word-example"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="controls">
+                <div class="nav-controls">
+                    <button id="btn-prev" class="action-btn">Previous</button>
+                    <button id="btn-next" class="action-btn">Next</button>
+                </div>
+                <div class="difficulty-controls">
+                    <button class="diff-btn action-btn" data-level="easy">Easy</button>
+                    <button class="diff-btn action-btn" data-level="medium">Medium</button>
+                    <button class="diff-btn action-btn" data-level="hard">Hard</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz-section" class="view-section hidden">
+            <div class="quiz-card">
+                <h2>Quiz Mode</h2>
+                <p>Current Score: <span id="quiz-score">0</span></p>
+                <hr style="opacity: 0.1; margin: 20px 0;">
+                <h3 id="quiz-word">Loading...</h3>
+                <div id="quiz-options" class="options-grid"></div>
+                <p id="quiz-feedback"></p>
+                <button id="btn-next-quiz" class="action-btn hidden">Next Question</button>
+            </div>
+        </section>
+
+        <!-- Add Word Section -->
+        <section id="add-section" class="view-section hidden">
+            <div class="add-form">
+                <h2>Add Your Own Word</h2>
+                <input type="text" id="new-german" placeholder="German Word (e.g. Apfel)">
+                <input type="text" id="new-english" placeholder="English Translation (e.g. Apple)">
+                <input type="text" id="new-example" placeholder="Example Sentence">
+                <button id="btn-save-word" class="action-btn">Save Word</button>
+                <p id="save-msg"></p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mock data to replace external JSON fetches
+        const initialDecks = {
+            b1: [
+                { german: "die Entscheidung", english: "the decision", example: "Das war eine schwere Entscheidung." },
+                { german: "verantwortlich", english: "responsible", example: "Wer ist dafür verantwortlich?" },
+                { german: "begeistert", english: "enthusiastic", example: "Ich bin begeistert von dieser Idee." },
+                { german: "die Ausbildung", english: "the training/apprenticeship", example: "Er macht eine Ausbildung zum Mechaniker." }
+            ],
+            b2: [
+                { german: "berücksichtigen", english: "to consider/take into account", example: "Wir müssen alle Faktoren berücksichtigen." },
+                { german: "die Herausforderung", english: "the challenge", example: "Das ist eine große Herausforderung für uns." },
+                { german: "gelegentlich", english: "occasionally", example: "Ich gehe gelegentlich joggen." },
+                { german: "vermeiden", english: "to avoid", example: "Du solltest Stress vermeiden." }
+            ],
+            travel: [
+                { german: "der Flughafen", english: "the airport", example: "Wir fahren zum Flughafen." },
+                { german: "die Fahrkarte", english: "the ticket", example: "Hast du eine Fahrkarte gekauft?" },
+                { german: "die Sehenswürdigkeit", english: "the sight/attraction", example: "Berlin hat viele Sehenswürdigkeiten." }
+            ],
+            food: [
+                { german: "lecker", english: "delicious", example: "Das Essen war wirklich lecker." },
+                { german: "der Nachtisch", english: "the dessert", example: "Was gibt es heute zum Nachtisch?" },
+                { german: "die Bestellung", english: "the order", example: "Kann ich meine Bestellung aufgeben?" }
+            ]
+        };
+
+        let decks = {
+            ...initialDecks,
+            myWords: JSON.parse(localStorage.getItem('myGermanWords')) || []
+        };
+
+        let currentDeck = 'b1';
+        let words = decks[currentDeck]; 
+        let currentWordIndex = 0;
+        let srsData = JSON.parse(localStorage.getItem('germanSrsData')) || {};
+        let quizScore = 0;
+        let currentQuizWord = null;
+
+        // DOM Elements
+        const views = document.querySelectorAll('.view-section');
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const deckBtns = document.querySelectorAll('.deck-btn');
+        const flashcard = document.getElementById('flashcard');
+        const wordGerman = document.getElementById('word-german');
+        const wordEnglish = document.getElementById('word-english');
+        const wordExample = document.getElementById('word-example');
+
+        // View Switching
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                views.forEach(view => view.classList.add('hidden'));
+                document.getElementById(btn.dataset.target).classList.remove('hidden');
+                if (btn.dataset.target === 'quiz-section') loadQuizQuestion();
+            });
+        });
+
+        // Deck Switching
+        deckBtns.forEach(btn => {
+            if (btn.tagName === 'BUTTON') {
+                btn.addEventListener('click', () => {
+                    deckBtns.forEach(b => b.classList.remove('active'));
+                    document.getElementById('theme-dropdown').value = "";
+                    btn.classList.add('active');
+                    currentDeck = btn.dataset.deck;
+                    words = decks[currentDeck];
+                    loadNextFlashcard();
+                });
+            }
+        });
+
+        document.getElementById('theme-dropdown').addEventListener('change', (e) => {
+            const selectedTheme = e.target.value;
+            if (selectedTheme) {
+                deckBtns.forEach(b => b.classList.remove('active'));
+                currentDeck = selectedTheme;
+                words = decks[currentDeck];
+                loadNextFlashcard();
+            }
+        });
+
+        // External Link
+        document.getElementById('external-link-btn').addEventListener('click', () => {
+            window.open('https://barua-saurab.github.io/Deutsch/', '_blank');
+        });
+
+        // Flashcard Logic
+        flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
+
+        document.getElementById('btn-audio').addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!words[currentWordIndex]) return;
+            const utterance = new SpeechSynthesisUtterance(words[currentWordIndex].german);
+            utterance.lang = 'de-DE';
+            utterance.rate = 0.8; 
+            window.speechSynthesis.speak(utterance);
+        });
+
+        function loadNextFlashcard() {
+            if (!words || words.length === 0) {
+                wordGerman.textContent = "No words here yet!";
+                wordEnglish.textContent = "Go to 'Add Word' to start.";
+                wordExample.textContent = "";
+                return;
+            }
+            
+            // Simple SRS Weighting
+            let pool = [];
+            words.forEach((word, index) => {
+                let weight = srsData[word.german] || 2; 
+                for (let i = 0; i < weight; i++) pool.push(index);
+            });
+            
+            currentWordIndex = pool[Math.floor(Math.random() * pool.length)];
+            updateFlashcardUI();
+        }
+
+        function updateFlashcardUI() {
+            flashcard.classList.remove('flipped');
+            const word = words[currentWordIndex];
+            if (word) {
+                wordGerman.textContent = word.german;
+                wordEnglish.textContent = word.english;
+                wordExample.textContent = word.example || "";
+            }
+        }
+
+        document.getElementById('btn-next').addEventListener('click', loadNextFlashcard);
+        document.getElementById('btn-prev').addEventListener('click', () => {
+            if (words.length === 0) return;
+            currentWordIndex = (currentWordIndex > 0) ? currentWordIndex - 1 : words.length - 1;
+            updateFlashcardUI();
+        });
+
+        // Difficulty Buttons
+        document.querySelectorAll('.diff-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if (words.length === 0) return;
+                const level = e.target.dataset.level;
+                const currentWord = words[currentWordIndex].german;
+                
+                if (level === 'easy') srsData[currentWord] = 1;
+                if (level === 'medium') srsData[currentWord] = 2;
+                if (level === 'hard') srsData[currentWord] = 4;
+                
+                localStorage.setItem('germanSrsData', JSON.stringify(srsData));
+                loadNextFlashcard();
+            });
+        });
+
+        // Add New Word Logic
+        document.getElementById('btn-save-word').addEventListener('click', () => {
+            const ger = document.getElementById('new-german').value.trim();
+            const eng = document.getElementById('new-english').value.trim();
+            const ex = document.getElementById('new-example').value.trim();
+            const msg = document.getElementById('save-msg');
+
+            if (!ger || !eng) {
+                msg.textContent = "German and English fields are required.";
+                msg.style.color = "var(--danger)";
+                return;
+            }
+
+            decks.myWords.push({ german: ger, english: eng, example: ex });
+            localStorage.setItem('myGermanWords', JSON.stringify(decks.myWords));
+            
+            if (currentDeck === 'myWords') words = decks.myWords;
+
+            document.getElementById('new-german').value = '';
+            document.getElementById('new-english').value = '';
+            document.getElementById('new-example').value = '';
+            
+            msg.textContent = "Word saved successfully!";
+            msg.style.color = "var(--success)";
+            setTimeout(() => msg.textContent = "", 2000);
+            
+            if (currentDeck === 'myWords') loadNextFlashcard();
+        });
+
+        // Quiz Logic
+        const quizWord = document.getElementById('quiz-word');
+        const quizOptions = document.getElementById('quiz-options');
+        const quizFeedback = document.getElementById('quiz-feedback');
+        const quizScoreDisplay = document.getElementById('quiz-score');
+
+        function loadQuizQuestion() {
+            quizFeedback.textContent = '';
+            document.getElementById('btn-next-quiz').classList.add('hidden');
+            quizOptions.innerHTML = '';
+            
+            if (!words || words.length < 4) {
+                quizWord.textContent = "Need at least 4 words in this deck to play.";
+                return;
+            }
+
+            currentQuizWord = words[Math.floor(Math.random() * words.length)];
+            quizWord.textContent = currentQuizWord.german;
+
+            let options = [currentQuizWord.english];
+            while (options.length < 4) {
+                let randomWord = words[Math.floor(Math.random() * words.length)].english;
+                if (!options.includes(randomWord)) options.push(randomWord);
+            }
+
+            options.sort(() => Math.random() - 0.5);
+
+            options.forEach(option => {
+                const btn = document.createElement('button');
+                btn.classList.add('option-btn');
+                btn.textContent = option;
+                btn.addEventListener('click', () => handleQuizAnswer(btn, option));
+                quizOptions.appendChild(btn);
+            });
+        }
+
+        function handleQuizAnswer(btn, selected) {
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(b => b.disabled = true);
+
+            if (selected === currentQuizWord.english) {
+                btn.classList.add('correct');
+                quizFeedback.textContent = 'Correct! Gut gemacht!';
+                quizFeedback.style.color = "var(--success)";
+                quizScore++;
+                srsData[currentQuizWord.german] = Math.max(1, (srsData[currentQuizWord.german] || 2) - 1); 
+            } else {
+                btn.classList.add('incorrect');
+                quizFeedback.textContent = `Incorrect. Correct: ${currentQuizWord.english}`;
+                quizFeedback.style.color = "var(--danger)";
+                srsData[currentQuizWord.german] = (srsData[currentQuizWord.german] || 2) + 2; 
+            }
+            
+            localStorage.setItem('germanSrsData', JSON.stringify(srsData));
+            quizScoreDisplay.textContent = quizScore;
+            document.getElementById('btn-next-quiz').classList.remove('hidden');
+        }
+
+        document.getElementById('btn-next-quiz').addEventListener('click', loadQuizQuestion);
+
+        // Initialize first view
+        window.onload = () => {
+            loadNextFlashcard();
+        };
+    </script>
+</body>
+</html>
