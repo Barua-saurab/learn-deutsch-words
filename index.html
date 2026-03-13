@@ -64,22 +64,9 @@
             font-weight: 600;
         }
 
-        .nav-btn { 
-            background: #5a5a5a; 
-            color: white; 
-        }
-        
-        .nav-btn.active {
-            background: #444;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .nav-btn-link { 
-            background: var(--success); 
-            color: white; 
-            text-decoration: none; 
-        }
-
+        .nav-btn { background: #5a5a5a; color: white; }
+        .nav-btn.active { background: #444; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
+        .nav-btn-link { background: var(--success); color: white; text-decoration: none; }
         .nav-btn:hover, .nav-btn-link:hover { opacity: 0.9; transform: translateY(-1px); }
 
         main {
@@ -110,10 +97,7 @@
             transition: all 0.2s;
         }
 
-        .deck-btn.active {
-            background: #d0d0d0;
-            border-color: #999;
-        }
+        .deck-btn.active { background: #d0d0d0; border-color: #999; }
 
         select.deck-btn {
             appearance: none;
@@ -143,9 +127,7 @@
             position: relative;
         }
 
-        .card-container.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
+        .card-container.flipped .card-inner { transform: rotateY(180deg); }
 
         .card-front, .card-back {
             width: 100%;
@@ -164,10 +146,7 @@
             box-sizing: border-box;
         }
 
-        .card-back {
-            transform: rotateY(180deg);
-            background: var(--card-bg);
-        }
+        .card-back { transform: rotateY(180deg); background: var(--card-bg); }
 
         #btn-audio {
             position: absolute;
@@ -267,18 +246,8 @@
         .correct { background: var(--success) !important; color: white; border-color: var(--success) !important; }
         .incorrect { background: var(--danger) !important; color: white; border-color: var(--danger) !important; }
 
-        #quiz-feedback {
-            margin: 25px 0;
-            font-size: 1.2rem;
-            font-weight: bold;
-            min-height: 1.5em;
-        }
-
-        #btn-next-quiz {
-            background: var(--primary);
-            color: white;
-            width: 100%;
-        }
+        #quiz-feedback { margin: 25px 0; font-size: 1.2rem; font-weight: bold; min-height: 1.5em; }
+        #btn-next-quiz { background: var(--primary); color: white; width: 100%; }
 
         /* --- ADD WORD FORM STYLES --- */
         .add-form {
@@ -292,28 +261,10 @@
         }
 
         .add-form h2 { margin-top: 0; margin-bottom: 10px; }
-
-        .add-form input {
-            padding: 15px;
-            font-size: 1.1rem;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
+        .add-form input { padding: 15px; font-size: 1.1rem; border: 2px solid #eee; border-radius: 10px; outline: none; transition: border-color 0.2s; }
         .add-form input:focus { border-color: var(--primary); }
-
-        #btn-save-word {
-            background: var(--success);
-            color: white;
-            margin-top: 15px;
-        }
-
-        #save-msg {
-            font-weight: bold;
-            text-align: center;
-            margin-top: 15px;
-        }
+        #btn-save-word { background: var(--success); color: white; margin-top: 15px; }
+        #save-msg { font-weight: bold; text-align: center; margin-top: 15px; }
 
         @media (max-width: 550px) {
             .options-grid { grid-template-columns: 1fr; }
@@ -353,19 +304,16 @@
         <section id="flashcard-section" class="view-section">
             <div class="card-container" id="flashcard">
                 <div class="card-inner">
-                    <!-- FRONT OF CARD -->
                     <div class="card-front">
                         <button id="btn-audio" title="Listen">🔊</button>
                         <h2 id="word-german">Loading...</h2>
                     </div>
-                    <!-- BACK OF CARD -->
                     <div class="card-back">
                         <h2 id="word-english"></h2>
                         <p id="word-example"></p>
                     </div>
                 </div>
             </div>
-            <!-- NAVIGATION & SRS DIFFICULTY BUTTONS -->
             <div class="controls">
                 <div class="nav-controls">
                     <button id="btn-prev" class="action-btn">Previous</button>
@@ -406,7 +354,7 @@
     </main>
 
     <script>
-        /* --- STATE VARIABLES & DATA FETCHING --- */
+        /* --- STATE VARIABLES --- */
         let decks = {
             b1: [],
             b2: [],
@@ -422,26 +370,29 @@
         let quizScore = 0;
         let currentQuizWord = null;
 
-        // FETCH DATA FROM EXTERNAL JSON FILES
+        // FETCH DATA WITH CACHE BUSTING
         function fetchAllDecks() {
+            // Timestamp to force browser to ignore old cached versions of JSON files
+            const t = new Date().getTime();
+            
             Promise.all([
-                fetch('b1.json').then(res => res.json()).catch(() => []),
-                fetch('b2.json').then(res => res.json()).catch(() => []),
-                fetch('travel.json').then(res => res.json()).catch(() => []),
-                fetch('food.json').then(res => res.json()).catch(() => [])
+                fetch(`b1.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
+                fetch(`b2.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
+                fetch(`travel.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
+                fetch(`food.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => [])
             ]).then(([b1Data, b2Data, travelData, foodData]) => {
                 decks.b1 = b1Data;
                 decks.b2 = b2Data;
                 decks.travel = travelData;
                 decks.food = foodData;
                 
-                // Initialize the app with the default deck
+                // If a deck was already selected before loading finished, refresh it
                 words = decks[currentDeck];
                 loadNextFlashcard();
             });
         }
 
-        /* --- DOM ELEMENT REFERENCES --- */
+        /* --- DOM REFERENCES --- */
         const views = document.querySelectorAll('.view-section');
         const navBtns = document.querySelectorAll('.nav-btn');
         const deckBtns = document.querySelectorAll('.deck-btn');
@@ -450,7 +401,7 @@
         const wordEnglish = document.getElementById('word-english');
         const wordExample = document.getElementById('word-example');
 
-        /* --- VIEW SWITCHING LOGIC --- */
+        /* --- VIEW SWITCHING --- */
         navBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 navBtns.forEach(b => b.classList.remove('active'));
@@ -461,7 +412,7 @@
             });
         });
 
-        /* --- DECK SWITCHING LOGIC --- */
+        /* --- DECK SWITCHING --- */
         deckBtns.forEach(btn => {
             if (btn.tagName === 'BUTTON') {
                 btn.addEventListener('click', () => {
@@ -489,7 +440,7 @@
             window.open('https://barua-saurab.github.io/Deutsch/', '_blank');
         });
 
-        /* --- FLASHCARD INTERACTION LOGIC --- */
+        /* --- FLASHCARDS --- */
         flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
 
         document.getElementById('btn-audio').addEventListener('click', (e) => {
@@ -504,7 +455,7 @@
         function loadNextFlashcard() {
             if (!words || words.length === 0) {
                 wordGerman.textContent = "No words here yet!";
-                wordEnglish.textContent = "Please check your JSON files.";
+                wordEnglish.textContent = `Check if ${currentDeck}.json is valid.`;
                 wordExample.textContent = "";
                 return;
             }
@@ -523,8 +474,8 @@
             flashcard.classList.remove('flipped');
             const word = words[currentWordIndex];
             if (word) {
-                wordGerman.textContent = word.german;
-                wordEnglish.textContent = word.english;
+                wordGerman.textContent = word.german || "No German key";
+                wordEnglish.textContent = word.english || "No English key";
                 
                 if (Array.isArray(word.example)) {
                     wordExample.textContent = word.example.join('\n');
@@ -541,10 +492,10 @@
             updateFlashcardUI();
         });
 
-        /* --- SRS DIFFICULTY ADJUSTMENT --- */
+        /* --- SRS --- */
         document.querySelectorAll('.diff-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                if (words.length === 0) return;
+                if (!words || words.length === 0) return;
                 const level = e.target.dataset.level;
                 const currentWord = words[currentWordIndex].german;
                 
@@ -557,7 +508,7 @@
             });
         });
 
-        /* --- ADD WORD LOGIC --- */
+        /* --- ADD WORD --- */
         document.getElementById('btn-save-word').addEventListener('click', () => {
             const ger = document.getElementById('new-german').value.trim();
             const eng = document.getElementById('new-english').value.trim();
@@ -586,7 +537,7 @@
             if (currentDeck === 'myWords') loadNextFlashcard();
         });
 
-        /* --- QUIZ LOGIC --- */
+        /* --- QUIZ --- */
         const quizWord = document.getElementById('quiz-word');
         const quizOptions = document.getElementById('quiz-options');
         const quizFeedback = document.getElementById('quiz-feedback');
@@ -646,7 +597,7 @@
 
         document.getElementById('btn-next-quiz').addEventListener('click', loadQuizQuestion);
 
-        /* --- START APP --- */
+        /* --- START --- */
         window.onload = () => {
             fetchAllDecks(); 
         };
