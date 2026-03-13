@@ -172,6 +172,8 @@
             font-style: italic;
             color: #555;
             font-size: 1.1rem;
+            white-space: pre-line; /* Preserves new lines in text */
+            line-height: 1.4;
         }
 
         /* --- CONTROL BUTTON STYLES --- */
@@ -391,7 +393,6 @@
         let currentQuizWord = null;
 
         // FETCH DATA FROM EXTERNAL JSON FILES
-        // Make sure these .json files exist in the same folder as this index.html
         function fetchAllDecks() {
             Promise.all([
                 fetch('b1.json').then(res => res.json()).catch(() => []),
@@ -492,7 +493,15 @@
             if (word) {
                 wordGerman.textContent = word.german;
                 wordEnglish.textContent = word.english;
-                wordExample.textContent = word.example || "";
+                
+                // --- HANDLING MULTIPLE EXAMPLES ---
+                // If 'example' in JSON is an array, join with new lines.
+                // If it's a string with \n, CSS 'white-space: pre-line' handles it.
+                if (Array.isArray(word.example)) {
+                    wordExample.textContent = word.example.join('\n');
+                } else {
+                    wordExample.textContent = word.example || "";
+                }
             }
         }
 
@@ -610,7 +619,7 @@
 
         /* --- START APP --- */
         window.onload = () => {
-            fetchAllDecks(); // Initial load of data from JSON files
+            fetchAllDecks(); 
         };
     </script>
 </body>
