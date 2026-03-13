@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learn Deutsch - Vocab Builder</title>
     <style>
+        /* --- CSS VARIABLES & GLOBAL STYLES --- */
         :root {
             --primary: #007bff;
             --success: #28a745;
@@ -27,6 +28,7 @@
             color: var(--dark);
         }
 
+        /* --- HEADER & NAVIGATION STYLES --- */
         header {
             background: var(--dark);
             color: white;
@@ -66,6 +68,7 @@
             box-sizing: border-box;
         }
 
+        /* --- DECK SELECTION STYLES --- */
         .deck-selector {
             display: flex;
             flex-wrap: wrap;
@@ -101,7 +104,7 @@
 
         .hidden { display: none !important; }
 
-        /* Flashcard Styles */
+        /* --- FLASHCARD 3D FLIP STYLES --- */
         .card-container {
             perspective: 1000px;
             width: 100%;
@@ -171,6 +174,7 @@
             font-size: 1.1rem;
         }
 
+        /* --- CONTROL BUTTON STYLES --- */
         .controls {
             display: flex;
             flex-direction: column;
@@ -202,7 +206,7 @@
         .diff-btn[data-level="medium"] { background: var(--warning); color: black; }
         .diff-btn[data-level="hard"] { background: var(--danger); color: white; }
 
-        /* Quiz Styles */
+        /* --- QUIZ MODE STYLES --- */
         .quiz-card {
             background: var(--white);
             padding: 30px;
@@ -249,7 +253,7 @@
             width: 100%;
         }
 
-        /* Add Word Form */
+        /* --- ADD WORD FORM STYLES --- */
         .add-form {
             display: flex;
             flex-direction: column;
@@ -289,6 +293,7 @@
     </style>
 </head>
 <body>
+    <!-- TOP HEADER & MAIN NAVIGATION -->
     <header>
         <h1>German Vocab Builder</h1>
         <nav>
@@ -300,6 +305,7 @@
     </header>
 
     <main>
+        <!-- DECK SELECTION BUTTONS -->
         <div class="deck-selector">
             <button class="deck-btn active" data-deck="b1">B1 Words</button>
             <button class="deck-btn" data-deck="b2">B2 Words</button>
@@ -311,20 +317,23 @@
             </select>
         </div>
 
-        <!-- Flashcard Section -->
+        <!-- FLASHCARD SECTION -->
         <section id="flashcard-section" class="view-section">
             <div class="card-container" id="flashcard">
                 <div class="card-inner">
+                    <!-- FRONT OF CARD -->
                     <div class="card-front">
                         <button id="btn-audio" title="Listen">🔊</button>
                         <h2 id="word-german">Loading...</h2>
                     </div>
+                    <!-- BACK OF CARD -->
                     <div class="card-back">
                         <h2 id="word-english"></h2>
                         <p id="word-example"></p>
                     </div>
                 </div>
             </div>
+            <!-- NAVIGATION & SRS DIFFICULTY BUTTONS -->
             <div class="controls">
                 <div class="nav-controls">
                     <button id="btn-prev" class="action-btn">Previous</button>
@@ -338,7 +347,7 @@
             </div>
         </section>
 
-        <!-- Quiz Section -->
+        <!-- QUIZ MODE SECTION -->
         <section id="quiz-section" class="view-section hidden">
             <div class="quiz-card">
                 <h2>Quiz Mode</h2>
@@ -351,7 +360,7 @@
             </div>
         </section>
 
-        <!-- Add Word Section -->
+        <!-- ADD WORD SECTION -->
         <section id="add-section" class="view-section hidden">
             <div class="add-form">
                 <h2>Add Your Own Word</h2>
@@ -365,45 +374,43 @@
     </main>
 
     <script>
-        // Mock data to replace external JSON fetches
-        const initialDecks = {
-            b1: [
-                { german: "die Entscheidung", english: "the decision", example: "Das war eine schwere Entscheidung." },
-                { german: "verantwortlich", english: "responsible", example: "Wer ist dafür verantwortlich?" },
-                { german: "begeistert", english: "enthusiastic", example: "Ich bin begeistert von dieser Idee." },
-                { german: "die Ausbildung", english: "the training/apprenticeship", example: "Er macht eine Ausbildung zum Mechaniker." }
-            ],
-            b2: [
-                { german: "berücksichtigen", english: "to consider/take into account", example: "Wir müssen alle Faktoren berücksichtigen." },
-                { german: "die Herausforderung", english: "the challenge", example: "Das ist eine große Herausforderung für uns." },
-                { german: "gelegentlich", english: "occasionally", example: "Ich gehe gelegentlich joggen." },
-                { german: "vermeiden", english: "to avoid", example: "Du solltest Stress vermeiden." }
-            ],
-            travel: [
-                { german: "der Flughafen", english: "the airport", example: "Wir fahren zum Flughafen." },
-                { german: "die Fahrkarte", english: "the ticket", example: "Hast du eine Fahrkarte gekauft?" },
-                { german: "die Sehenswürdigkeit", english: "the sight/attraction", example: "Berlin hat viele Sehenswürdigkeiten." }
-            ],
-            food: [
-                { german: "lecker", english: "delicious", example: "Das Essen war wirklich lecker." },
-                { german: "der Nachtisch", english: "the dessert", example: "Was gibt es heute zum Nachtisch?" },
-                { german: "die Bestellung", english: "the order", example: "Kann ich meine Bestellung aufgeben?" }
-            ]
-        };
-
+        /* --- STATE VARIABLES & DATA FETCHING --- */
         let decks = {
-            ...initialDecks,
+            b1: [],
+            b2: [],
+            travel: [],
+            food: [],
             myWords: JSON.parse(localStorage.getItem('myGermanWords')) || []
         };
 
         let currentDeck = 'b1';
-        let words = decks[currentDeck]; 
+        let words = []; 
         let currentWordIndex = 0;
-        let srsData = JSON.parse(localStorage.getItem('germanSrsData')) || {};
+        let srsData = JSON.parse(localStorage.getItem('germanSrsData')) || {}; 
         let quizScore = 0;
         let currentQuizWord = null;
 
-        // DOM Elements
+        // FETCH DATA FROM EXTERNAL JSON FILES
+        // Make sure these .json files exist in the same folder as this index.html
+        function fetchAllDecks() {
+            Promise.all([
+                fetch('b1.json').then(res => res.json()).catch(() => []),
+                fetch('b2.json').then(res => res.json()).catch(() => []),
+                fetch('travel.json').then(res => res.json()).catch(() => []),
+                fetch('food.json').then(res => res.json()).catch(() => [])
+            ]).then(([b1Data, b2Data, travelData, foodData]) => {
+                decks.b1 = b1Data;
+                decks.b2 = b2Data;
+                decks.travel = travelData;
+                decks.food = foodData;
+                
+                // Initialize the app with the default deck
+                words = decks[currentDeck];
+                loadNextFlashcard();
+            });
+        }
+
+        /* --- DOM ELEMENT REFERENCES --- */
         const views = document.querySelectorAll('.view-section');
         const navBtns = document.querySelectorAll('.nav-btn');
         const deckBtns = document.querySelectorAll('.deck-btn');
@@ -412,7 +419,7 @@
         const wordEnglish = document.getElementById('word-english');
         const wordExample = document.getElementById('word-example');
 
-        // View Switching
+        /* --- VIEW SWITCHING LOGIC --- */
         navBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 views.forEach(view => view.classList.add('hidden'));
@@ -421,7 +428,7 @@
             });
         });
 
-        // Deck Switching
+        /* --- DECK SWITCHING LOGIC --- */
         deckBtns.forEach(btn => {
             if (btn.tagName === 'BUTTON') {
                 btn.addEventListener('click', () => {
@@ -445,16 +452,15 @@
             }
         });
 
-        // External Link
         document.getElementById('external-link-btn').addEventListener('click', () => {
             window.open('https://barua-saurab.github.io/Deutsch/', '_blank');
         });
 
-        // Flashcard Logic
+        /* --- FLASHCARD INTERACTION LOGIC --- */
         flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
 
         document.getElementById('btn-audio').addEventListener('click', (e) => {
-            e.stopPropagation();
+            e.stopPropagation(); 
             if (!words[currentWordIndex]) return;
             const utterance = new SpeechSynthesisUtterance(words[currentWordIndex].german);
             utterance.lang = 'de-DE';
@@ -465,12 +471,11 @@
         function loadNextFlashcard() {
             if (!words || words.length === 0) {
                 wordGerman.textContent = "No words here yet!";
-                wordEnglish.textContent = "Go to 'Add Word' to start.";
+                wordEnglish.textContent = "Please check your JSON files.";
                 wordExample.textContent = "";
                 return;
             }
             
-            // Simple SRS Weighting
             let pool = [];
             words.forEach((word, index) => {
                 let weight = srsData[word.german] || 2; 
@@ -498,7 +503,7 @@
             updateFlashcardUI();
         });
 
-        // Difficulty Buttons
+        /* --- SRS DIFFICULTY ADJUSTMENT --- */
         document.querySelectorAll('.diff-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 if (words.length === 0) return;
@@ -514,7 +519,7 @@
             });
         });
 
-        // Add New Word Logic
+        /* --- ADD WORD LOGIC --- */
         document.getElementById('btn-save-word').addEventListener('click', () => {
             const ger = document.getElementById('new-german').value.trim();
             const eng = document.getElementById('new-english').value.trim();
@@ -543,7 +548,7 @@
             if (currentDeck === 'myWords') loadNextFlashcard();
         });
 
-        // Quiz Logic
+        /* --- QUIZ LOGIC --- */
         const quizWord = document.getElementById('quiz-word');
         const quizOptions = document.getElementById('quiz-options');
         const quizFeedback = document.getElementById('quiz-feedback');
@@ -603,9 +608,9 @@
 
         document.getElementById('btn-next-quiz').addEventListener('click', loadQuizQuestion);
 
-        // Initialize first view
+        /* --- START APP --- */
         window.onload = () => {
-            loadNextFlashcard();
+            fetchAllDecks(); // Initial load of data from JSON files
         };
     </script>
 </body>
