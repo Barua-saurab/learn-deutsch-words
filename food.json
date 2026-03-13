@@ -1,0 +1,397 @@
+[
+  {
+    "german": "das Obst",
+    "english": "fruit",
+    "example": "1. Wir sollten jeden Tag frisches Obst essen.\\n2. Welches Obst magst du am liebsten?"
+  },
+  {
+    "german": "der Apfel",
+    "english": "apple",
+    "example": "1. Der Apfel ist süß und saftig.\\n2. Ich backe heute einen Apfelkuchen."
+  },
+  {
+    "german": "die Banane",
+    "english": "banana",
+    "example": "1. Die Banane ist sehr gesund und macht satt.\\n2. Ich schneide eine Banane in mein Müsli."
+  },
+  {
+    "german": "die Erdbeere",
+    "english": "strawberry",
+    "example": "1. Im Sommer pflücken wir frische Erdbeeren.\\n2. Erdbeeren mit Sahne sind ein tolles Dessert."
+  },
+  {
+    "german": "die Traube",
+    "english": "grape",
+    "example": "1. Diese grünen Trauben haben keine Kerne.\\n2. Aus Weintrauben macht man Wein."
+  },
+  {
+    "german": "die Zitrone",
+    "english": "lemon",
+    "example": "1. Die Zitrone ist sehr sauer.\\n2. Ich trinke gerne Tee mit frischer Zitrone."
+  },
+  {
+    "german": "die Orange",
+    "english": "orange",
+    "example": "1. Ich presse morgens frische Orangen für den Saft.\\n2. Diese Orange lässt sich leicht schälen."
+  },
+  {
+    "german": "die Kirsche",
+    "english": "cherry",
+    "example": "1. Der Baum im Garten hängt voller Kirschen.\\n2. Schwarzwälder Kirschtorte ist weltberühmt."
+  },
+  {
+    "german": "der Pfirsich",
+    "english": "peach",
+    "example": "1. Der Pfirsich hat eine sehr weiche Schale.\\n2. Ich esse gerne Pfirsich aus der Dose."
+  },
+  {
+    "german": "die Birne",
+    "english": "pear",
+    "example": "1. Die Birne ist noch ein bisschen hart.\\n2. Birnen schmecken hervorragend zu Käse."
+  },
+  {
+    "german": "das Gemüse",
+    "english": "vegetables",
+    "example": "1. Gemüse enthält viele wichtige Vitamine.\\n2. Ich kaufe mein Gemüse auf dem Markt."
+  },
+  {
+    "german": "die Tomate",
+    "english": "tomato",
+    "example": "1. Die Tomate gehört in jeden guten Salat.\\n2. Für die Soße brauchen wir passierte Tomaten."
+  },
+  {
+    "german": "die Gurke",
+    "english": "cucumber",
+    "example": "1. Die Salatgurke besteht fast nur aus Wasser.\\n2. Ich schneide die Gurke in dünne Scheiben."
+  },
+  {
+    "german": "die Karotte",
+    "english": "carrot",
+    "example": "1. Karotten sind gut für die Augen.\\n2. Wir essen heute Karotten mit Erbsen."
+  },
+  {
+    "german": "die Zwiebel",
+    "english": "onion",
+    "example": "1. Beim Zwiebeln schneiden muss ich weinen.\\n2. Die Suppe braucht noch eine halbe Zwiebel."
+  },
+  {
+    "german": "der Knoblauch",
+    "english": "garlic",
+    "example": "1. Ich würze das Fleisch mit viel Knoblauch.\\n2. Knoblauch ist gesund, riecht aber stark."
+  },
+  {
+    "german": "die Paprika",
+    "english": "bell pepper",
+    "example": "1. Rote Paprika sind süßer als grüne.\\n2. Ich fülle die Paprika mit Reis und Hackfleisch."
+  },
+  {
+    "german": "der Pilz",
+    "english": "mushroom",
+    "example": "1. Im Herbst sammeln wir Pilze im Wald.\\n2. Diese Soße wird mit frischen Pilzen gemacht."
+  },
+  {
+    "german": "der Spinat",
+    "english": "spinach",
+    "example": "1. Frischer Spinat fällt beim Kochen stark zusammen.\\n2. Kinder mögen oft keinen Spinat."
+  },
+  {
+    "german": "der Brokkoli",
+    "english": "broccoli",
+    "example": "1. Der Brokkoli muss nur kurz kochen.\\n2. Brokkoli ist ein sehr gesundes Kohlgemüse."
+  },
+  {
+    "german": "das Rindfleisch",
+    "english": "beef",
+    "example": "1. Das Rindfleisch muss lange schmoren.\\n2. Ein gutes Steak wird aus Rindfleisch gemacht."
+  },
+  {
+    "german": "das Schweinefleisch",
+    "english": "pork",
+    "example": "1. In Deutschland wird viel Schweinefleisch gegessen.\\n2. Schweinefleisch muss gut durchgebraten sein."
+  },
+  {
+    "german": "das Hähnchen",
+    "english": "chicken",
+    "example": "1. Wir grillen heute Hähnchen im Garten.\\n2. Hähnchen ist ein sehr mageres Fleisch."
+  },
+  {
+    "german": "das Hackfleisch",
+    "english": "minced meat",
+    "example": "1. Aus Hackfleisch macht man Frikadellen.\\n2. Ich kaufe gemischtes Hackfleisch für die Spaghetti."
+  },
+  {
+    "german": "die Sahne",
+    "english": "cream",
+    "example": "1. Zum Apfelkuchen gibt es geschlagene Sahne.\\n2. Die Soße wird mit etwas Sahne verfeinert."
+  },
+  {
+    "german": "der Joghurt",
+    "english": "yogurt",
+    "example": "1. Zum Frühstück esse ich Naturjoghurt mit Obst.\\n2. Griechischer Joghurt hat mehr Fett."
+  },
+  {
+    "german": "der Quark",
+    "english": "quark, curd cheese",
+    "example": "1. Pellkartoffeln mit Quark ist ein einfaches Gericht.\\n2. Aus Quark backt man Käsekuchen."
+  },
+  {
+    "german": "das Mehl",
+    "english": "flour",
+    "example": "1. Zum Backen brauchen wir ein Kilo Mehl.\\n2. Weizenmehl wird am häufigsten verwendet."
+  },
+  {
+    "german": "der Teig",
+    "english": "dough, batter",
+    "example": "1. Der Teig muss eine Stunde ruhen.\\n2. Ich knete den Teig für die Pizza."
+  },
+  {
+    "german": "das Getreide",
+    "english": "grain, cereal",
+    "example": "1. Brot wird aus verschiedenen Getreidearten gebacken.\\n2. Vollkorn ist das gesündeste Getreide."
+  },
+  {
+    "german": "das Brötchen",
+    "english": "bread roll",
+    "example": "1. Ich hole frische Brötchen vom Bäcker.\\n2. Zwei Brötchen mit Käse, bitte."
+  },
+  {
+    "german": "das Gewürz",
+    "english": "spice",
+    "example": "1. Indisches Essen verwendet viele Gewürze.\\n2. Welches Gewürz fehlt noch in der Suppe?"
+  },
+  {
+    "german": "das Salz",
+    "english": "salt",
+    "example": "1. Die Nudeln brauchen mehr Salz.\\n2. Zu viel Salz ist schlecht für den Blutdruck."
+  },
+  {
+    "german": "der Pfeffer",
+    "english": "pepper (spice)",
+    "example": "1. Ich würze das Steak mit schwarzem Pfeffer.\\n2. Frisch gemahlener Pfeffer schmeckt besser."
+  },
+  {
+    "german": "der Zucker",
+    "english": "sugar",
+    "example": "1. Ich trinke meinen Kaffee ohne Zucker.\\n2. Zu viel Zucker verursacht Karies."
+  },
+  {
+    "german": "das Öl",
+    "english": "oil",
+    "example": "1. Wir braten die Kartoffeln in etwas Öl.\\n2. Für den Salat benutze ich Olivenöl."
+  },
+  {
+    "german": "der Essig",
+    "english": "vinegar",
+    "example": "1. Essig und Öl gehören an jeden Salat.\\n2. Apfelessig ist sehr mild im Geschmack."
+  },
+  {
+    "german": "die Soße",
+    "english": "sauce",
+    "example": "1. Die Nudeln schwimmen in einer leckeren Soße.\\n2. Kann ich bitte mehr Soße haben?"
+  },
+  {
+    "german": "der Senf",
+    "english": "mustard",
+    "example": "1. Zur Bratwurst isst man in Deutschland Senf.\\n2. Dieser Senf ist wirklich sehr scharf."
+  },
+  {
+    "german": "süß",
+    "english": "sweet",
+    "example": "1. Schokolade ist sehr süß.\\n2. Der Tee ist mir zu süß."
+  },
+  {
+    "german": "sauer",
+    "english": "sour",
+    "example": "1. Die Zitrone schmeckt extrem sauer.\\n2. Die Milch ist leider sauer geworden."
+  },
+  {
+    "german": "salzig",
+    "english": "salty",
+    "example": "1. Die Chips sind mir zu salzig.\\n2. Das Meerwasser schmeckt sehr salzig."
+  },
+  {
+    "german": "bitter",
+    "english": "bitter",
+    "example": "1. Schwarzer Kaffee schmeckt oft bitter.\\n2. Diese Medizin hat einen bitteren Nachgeschmack."
+  },
+  {
+    "german": "scharf",
+    "english": "spicy, hot",
+    "example": "1. Ich mag kein scharfes Essen.\\n2. Vorsicht, die Chilischote ist sehr scharf!"
+  },
+  {
+    "german": "würzig",
+    "english": "spicy, well-seasoned",
+    "example": "1. Diese Soße ist sehr würzig und lecker.\\n2. Der Käse hat einen würzigen Geschmack."
+  },
+  {
+    "german": "mild",
+    "english": "mild",
+    "example": "1. Dieses Curry ist sehr mild, nicht scharf.\\n2. Ich bevorzuge milden Käse."
+  },
+  {
+    "german": "fettig",
+    "english": "greasy, fatty",
+    "example": "1. Fast Food ist oft sehr fettig.\\n2. Fettiges Essen liegt schwer im Magen."
+  },
+  {
+    "german": "mager",
+    "english": "lean",
+    "example": "1. Hähnchenfleisch ist sehr mager.\\n2. Ich kaufe nur mageres Rindfleisch."
+  },
+  {
+    "german": "frisch",
+    "english": "fresh",
+    "example": "1. Das Brot ist ganz frisch vom Bäcker.\\n2. Frisches Gemüse ist am gesündesten."
+  },
+  {
+    "german": "roh",
+    "english": "raw",
+    "example": "1. Man kann Karotten auch roh essen.\\n2. Rohes Fleisch muss im Kühlschrank bleiben."
+  },
+  {
+    "german": "gekocht",
+    "english": "boiled, cooked",
+    "example": "1. Ich esse gerne hart gekochte Eier.\\n2. Gekochte Kartoffeln sind eine gute Beilage."
+  },
+  {
+    "german": "gebraten",
+    "english": "fried, roasted",
+    "example": "1. Gebratener Reis ist ein asiatisches Gericht.\\n2. Der Fisch muss knusprig gebraten sein."
+  },
+  {
+    "german": "knusprig",
+    "english": "crispy",
+    "example": "1. Die Pommes frites sind schön knusprig.\\n2. Das Brot hat eine knusprige Kruste."
+  },
+  {
+    "german": "die Pfanne",
+    "english": "frying pan",
+    "example": "1. Ich brate das Spiegelei in der Pfanne.\\n2. Die Pfanne ist auf dem Herd."
+  },
+  {
+    "german": "der Topf",
+    "english": "pot",
+    "example": "1. Das Wasser im Topf kocht bereits.\\n2. Wir brauchen einen größeren Topf für die Suppe."
+  },
+  {
+    "german": "das Messer",
+    "english": "knife",
+    "example": "1. Das Messer ist sehr scharf, pass auf!\\n2. Ich brauche ein Messer, um das Brot zu schneiden."
+  },
+  {
+    "german": "die Gabel",
+    "english": "fork",
+    "example": "1. Die Gabel liegt auf der linken Seite des Tellers.\\n2. Ich esse die Nudeln mit einer Gabel."
+  },
+  {
+    "german": "der Löffel",
+    "english": "spoon",
+    "example": "1. Für die Suppe brauchst du einen großen Löffel.\\n2. Ein Löffel Zucker reicht für meinen Tee."
+  },
+  {
+    "german": "der Teller",
+    "english": "plate",
+    "example": "1. Der Teller ist heiß, verbrenn dich nicht.\\n2. Lege das Fleisch bitte auf den Teller."
+  },
+  {
+    "german": "das Glas",
+    "english": "glass",
+    "example": "1. Darf ich bitte ein Glas Wasser haben?\\n2. Das Glas ist leider auf den Boden gefallen."
+  },
+  {
+    "german": "die Tasse",
+    "english": "cup, mug",
+    "example": "1. Ich trinke jeden Morgen eine Tasse Kaffee.\\n2. Die Tasse steht im Schrank."
+  },
+  {
+    "german": "die Schüssel",
+    "english": "bowl",
+    "example": "1. Der Salat ist in der großen Schüssel.\\n2. Ich mische den Teig in einer Schüssel."
+  },
+  {
+    "german": "schneiden",
+    "english": "to cut",
+    "example": "1. Bitte schneide die Zwiebeln in kleine Würfel.\\n2. Das Messer schneidet sehr gut."
+  },
+  {
+    "german": "schälen",
+    "english": "to peel",
+    "example": "1. Bevor man Kartoffeln kocht, muss man sie schälen.\\n2. Kannst du bitte den Apfel für mich schälen?"
+  },
+  {
+    "german": "rühren",
+    "english": "to stir",
+    "example": "1. Du musst die Soße ständig rühren, damit sie nicht anbrennt.\\n2. Ich rühre den Zucker in den Kaffee."
+  },
+  {
+    "german": "mischen",
+    "english": "to mix",
+    "example": "1. Mischen Sie Mehl und Zucker in einer Schüssel.\\n2. Die Zutaten müssen gut gemischt werden."
+  },
+  {
+    "german": "braten",
+    "english": "to fry, to roast",
+    "example": "1. Das Fleisch wird in der Pfanne scharf gebraten.\\n2. Ich brate mir ein Spiegelei."
+  },
+  {
+    "german": "grillen",
+    "english": "to grill, to barbecue",
+    "example": "1. Im Sommer grillen wir oft im Park.\\n2. Gegrilltes Fleisch schmeckt besonders gut."
+  },
+  {
+    "german": "würzen",
+    "english": "to season",
+    "example": "1. Du musst die Suppe noch mit Salz und Pfeffer würzen.\\n2. Das Essen ist perfekt gewürzt."
+  },
+  {
+    "german": "probieren",
+    "english": "to taste, to try",
+    "example": "1. Möchtest du ein Stück von meinem Kuchen probieren?\\n2. Probier mal, ob die Soße gut schmeckt."
+  },
+  {
+    "german": "servieren",
+    "english": "to serve",
+    "example": "1. Das Essen wird heiß serviert.\\n2. Der Kellner serviert uns die Getränke."
+  },
+  {
+    "german": "abwaschen",
+    "english": "to wash the dishes",
+    "example": "1. Nach dem Essen müssen wir noch abwaschen.\\n2. Wer ist heute mit dem Abwaschen dran?"
+  },
+  {
+    "german": "die Zutat",
+    "english": "ingredient",
+    "example": "1. Für dieses Rezept brauchen wir fünf Zutaten.\\n2. Alle Zutaten sollten frisch sein."
+  },
+  {
+    "german": "das Rezept",
+    "english": "recipe",
+    "example": "1. Das Rezept für diesen Kuchen habe ich von meiner Oma.\\n2. Ich koche heute ein neues Rezept aus dem Internet."
+  },
+  {
+    "german": "die Mahlzeit",
+    "english": "meal",
+    "example": "1. Das Frühstück ist eine wichtige Mahlzeit.\\n2. Wir essen drei Mahlzeiten am Tag."
+  },
+  {
+    "german": "Guten Appetit",
+    "english": "enjoy your meal",
+    "example": "1. Das Essen ist fertig, Guten Appetit!\\n2. Wir wünschen euch Guten Appetit."
+  },
+  {
+    "german": "sich ernähren",
+    "english": "to nourish oneself, to eat",
+    "example": "1. Ich versuche, mich gesund zu ernähren.\\n2. Vegetarier ernähren sich ohne Fleisch."
+  },
+  {
+    "german": "der Feinschmecker",
+    "english": "gourmet, foodie",
+    "example": "1. Mein Bruder ist ein echter Feinschmecker.\\n2. In diesem Restaurant treffen sich viele Feinschmecker."
+  },
+  {
+    "german": "haltbar",
+    "english": "non-perishable, has a shelf life",
+    "example": "1. Konserven sind sehr lange haltbar.\\n2. Die Milch ist nur noch bis morgen haltbar."
+  }
+]
