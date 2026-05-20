@@ -1,366 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn Deutsch - Vocab Builder</title>
-    <style>
-        /* --- CSS VARIABLES & GLOBAL STYLES --- */
-        :root {
-            --primary: #007bff;
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
-            --dark: #333333;
-            --light-gray: #e0e0e0;
-            --light-bg: #f4f4f9;
-            --white: #ffffff;
-            --card-bg: #eef;
-            --shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+<script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-bg);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--dark);
-        }
+        /* --- FIREBASE SETUP --- */
+        const firebaseConfig = {
+            apiKey: "AIzaSyA8WpSREaEJkaagpDprjph1bnO7VDbx2cM",
+            authDomain: "deutsch-web-app.firebaseapp.com",
+            projectId: "deutsch-web-app",
+            storageBucket: "deutsch-web-app.firebasestorage.app",
+            messagingSenderId: "176553020022",
+            appId: "1:176553020022:web:dec7a40d695fc00ae12d57",
+            measurementId: "G-ESJ6F9ZZYP"
+        };
 
-        /* --- HEADER & NAVIGATION STYLES --- */
-        header {
-            background: var(--dark);
-            color: white;
-            width: 100%;
-            text-align: center;
-            padding: 2rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+        // Initialize Firebase and Firestore
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        header h1 {
-            margin: 0 0 1.5rem 0;
-            font-size: 2.2rem;
-            letter-spacing: 1px;
-        }
-
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            padding: 0 10px;
-        }
-
-        .nav-btn, .nav-btn-link {
-            padding: 10px 22px;
-            cursor: pointer;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: all 0.2s;
-            font-weight: 600;
-        }
-
-        .nav-btn { background: #5a5a5a; color: white; }
-        .nav-btn.active { background: #444; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
-        .nav-btn-link { background: var(--success); color: white; text-decoration: none; }
-        .nav-btn:hover, .nav-btn-link:hover { opacity: 0.9; transform: translateY(-1px); }
-
-        main {
-            width: 100%;
-            max-width: 700px;
-            padding: 30px 20px;
-            box-sizing: border-box;
-        }
-
-        /* --- DECK SELECTION STYLES --- */
-        .deck-selector {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-
-        .deck-btn {
-            background: var(--light-gray);
-            color: var(--dark);
-            border: 1px solid #ccc;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .deck-btn.active { background: #d0d0d0; border-color: #999; }
-
-        select.deck-btn {
-            appearance: none;
-            padding-right: 35px;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 14px;
-        }
-
-        .hidden { display: none !important; }
-
-        /* --- FLASHCARD 3D FLIP STYLES --- */
-        .card-container {
-            perspective: 1000px;
-            width: 100%;
-            height: 380px;
-            margin-bottom: 30px;
-            cursor: pointer;
-        }
-
-        .card-inner {
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-            position: relative;
-        }
-
-        .card-container.flipped .card-inner { transform: rotateY(180deg); }
-
-        .card-front, .card-back {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: var(--white);
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            padding: 40px;
-            box-sizing: border-box;
-        }
-
-        .card-back { transform: rotateY(180deg); background: var(--card-bg); }
-
-        #btn-audio {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            transition: background 0.2s;
-            opacity: 0.7;
-        }
-        #btn-audio:hover { background: rgba(0,0,0,0.05); opacity: 1; }
-
-        .card-front h2, .card-back h2 {
-            margin: 0;
-            font-size: 2.8rem;
-            color: var(--dark);
-            font-weight: 700;
-        }
-
-        .card-back p {
-            margin-top: 20px;
-            font-style: italic;
-            color: #444;
-            font-size: 1.2rem;
-            white-space: pre-line;
-            line-height: 1.5;
-        }
-
-        /* --- CONTROL BUTTON STYLES --- */
-        .controls {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .nav-controls, .difficulty-controls {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        button.action-btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 700;
-            transition: all 0.1s;
-        }
-        button.action-btn:active { transform: scale(0.96); }
-
-        .nav-controls button { background: var(--primary); color: white; flex: 1; max-width: 200px; }
-        .diff-btn { flex: 1; max-width: 130px; }
-        .diff-btn[data-level="easy"] { background: var(--success); color: white; }
-        .diff-btn[data-level="medium"] { background: var(--warning); color: var(--dark); }
-        .diff-btn[data-level="hard"] { background: #e63946; color: white; }
-
-        /* --- QUIZ MODE STYLES --- */
-        .quiz-card {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            text-align: center;
-        }
-
-        #quiz-word { font-size: 2.5rem; margin-bottom: 25px; font-weight: 700; }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .option-btn {
-            padding: 22px;
-            border: 2px solid #eee;
-            background: #fafafa;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .option-btn:hover:not(:disabled) { border-color: var(--primary); background: #f0f7ff; }
-        .option-btn:disabled { cursor: not-allowed; }
-
-        .correct { background: var(--success) !important; color: white; border-color: var(--success) !important; }
-        .incorrect { background: var(--danger) !important; color: white; border-color: var(--danger) !important; }
-
-        #quiz-feedback { margin: 25px 0; font-size: 1.2rem; font-weight: bold; min-height: 1.5em; }
-        #btn-next-quiz { background: var(--primary); color: white; width: 100%; }
-
-        /* --- ADD WORD FORM STYLES --- */
-        .add-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            background: var(--white);
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .add-form h2 { margin-top: 0; margin-bottom: 10px; }
-        .add-form input { padding: 15px; font-size: 1.1rem; border: 2px solid #eee; border-radius: 10px; outline: none; transition: border-color 0.2s; }
-        .add-form input:focus { border-color: var(--primary); }
-        #btn-save-word { background: var(--success); color: white; margin-top: 15px; }
-        #save-msg { font-weight: bold; text-align: center; margin-top: 15px; }
-
-        @media (max-width: 550px) {
-            .options-grid { grid-template-columns: 1fr; }
-            .card-front h2, .card-back h2 { font-size: 2.2rem; }
-            header h1 { font-size: 1.8rem; }
-            .nav-btn, .nav-btn-link { font-size: 0.9rem; padding: 8px 16px; }
-            .deck-btn { font-size: 0.9rem; padding: 8px 16px; }
-        }
-    </style>
-</head>
-<body>
-    <!-- TOP HEADER & MAIN NAVIGATION -->
-    <header>
-        <h1>German Vocab Builder</h1>
-        <nav>
-            <button class="nav-btn active" data-target="flashcard-section">Flashcards</button>
-            <button class="nav-btn" data-target="quiz-section">Quiz</button>
-            <button class="nav-btn" data-target="add-section">Add Word</button>
-            <button id="external-link-btn" class="nav-btn-link">Deutsch Resources</button>
-        </nav>
-    </header>
-
-    <main>
-        <!-- DECK SELECTION BUTTONS -->
-        <div class="deck-selector">
-            <button class="deck-btn active" data-deck="b1">B1 Words</button>
-            <button class="deck-btn" data-deck="b2">B2 Words</button>
-            <button class="deck-btn" data-deck="myWords">My Words</button>
-            <select id="theme-dropdown" class="deck-btn">
-                <option value="">-- Theme --</option>
-                <option value="travel">Travel</option>
-                <option value="food">Food</option>
-            </select>
-        </div>
-
-        <!-- FLASHCARD SECTION -->
-        <section id="flashcard-section" class="view-section">
-            <div class="card-container" id="flashcard">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <button id="btn-audio" title="Listen">🔊</button>
-                        <h2 id="word-german">Loading...</h2>
-                    </div>
-                    <div class="card-back">
-                        <h2 id="word-english"></h2>
-                        <p id="word-example"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="controls">
-                <div class="nav-controls">
-                    <button id="btn-prev" class="action-btn">Previous</button>
-                    <button id="btn-next" class="action-btn">Next</button>
-                </div>
-                <div class="difficulty-controls">
-                    <button class="diff-btn action-btn" data-level="easy">Easy</button>
-                    <button class="diff-btn action-btn" data-level="medium">Medium</button>
-                    <button class="diff-btn action-btn" data-level="hard">Hard</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- QUIZ MODE SECTION -->
-        <section id="quiz-section" class="view-section hidden">
-            <div class="quiz-card">
-                <h2>Quiz Mode</h2>
-                <p>Current Score: <span id="quiz-score">0</span></p>
-                <hr style="opacity: 0.1; margin: 25px 0;">
-                <h3 id="quiz-word">Loading...</h3>
-                <div id="quiz-options" class="options-grid"></div>
-                <p id="quiz-feedback"></p>
-                <button id="btn-next-quiz" class="action-btn hidden">Next Question</button>
-            </div>
-        </section>
-
-        <!-- ADD WORD SECTION -->
-        <section id="add-section" class="view-section hidden">
-            <div class="add-form">
-                <h2>Add Your Own Word</h2>
-                <input type="text" id="new-german" placeholder="German Word (e.g. Apfel)">
-                <input type="text" id="new-english" placeholder="English Translation (e.g. Apple)">
-                <input type="text" id="new-example" placeholder="Example Sentence">
-                <button id="btn-save-word" class="action-btn">Save Word</button>
-                <p id="save-msg"></p>
-            </div>
-        </section>
-    </main>
-
-    <script>
         /* --- STATE VARIABLES --- */
         let decks = {
             b1: [],
             b2: [],
             travel: [],
             food: [],
-            myWords: JSON.parse(localStorage.getItem('myGermanWords')) || []
+            myWords: [] // Will now be loaded from Firebase instead of local storage
         };
 
         let currentDeck = 'b1';
@@ -370,11 +33,9 @@
         let quizScore = 0;
         let currentQuizWord = null;
 
-        // FETCH DATA WITH CACHE BUSTING
+        /* --- FETCH DATA --- */
         function fetchAllDecks() {
-            // Timestamp to force browser to ignore old cached versions of JSON files
             const t = new Date().getTime();
-            
             Promise.all([
                 fetch(`b1.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
                 fetch(`b2.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
@@ -386,10 +47,30 @@
                 decks.travel = travelData;
                 decks.food = foodData;
                 
-                // If a deck was already selected before loading finished, refresh it
-                words = decks[currentDeck];
-                loadNextFlashcard();
+                if (currentDeck !== 'myWords') {
+                    words = decks[currentDeck];
+                    loadNextFlashcard();
+                }
             });
+        }
+
+        // Fetch custom words from Firebase
+        async function fetchMyWordsFromFirebase() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "myWords"));
+                let onlineWords = [];
+                querySnapshot.forEach((doc) => {
+                    onlineWords.push(doc.data());
+                });
+                decks.myWords = onlineWords;
+                
+                if (currentDeck === 'myWords') {
+                    words = decks.myWords;
+                    loadNextFlashcard();
+                }
+            } catch (error) {
+                console.error("Error fetching words:", error);
+            }
         }
 
         /* --- DOM REFERENCES --- */
@@ -455,7 +136,7 @@
         function loadNextFlashcard() {
             if (!words || words.length === 0) {
                 wordGerman.textContent = "No words here yet!";
-                wordEnglish.textContent = `Check if ${currentDeck}.json is valid.`;
+                wordEnglish.textContent = `Add some words to this deck.`;
                 wordExample.textContent = "";
                 return;
             }
@@ -508,8 +189,8 @@
             });
         });
 
-        /* --- ADD WORD --- */
-        document.getElementById('btn-save-word').addEventListener('click', () => {
+        /* --- ADD WORD (NOW SAVES TO FIREBASE) --- */
+        document.getElementById('btn-save-word').addEventListener('click', async () => {
             const ger = document.getElementById('new-german').value.trim();
             const eng = document.getElementById('new-english').value.trim();
             const ex = document.getElementById('new-example').value.trim();
@@ -521,20 +202,33 @@
                 return;
             }
 
-            decks.myWords.push({ german: ger, english: eng, example: ex });
-            localStorage.setItem('myGermanWords', JSON.stringify(decks.myWords));
-            
-            if (currentDeck === 'myWords') words = decks.myWords;
+            const newWord = { german: ger, english: eng, example: ex };
+            msg.textContent = "Saving to database...";
+            msg.style.color = "var(--warning)";
 
-            document.getElementById('new-german').value = '';
-            document.getElementById('new-english').value = '';
-            document.getElementById('new-example').value = '';
-            
-            msg.textContent = "Word saved successfully!";
-            msg.style.color = "var(--success)";
-            setTimeout(() => msg.textContent = "", 2000);
-            
-            if (currentDeck === 'myWords') loadNextFlashcard();
+            try {
+                // Save word to Firebase
+                await addDoc(collection(db, "myWords"), newWord);
+                
+                // Add to local array so it updates immediately
+                decks.myWords.push(newWord);
+                if (currentDeck === 'myWords') words = decks.myWords;
+
+                // Clear form
+                document.getElementById('new-german').value = '';
+                document.getElementById('new-english').value = '';
+                document.getElementById('new-example').value = '';
+                
+                msg.textContent = "Word saved securely!";
+                msg.style.color = "var(--success)";
+                setTimeout(() => msg.textContent = "", 2000);
+                
+                if (currentDeck === 'myWords') loadNextFlashcard();
+            } catch (error) {
+                console.error("Error saving word:", error);
+                msg.textContent = "Error saving. Check console.";
+                msg.style.color = "var(--danger)";
+            }
         });
 
         /* --- QUIZ --- */
@@ -598,9 +292,8 @@
         document.getElementById('btn-next-quiz').addEventListener('click', loadQuizQuestion);
 
         /* --- START --- */
-        window.onload = () => {
+        window.addEventListener('DOMContentLoaded', () => {
             fetchAllDecks(); 
-        };
+            fetchMyWordsFromFirebase(); // Load synced words on startup
+        });
     </script>
-</body>
-</html>
