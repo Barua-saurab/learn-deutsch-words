@@ -395,7 +395,7 @@
             const t = new Date().getTime();
             Promise.all([
                 fetch(`b1.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
-                fetch(`B2.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
+                fetch(`b2.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
                 fetch(`travel.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
                 fetch(`food.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => [])
             ]).then(([b1Data, b2Data, travelData, foodData]) => {
