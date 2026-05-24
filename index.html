@@ -473,9 +473,9 @@
             }
         });
 
-        document.getElementById('external-link-btn').addEventListener('click', () => {
-    window.open('./resources.html', '_blank');
-      });
+       document.getElementById('external-link-btn').addEventListener('click', () => {
+    window.location.href = './resources.html';
+});
 
         /* --- FLASHCARDS --- */
         flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
