@@ -423,6 +423,7 @@ function updateDeckCounts() {
                 decks.b2 = b2Data;
                 decks.travel = travelData;
                 decks.food = foodData;
+                updateDeckCounts();
                 
                 if (currentDeck !== 'myWords') {
                     words = decks[currentDeck];
@@ -439,6 +440,7 @@ function updateDeckCounts() {
                     onlineWords.push(doc.data());
                 });
                 decks.myWords = onlineWords;
+                updateDeckCounts();
                 
                 if (currentDeck === 'myWords') {
                     words = decks.myWords;
@@ -586,6 +588,7 @@ function updateDeckCounts() {
                 await addDoc(collection(db, "myWords"), newWord);
                 
                 decks.myWords.push(newWord);
+                updateDeckCounts();
                 if (currentDeck === 'myWords') words = decks.myWords;
 
                 document.getElementById('new-german').value = '';
