@@ -13,6 +13,15 @@
 
     
     <style>
+        .deck-count {
+    font-size: 0.8rem;
+    background: rgba(0,0,0,0.1);
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+      
         /* --- CSS VARIABLES & GLOBAL STYLES --- */
         :root {
             --primary: #007bff;
@@ -389,6 +398,17 @@
         let srsData = JSON.parse(localStorage.getItem('germanSrsData')) || {}; 
         let quizScore = 0;
         let currentQuizWord = null;
+
+    /* --- UPDATE DECK COUNTS --- */
+function updateDeckCounts() {
+    if (document.getElementById('count-b1')) document.getElementById('count-b1').textContent = decks.b1.length;
+    if (document.getElementById('count-b2')) document.getElementById('count-b2').textContent = decks.b2.length;
+    if (document.getElementById('count-myWords')) document.getElementById('count-myWords').textContent = decks.myWords.length;
+    
+    // For the dropdown, we combine the word and the count
+    if (document.getElementById('count-travel')) document.getElementById('count-travel').textContent = `Travel (${decks.travel.length})`;
+    if (document.getElementById('count-food')) document.getElementById('count-food').textContent = `Food (${decks.food.length})`;
+}
 
         /* --- FETCH DATA --- */
         function fetchAllDecks() {
