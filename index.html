@@ -296,15 +296,15 @@
 
     <main>
         <div class="deck-selector">
-            <button class="deck-btn active" data-deck="b1">B1 Words</button>
-            <button class="deck-btn" data-deck="b2">B2 Words</button>
-            <button class="deck-btn" data-deck="myWords">My Words</button>
+            <button class="deck-btn active" data-deck="b1">B1 Words <span class="deck-count" id="count-b1"></span></button>
+            <button class="deck-btn" data-deck="b2">B2 Words <span class="deck-count" id="count-b2"></span></button>
+            <button class="deck-btn" data-deck="myWords">My Words <span class="deck-count" id="count-myWords"></span></button>
             <select id="theme-dropdown" class="deck-btn">
-                <option value="">-- Theme --</option>
-                <option value="travel">Travel</option>
-                <option value="food">Food</option>
-            </select>
-        </div>
+            <option value="">-- Theme --</option>
+            <option value="travel" id="count-travel">Travel</option>
+            <option value="food" id="count-food">Food</option>
+       </select>
+    </div>
 
         <section id="flashcard-section" class="view-section">
             <div class="card-container" id="flashcard">
