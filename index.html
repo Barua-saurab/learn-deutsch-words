@@ -11,16 +11,15 @@
         }
     </script>
 
-    
     <style>
         .deck-count {
-    font-size: 0.8rem;
-    background: rgba(0,0,0,0.1);
-    padding: 2px 6px;
-    border-radius: 10px;
-    margin-left: 5px;
-    font-weight: bold;
-}
+            font-size: 0.8rem;
+            background: rgba(0,0,0,0.1);
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 5px;
+            font-weight: bold;
+        }
       
         /* --- CSS VARIABLES & GLOBAL STYLES --- */
         :root {
@@ -115,15 +114,6 @@
         }
 
         .deck-btn.active { background: #d0d0d0; border-color: #999; }
-
-        select.deck-btn {
-            appearance: none;
-            padding-right: 35px;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 14px;
-        }
 
         .hidden { display: none !important; }
 
@@ -304,16 +294,10 @@
     </header>
 
     <main>
-        <div class="deck-selector">
-            <button class="deck-btn active" data-deck="b1">B1 Words <span class="deck-count" id="count-b1"></span></button>
-            <button class="deck-btn" data-deck="b2">B2 Words <span class="deck-count" id="count-b2"></span></button>
-            <button class="deck-btn" data-deck="myWords">My Words <span class="deck-count" id="count-myWords"></span></button>
-            <select id="theme-dropdown" class="deck-btn">
-            <option value="">-- Theme --</option>
-            <option value="travel" id="count-travel">Travel</option>
-            <option value="food" id="count-food">Food</option>
-       </select>
-    </div>
+        <div class="deck-selector" id="deck-selector">
+            <button class="deck-btn static-deck-btn active" data-deck="b1">B1 Words <span class="deck-count" id="count-b1"></span></button>
+            <button class="deck-btn static-deck-btn" data-deck="b2">B2 Words <span class="deck-count" id="count-b2"></span></button>
+        </div>
 
         <section id="flashcard-section" class="view-section">
             <div class="card-container" id="flashcard">
@@ -387,9 +371,8 @@
         let decks = {
             b1: [],
             b2: [],
-            travel: [],
-            food: [],
-            myWords: [] 
+            myWords: [],
+            myWordsSubDecks: {} // Stores chunked arrays (e.g., {'1-100': [], '101-200': []})
         };
 
         let currentDeck = 'b1';
@@ -399,33 +382,77 @@
         let quizScore = 0;
         let currentQuizWord = null;
 
-    /* --- UPDATE DECK COUNTS --- */
-function updateDeckCounts() {
-    if (document.getElementById('count-b1')) document.getElementById('count-b1').textContent = decks.b1.length;
-    if (document.getElementById('count-b2')) document.getElementById('count-b2').textContent = decks.b2.length;
-    if (document.getElementById('count-myWords')) document.getElementById('count-myWords').textContent = decks.myWords.length;
-    
-    // For the dropdown, we combine the word and the count
-    if (document.getElementById('count-travel')) document.getElementById('count-travel').textContent = `Travel (${decks.travel.length})`;
-    if (document.getElementById('count-food')) document.getElementById('count-food').textContent = `Food (${decks.food.length})`;
-}
+        /* --- UPDATE DECK COUNTS --- */
+        function updateDeckCounts() {
+            if (document.getElementById('count-b1')) document.getElementById('count-b1').textContent = decks.b1.length;
+            if (document.getElementById('count-b2')) document.getElementById('count-b2').textContent = decks.b2.length;
+        }
+
+        /* --- DYNAMIC SUBDECK LOGIC --- */
+        function processMyWordsSubDecks() {
+            decks.myWordsSubDecks = {};
+            const chunkSize = 100;
+
+            if (decks.myWords.length === 0) {
+                decks.myWordsSubDecks['1-0'] = []; // Fallback if user has no words yet
+            } else {
+                for (let i = 0; i < decks.myWords.length; i += chunkSize) {
+                    const start = i + 1;
+                    const end = Math.min(i + chunkSize, decks.myWords.length);
+                    const rangeLabel = `${start}-${end}`;
+                    decks.myWordsSubDecks[rangeLabel] = decks.myWords.slice(i, i + chunkSize);
+                }
+            }
+            renderMyWordsSubDeckSelectors();
+        }
+
+        function renderMyWordsSubDeckSelectors() {
+            // Remove previously rendered dynamic buttons
+            document.querySelectorAll('.mywords-range-btn').forEach(el => el.remove());
+            const deckSelectorDiv = document.getElementById('deck-selector');
+            const ranges = Object.keys(decks.myWordsSubDecks);
+
+            ranges.forEach(range => {
+                const btn = document.createElement('button');
+                btn.className = 'deck-btn mywords-range-btn';
+                const deckId = `myWords_${range}`;
+                btn.dataset.deck = deckId;
+                
+                // If this specific range is active, style it correctly
+                if (currentDeck === deckId) {
+                    btn.classList.add('active');
+                }
+
+                btn.innerHTML = `My Words ${range} <span class="deck-count">${decks.myWordsSubDecks[range].length}</span>`;
+                
+                // Attach click listener for this specific chunk
+                btn.addEventListener('click', () => handleDeckClick(btn, decks.myWordsSubDecks[range]));
+                deckSelectorDiv.appendChild(btn);
+            });
+        }
+
+        function handleDeckClick(clickedBtn, targetWordsArray) {
+            document.querySelectorAll('.deck-btn').forEach(b => b.classList.remove('active'));
+            clickedBtn.classList.add('active');
+            
+            currentDeck = clickedBtn.dataset.deck;
+            words = targetWordsArray;
+            loadNextFlashcard();
+        }
 
         /* --- FETCH DATA --- */
         function fetchAllDecks() {
             const t = new Date().getTime();
             Promise.all([
                 fetch(`b1.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
-                fetch(`b2.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
-                fetch(`travel.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => []),
-                fetch(`food.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => [])
-            ]).then(([b1Data, b2Data, travelData, foodData]) => {
+                fetch(`b2.json?v=${t}`).then(res => res.ok ? res.json() : []).catch(() => [])
+            ]).then(([b1Data, b2Data]) => {
                 decks.b1 = b1Data;
                 decks.b2 = b2Data;
-                decks.travel = travelData;
-                decks.food = foodData;
                 updateDeckCounts();
                 
-                if (currentDeck !== 'myWords') {
+                // Load initial B1 words
+                if (!currentDeck.startsWith('myWords_')) {
                     words = decks[currentDeck];
                     loadNextFlashcard();
                 }
@@ -439,11 +466,14 @@ function updateDeckCounts() {
                 querySnapshot.forEach((doc) => {
                     onlineWords.push(doc.data());
                 });
-                decks.myWords = onlineWords;
-                updateDeckCounts();
                 
-                if (currentDeck === 'myWords') {
-                    words = decks.myWords;
+                decks.myWords = onlineWords;
+                processMyWordsSubDecks(); // Creates chunks and buttons
+
+                // If a user reloads and was previously on a custom range deck
+                if (currentDeck.startsWith('myWords_')) {
+                    const range = currentDeck.split('_')[1];
+                    words = decks.myWordsSubDecks[range] || [];
                     loadNextFlashcard();
                 }
             } catch (error) {
@@ -451,10 +481,10 @@ function updateDeckCounts() {
             }
         }
 
-        /* --- DOM REFERENCES --- */
+        /* --- DOM REFERENCES & STATIC LISTENERS --- */
         const views = document.querySelectorAll('.view-section');
         const navBtns = document.querySelectorAll('.nav-btn');
-        const deckBtns = document.querySelectorAll('.deck-btn');
+        const staticDeckBtns = document.querySelectorAll('.static-deck-btn');
         const flashcard = document.getElementById('flashcard');
         const wordGerman = document.getElementById('word-german');
         const wordEnglish = document.getElementById('word-english');
@@ -471,33 +501,16 @@ function updateDeckCounts() {
             });
         });
 
-        /* --- DECK SWITCHING --- */
-        deckBtns.forEach(btn => {
-            if (btn.tagName === 'BUTTON') {
-                btn.addEventListener('click', () => {
-                    deckBtns.forEach(b => b.classList.remove('active'));
-                    document.getElementById('theme-dropdown').value = "";
-                    btn.classList.add('active');
-                    currentDeck = btn.dataset.deck;
-                    words = decks[currentDeck];
-                    loadNextFlashcard();
-                });
-            }
+        /* --- STATIC DECK SWITCHING --- */
+        staticDeckBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                handleDeckClick(btn, decks[btn.dataset.deck]);
+            });
         });
 
-        document.getElementById('theme-dropdown').addEventListener('change', (e) => {
-            const selectedTheme = e.target.value;
-            if (selectedTheme) {
-                deckBtns.forEach(b => b.classList.remove('active'));
-                currentDeck = selectedTheme;
-                words = decks[currentDeck];
-                loadNextFlashcard();
-            }
+        document.getElementById('external-link-btn').addEventListener('click', () => {
+            window.location.href = './resources.html';
         });
-
-       document.getElementById('external-link-btn').addEventListener('click', () => {
-    window.location.href = './resources.html';
-});
 
         /* --- FLASHCARDS --- */
         flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
@@ -567,7 +580,7 @@ function updateDeckCounts() {
             });
         });
 
-        /* --- ADD WORD (NOW SAVES TO FIREBASE) --- */
+        /* --- ADD WORD --- */
         document.getElementById('btn-save-word').addEventListener('click', async () => {
             const ger = document.getElementById('new-german').value.trim();
             const eng = document.getElementById('new-english').value.trim();
@@ -588,8 +601,22 @@ function updateDeckCounts() {
                 await addDoc(collection(db, "myWords"), newWord);
                 
                 decks.myWords.push(newWord);
-                updateDeckCounts();
-                if (currentDeck === 'myWords') words = decks.myWords;
+                processMyWordsSubDecks(); // Re-render range buttons instantly
+                
+                // Ensure the actively viewed array gets updated if we are currently looking at a custom range
+                if (currentDeck.startsWith('myWords_')) {
+                    const range = currentDeck.split('_')[1];
+                    // If a boundary was crossed (e.g., word 101), the previous range array might not have the new word.
+                    // This updates the view to the current target deck.
+                    if (decks.myWordsSubDecks[range]) {
+                        words = decks.myWordsSubDecks[range];
+                    } else {
+                        // Edge case fallback
+                        const ranges = Object.keys(decks.myWordsSubDecks);
+                        const lastRange = ranges[ranges.length - 1];
+                        words = decks.myWordsSubDecks[lastRange];
+                    }
+                }
 
                 document.getElementById('new-german').value = '';
                 document.getElementById('new-english').value = '';
@@ -599,7 +626,8 @@ function updateDeckCounts() {
                 msg.style.color = "var(--success)";
                 setTimeout(() => msg.textContent = "", 2000);
                 
-                if (currentDeck === 'myWords') loadNextFlashcard();
+                if (currentDeck.startsWith('myWords_')) loadNextFlashcard();
+
             } catch (error) {
                 console.error("Error saving word:", error);
                 msg.textContent = "Error saving. Check console.";
