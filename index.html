@@ -115,6 +115,16 @@
 
         .deck-btn.active { background: #d0d0d0; border-color: #999; }
 
+        select.deck-btn {
+            appearance: none;
+            padding-right: 35px;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 14px;
+            outline: none;
+        }
+
         .hidden { display: none !important; }
 
         /* --- FLASHCARD 3D FLIP STYLES --- */
@@ -297,6 +307,9 @@
         <div class="deck-selector" id="deck-selector">
             <button class="deck-btn static-deck-btn active" data-deck="b1">B1 Words <span class="deck-count" id="count-b1"></span></button>
             <button class="deck-btn static-deck-btn" data-deck="b2">B2 Words <span class="deck-count" id="count-b2"></span></button>
+            <select id="mywords-dropdown" class="deck-btn">
+                <option value="">-- My Words --</option>
+            </select>
         </div>
 
         <section id="flashcard-section" class="view-section">
@@ -372,7 +385,7 @@
             b1: [],
             b2: [],
             myWords: [],
-            myWordsSubDecks: {} // Stores chunked arrays (e.g., {'1-100': [], '101-200': []})
+            myWordsSubDecks: {} 
         };
 
         let currentDeck = 'b1';
@@ -394,7 +407,7 @@
             const chunkSize = 100;
 
             if (decks.myWords.length === 0) {
-                decks.myWordsSubDecks['1-0'] = []; // Fallback if user has no words yet
+                decks.myWordsSubDecks['1-0'] = []; 
             } else {
                 for (let i = 0; i < decks.myWords.length; i += chunkSize) {
                     const start = i + 1;
@@ -407,37 +420,26 @@
         }
 
         function renderMyWordsSubDeckSelectors() {
-            // Remove previously rendered dynamic buttons
-            document.querySelectorAll('.mywords-range-btn').forEach(el => el.remove());
-            const deckSelectorDiv = document.getElementById('deck-selector');
+            const dropdown = document.getElementById('mywords-dropdown');
+            
+            // Reset dropdown
+            dropdown.innerHTML = '<option value="">-- My Words --</option>';
+            
             const ranges = Object.keys(decks.myWordsSubDecks);
 
             ranges.forEach(range => {
-                const btn = document.createElement('button');
-                btn.className = 'deck-btn mywords-range-btn';
+                const option = document.createElement('option');
                 const deckId = `myWords_${range}`;
-                btn.dataset.deck = deckId;
                 
-                // If this specific range is active, style it correctly
+                option.value = deckId;
+                option.textContent = `My Words ${range} (${decks.myWordsSubDecks[range].length})`;
+                
                 if (currentDeck === deckId) {
-                    btn.classList.add('active');
+                    option.selected = true;
                 }
-
-                btn.innerHTML = `My Words ${range} <span class="deck-count">${decks.myWordsSubDecks[range].length}</span>`;
                 
-                // Attach click listener for this specific chunk
-                btn.addEventListener('click', () => handleDeckClick(btn, decks.myWordsSubDecks[range]));
-                deckSelectorDiv.appendChild(btn);
+                dropdown.appendChild(option);
             });
-        }
-
-        function handleDeckClick(clickedBtn, targetWordsArray) {
-            document.querySelectorAll('.deck-btn').forEach(b => b.classList.remove('active'));
-            clickedBtn.classList.add('active');
-            
-            currentDeck = clickedBtn.dataset.deck;
-            words = targetWordsArray;
-            loadNextFlashcard();
         }
 
         /* --- FETCH DATA --- */
@@ -451,7 +453,6 @@
                 decks.b2 = b2Data;
                 updateDeckCounts();
                 
-                // Load initial B1 words
                 if (!currentDeck.startsWith('myWords_')) {
                     words = decks[currentDeck];
                     loadNextFlashcard();
@@ -468,9 +469,8 @@
                 });
                 
                 decks.myWords = onlineWords;
-                processMyWordsSubDecks(); // Creates chunks and buttons
+                processMyWordsSubDecks(); 
 
-                // If a user reloads and was previously on a custom range deck
                 if (currentDeck.startsWith('myWords_')) {
                     const range = currentDeck.split('_')[1];
                     words = decks.myWordsSubDecks[range] || [];
@@ -504,8 +504,29 @@
         /* --- STATIC DECK SWITCHING --- */
         staticDeckBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                handleDeckClick(btn, decks[btn.dataset.deck]);
+                document.getElementById('mywords-dropdown').value = "";
+                
+                staticDeckBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                currentDeck = btn.dataset.deck;
+                words = decks[currentDeck];
+                loadNextFlashcard();
             });
+        });
+
+        /* --- DROP-DOWN DECK SWITCHING --- */
+        document.getElementById('mywords-dropdown').addEventListener('change', (e) => {
+            const selectedDeckId = e.target.value;
+            
+            if (selectedDeckId) {
+                staticDeckBtns.forEach(b => b.classList.remove('active'));
+                
+                currentDeck = selectedDeckId;
+                const range = selectedDeckId.split('_')[1];
+                words = decks.myWordsSubDecks[range];
+                loadNextFlashcard();
+            }
         });
 
         document.getElementById('external-link-btn').addEventListener('click', () => {
@@ -517,7 +538,7 @@
 
         document.getElementById('btn-audio').addEventListener('click', (e) => {
             e.stopPropagation(); 
-            if (!words[currentWordIndex]) return;
+            if (!words || !words[currentWordIndex]) return;
             const utterance = new SpeechSynthesisUtterance(words[currentWordIndex].german);
             utterance.lang = 'de-DE';
             utterance.rate = 0.8; 
@@ -559,7 +580,7 @@
 
         document.getElementById('btn-next').addEventListener('click', loadNextFlashcard);
         document.getElementById('btn-prev').addEventListener('click', () => {
-            if (words.length === 0) return;
+            if (!words || words.length === 0) return;
             currentWordIndex = (currentWordIndex > 0) ? currentWordIndex - 1 : words.length - 1;
             updateFlashcardUI();
         });
@@ -601,17 +622,13 @@
                 await addDoc(collection(db, "myWords"), newWord);
                 
                 decks.myWords.push(newWord);
-                processMyWordsSubDecks(); // Re-render range buttons instantly
+                processMyWordsSubDecks(); 
                 
-                // Ensure the actively viewed array gets updated if we are currently looking at a custom range
                 if (currentDeck.startsWith('myWords_')) {
                     const range = currentDeck.split('_')[1];
-                    // If a boundary was crossed (e.g., word 101), the previous range array might not have the new word.
-                    // This updates the view to the current target deck.
                     if (decks.myWordsSubDecks[range]) {
                         words = decks.myWordsSubDecks[range];
                     } else {
-                        // Edge case fallback
                         const ranges = Object.keys(decks.myWordsSubDecks);
                         const lastRange = ranges[ranges.length - 1];
                         words = decks.myWordsSubDecks[lastRange];
