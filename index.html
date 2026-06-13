@@ -469,6 +469,9 @@
                     onlineWords.push(doc.data());
                 });
                 
+                // IMPORTANT: Sort words by creation time to lock them in their correct ranges!
+                onlineWords.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+                
                 decks.myWords = onlineWords;
                 processMyWordsSubDecks(); 
 
@@ -613,7 +616,14 @@
                 return;
             }
 
-            const newWord = { german: ger, english: eng, example: ex };
+            // IMPORTANT: Save timestamp to keep sorting intact
+            const newWord = { 
+                german: ger, 
+                english: eng, 
+                example: ex,
+                createdAt: Date.now() 
+            };
+            
             msg.textContent = "Saving to database...";
             msg.style.color = "var(--warning)";
 
