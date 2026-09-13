@@ -412,8 +412,8 @@
         let decks = {
             b1: [],
             b2: [],
-            learned: JSON.parse(localStorage.getItem('germanLearnedWords')) || [],
-            favorites: JSON.parse(localStorage.getItem('germanFavoriteWords')) || [],
+            learned: [],
+            favorites: [],
             myWords: [],
             myWordsSubDecks: {} 
         };
@@ -526,6 +526,24 @@
             }
         }
 
+        async function fetchLearnedAndFavoritesFromFirebase() {
+            try {
+                const learnedSnapshot = await getDocs(collection(db, "learnedWords"));
+                let learnedList = [];
+                learnedSnapshot.forEach(doc => learnedList.push(doc.data()));
+                decks.learned = learnedList;
+
+                const favSnapshot = await getDocs(collection(db, "favoriteWords"));
+                let favList = [];
+                favSnapshot.forEach(doc => favList.push(doc.data()));
+                decks.favorites = favList;
+
+                updateDeckCounts();
+            } catch (error) {
+                console.error("Error fetching learned/favorites:", error);
+            }
+        }
+
         /* --- DOM REFERENCES & STATIC LISTENERS --- */
         const views = document.querySelectorAll('.view-section');
         const navBtns = document.querySelectorAll('.nav-btn');
@@ -623,14 +641,18 @@
             updateFlashcardUI();
         });
 
-        /* --- MOVE ENTIRELY ACTIONS (Learned & Favorites) --- */
-        document.getElementById('btn-mark-learned').addEventListener('click', () => {
+        /* --- MOVE ENTIRELY TO CLOUD (Learned & Favorites) --- */
+        document.getElementById('btn-mark-learned').addEventListener('click', async () => {
             if (!words || words.length === 0) return;
             const currentWord = words[currentWordIndex];
             
             if (!decks.learned.some(w => w.german === currentWord.german)) {
                 decks.learned.push(currentWord);
-                localStorage.setItem('germanLearnedWords', JSON.stringify(decks.learned));
+                try {
+                    await addDoc(collection(db, "learnedWords"), currentWord);
+                } catch (error) {
+                    console.error("Error saving learned word to cloud:", error);
+                }
             }
 
             // Remove entirely from current active deck array
@@ -647,13 +669,17 @@
             }
         });
 
-        document.getElementById('btn-mark-favorite').addEventListener('click', () => {
+        document.getElementById('btn-mark-favorite').addEventListener('click', async () => {
             if (!words || words.length === 0) return;
             const currentWord = words[currentWordIndex];
             
             if (!decks.favorites.some(w => w.german === currentWord.german)) {
                 decks.favorites.push(currentWord);
-                localStorage.setItem('germanFavoriteWords', JSON.stringify(decks.favorites));
+                try {
+                    await addDoc(collection(db, "favoriteWords"), currentWord);
+                } catch (error) {
+                    console.error("Error saving favorite word to cloud:", error);
+                }
             }
 
             // Remove entirely from current active deck array
@@ -806,6 +832,7 @@
         async function fetchAllData() {
             fetchAllDecks();
             await fetchMyWordsFromFirebase();
+            await fetchLearnedAndFavoritesFromFirebase();
         }
     </script>
 </body>
