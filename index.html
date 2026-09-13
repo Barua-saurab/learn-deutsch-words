@@ -349,8 +349,8 @@
             </div>
             
             <div class="quick-actions">
-                <button id="btn-mark-learned" class="quick-btn">✅ Mark as Learned</button>
-                <button id="btn-mark-favorite" class="quick-btn">⭐ Add to Favorites</button>
+                <button id="btn-mark-learned" class="quick-btn">✅ Move to Learned</button>
+                <button id="btn-mark-favorite" class="quick-btn">⭐ Move to Favorites</button>
             </div>
 
             <div class="controls">
@@ -435,7 +435,6 @@
 
         /* --- DIFFICULTY LOOP SORTING --- */
         function sortWordsByDifficulty(wordList) {
-            // Sort words so that higher difficulty (hard=4, medium=2, easy=1, unrated=0) come to the front
             return wordList.sort((a, b) => {
                 const scoreA = srsData[a.german] || 0;
                 const scoreB = srsData[b.german] || 0;
@@ -624,26 +623,50 @@
             updateFlashcardUI();
         });
 
-        /* --- QUICK ACTIONS (Learned & Favorites) --- */
+        /* --- MOVE ENTIRELY ACTIONS (Learned & Favorites) --- */
         document.getElementById('btn-mark-learned').addEventListener('click', () => {
             if (!words || words.length === 0) return;
             const currentWord = words[currentWordIndex];
+            
             if (!decks.learned.some(w => w.german === currentWord.german)) {
                 decks.learned.push(currentWord);
                 localStorage.setItem('germanLearnedWords', JSON.stringify(decks.learned));
-                updateDeckCounts();
-                alert(`"${currentWord.german}" moved to Learned deck!`);
+            }
+
+            // Remove entirely from current active deck array
+            words.splice(currentWordIndex, 1);
+            updateDeckCounts();
+
+            if (words.length > 0) {
+                currentWordIndex = currentWordIndex >= words.length ? 0 : currentWordIndex;
+                updateFlashcardUI();
+            } else {
+                wordGerman.textContent = "No words here yet!";
+                wordEnglish.textContent = "Add some words to this deck.";
+                wordExample.textContent = "";
             }
         });
 
         document.getElementById('btn-mark-favorite').addEventListener('click', () => {
             if (!words || words.length === 0) return;
             const currentWord = words[currentWordIndex];
+            
             if (!decks.favorites.some(w => w.german === currentWord.german)) {
                 decks.favorites.push(currentWord);
                 localStorage.setItem('germanFavoriteWords', JSON.stringify(decks.favorites));
-                updateDeckCounts();
-                alert(`"${currentWord.german}" added to Favorites!`);
+            }
+
+            // Remove entirely from current active deck array
+            words.splice(currentWordIndex, 1);
+            updateDeckCounts();
+
+            if (words.length > 0) {
+                currentWordIndex = currentWordIndex >= words.length ? 0 : currentWordIndex;
+                updateFlashcardUI();
+            } else {
+                wordGerman.textContent = "No words here yet!";
+                wordEnglish.textContent = "Add some words to this deck.";
+                wordExample.textContent = "";
             }
         });
 
@@ -661,7 +684,7 @@
                 
                 localStorage.setItem('germanSrsData', JSON.stringify(srsData));
                 
-                // Re-sort words based on updated difficulty so harder words come to the front
+                // Re-sort words based on difficulty so higher difficulty words jump to the front
                 sortWordsByDifficulty(words);
                 currentWordIndex = 0;
                 updateFlashcardUI();
