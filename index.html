@@ -392,7 +392,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         /* --- FIREBASE SETUP --- */
         const firebaseConfig = {
@@ -644,6 +644,8 @@
         /* --- MOVE ENTIRELY TO CLOUD (Learned & Favorites) --- */
         document.getElementById('btn-mark-learned').addEventListener('click', async () => {
             if (!words || words.length === 0) return;
+            if (currentDeck === 'learned') return;
+
             const currentWord = words[currentWordIndex];
             
             if (!decks.learned.some(w => w.german === currentWord.german)) {
@@ -655,7 +657,21 @@
                 }
             }
 
-            // Remove entirely from current active deck array
+            if (currentDeck.startsWith('myWords_')) {
+                try {
+                    const querySnapshot = await getDocs(collection(db, "myWords"));
+                    querySnapshot.forEach(async (document) => {
+                        if (document.data().german === currentWord.german) {
+                            await deleteDoc(doc(db, "myWords", document.id));
+                        }
+                    });
+                    decks.myWords = decks.myWords.filter(w => w.german !== currentWord.german);
+                    processMyWordsSubDecks();
+                } catch (error) {
+                    console.error("Error removing from myWords:", error);
+                }
+            }
+
             words.splice(currentWordIndex, 1);
             updateDeckCounts();
 
@@ -671,6 +687,8 @@
 
         document.getElementById('btn-mark-favorite').addEventListener('click', async () => {
             if (!words || words.length === 0) return;
+            if (currentDeck === 'favorites') return;
+
             const currentWord = words[currentWordIndex];
             
             if (!decks.favorites.some(w => w.german === currentWord.german)) {
@@ -682,7 +700,21 @@
                 }
             }
 
-            // Remove entirely from current active deck array
+            if (currentDeck.startsWith('myWords_')) {
+                try {
+                    const querySnapshot = await getDocs(collection(db, "myWords"));
+                    querySnapshot.forEach(async (document) => {
+                        if (document.data().german === currentWord.german) {
+                            await deleteDoc(doc(db, "myWords", document.id));
+                        }
+                    });
+                    decks.myWords = decks.myWords.filter(w => w.german !== currentWord.german);
+                    processMyWordsSubDecks();
+                } catch (error) {
+                    console.error("Error removing from myWords:", error);
+                }
+            }
+
             words.splice(currentWordIndex, 1);
             updateDeckCounts();
 
@@ -710,7 +742,6 @@
                 
                 localStorage.setItem('germanSrsData', JSON.stringify(srsData));
                 
-                // Re-sort words based on difficulty so higher difficulty words jump to the front
                 sortWordsByDifficulty(words);
                 currentWordIndex = 0;
                 updateFlashcardUI();
