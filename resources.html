@@ -593,61 +593,81 @@
                 ex: "<strong>Woher</strong> kommst du? <strong>Wie viele</strong> Freunde hast du?"
             },
 //---------------------------------------------------------------------------------------------------------
-            {
-                title: "Präpositionen",
-                desc: `
-                    <h4>Akkusative Präpositionen (Accusative)</h4>
-                    <ul>
-                        <li><strong>für</strong> – for</li>
-                        <li><strong>bis</strong> – till / until</li>
-                        <li><strong>durch</strong> – through</li>
-                        <li><strong>gegen</strong> – against</li>
-                        <li><strong>um</strong> – around</li>
-                        <li><strong>ohne</strong> – without</li>
-                        <li><strong>entlang</strong> – alongside</li>
-                    </ul>
+           {
+    title: "Präpositionen",
+    desc: `
+        <h4>Präpositionen und Fälle</h4>
+        
+        <!-- Dropdown Example Selector -->
+        <div style="margin: 1rem 0 1.5rem 0; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <label for="prep-example-select" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px;">Wähle eine Präpositionen-Gruppe:</label>
+            <select id="prep-example-select" onchange="updatePrepExample(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.95rem; outline: none; background: white;">
+                <option value="akk">1. Akkusative Präpositionen (für, durch, ohne...)</option>
+                <option value="dat">2. Dative Präpositionen (mit, nach, seit...)</option>
+                <option value="wechsel">3. Wechselpräpositionen (in, auf, über...)</option>
+                <option value="gen">4. Genitive Präpositionen (wegen, während, trotz...)</option>
+            </select>
+            <div id="prep-example-display" style="margin-top: 12px; font-style: normal; color: var(--secondary); font-size: 0.9rem; line-height: 1.6;">
+                • <strong>für:</strong> Wir kämpfen gemeinsam <em>für</em> eine gerechtere Gesellschaft, obwohl der Weg dorthin steinig ist.<br>
+                • <strong>durch:</strong> <em>Durch</em> seine zielstrebige und harte Arbeit hat er die anspruchsvolle Prüfung mit Bravour bestanden.<br>
+                • <strong>ohne:</strong> Man kann heutzutage kaum noch erfolgreich sein, <em>ohne</em> dass man sich kontinuierlich weiterbildet.<br>
+                • <strong>gegen:</strong> Die Demonstranten protestierten lautstark <em>gegen</em> die geplante Erhöhung der Studiengebühren.<br>
+                • <strong>um:</strong> Die Erde bewegt sich fortlaufend <em>um</em> die Sonne, während sie gleichzeitig um ihre eigene Achse rotiert.
+            </div>
+        </div>
 
-                    <h4>Dative Präpositionen (Dative)</h4>
-                    <ul>
-                        <li><strong>mit</strong> – with</li>
-                        <li><strong>von</strong> – of / from / by</li>
-                        <li><strong>seit</strong> – since</li>
-                        <li><strong>zu</strong> – to</li>
-                        <li><strong>nach</strong> – after</li>
-                        <li><strong>aus</strong> – from / made of</li>
-                        <li><strong>bei</strong> – at / in case of</li>
-                        <li><strong>gegenüber</strong> – on the opposite side of</li>
-                        <li><strong>außer</strong> – except / other than</li>
-                    </ul>
+        <h4>Akkusative Präpositionen (Accusative)</h4>
+        <ul>
+            <li><strong>für</strong> – for</li>
+            <li><strong>bis</strong> – till / until</li>
+            <li><strong>durch</strong> – through</li>
+            <li><strong>gegen</strong> – against</li>
+            <li><strong>um</strong> – around</li>
+            <li><strong>ohne</strong> – without</li>
+            <li><strong>entlang</strong> – alongside</li>
+        </ul>
 
-                    <h4>Wechsel Präpositionen (Changing / Two-Way)</h4>
-                    <ul>
-                        <li><strong>über</strong> – above / over / about</li>
-                        <li><strong>auf</strong> – on</li>
-                        <li><strong>in</strong> – in / inside</li>
-                        <li><strong>zwischen</strong> – between</li>
-                        <li><strong>unter</strong> – under</li>
-                        <li><strong>vor</strong> – in front of / before</li>
-                        <li><strong>hinter</strong> – behind</li>
-                        <li><strong>an</strong> – next to / adjacent to / parallel to</li>
-                        <li><strong>neben</strong> – near</li>
-                    </ul>
+        <h4>Dative Präpositionen (Dative)</h4>
+        <ul>
+            <li><strong>mit</strong> – with</li>
+            <li><strong>von</strong> – of / from / by</li>
+            <li><strong>seit</strong> – since</li>
+            <li><strong>zu</strong> – to</li>
+            <li><strong>nach</strong> – after</li>
+            <li><strong>aus</strong> – from / made of</li>
+            <li><strong>bei</strong> – at / in case of</li>
+            <li><strong>gegenüber</strong> – on the opposite side of</li>
+            <li><strong>außer</strong> – except / other than</li>
+        </ul>
 
-                    <h4>Genitive Präpositionen (Genitive)</h4>
-                    <ul>
-                        <li><strong>wegen</strong> – because of</li>
-                        <li><strong>während</strong> – during</li>
-                        <li><strong>statt</strong> – instead of</li>
-                        <li><strong>trotz</strong> – in spite of</li>
-                        <li><strong>außerhalb</strong> – outside of</li>
-                        <li><strong>innerhalb</strong> – inside of / within</li>
-                        <li><strong>diesseits</strong> – this side of</li>
-                        <li><strong>jenseits</strong> – that side of</li>
-                        <li><strong>beiderseits</strong> – on both sides of</li>
-                    </ul>
-                `,
-                ex: "Das Geschenk ist <strong>für</strong> dich. Ich komme <strong>mit</strong> meinem Freund."
-            },
+        <h4>Wechsel Präpositionen (Changing / Two-Way)</h4>
+        <ul>
+            <li><strong>über</strong> – above / over / about</li>
+            <li><strong>auf</strong> – on</li>
+            <li><strong>in</strong> – in / inside</li>
+            <li><strong>zwischen</strong> – between</li>
+            <li><strong>unter</strong> – under</li>
+            <li><strong>vor</strong> – in front of / before</li>
+            <li><strong>hinter</strong> – behind</li>
+            <li><strong>an</strong> – next to / adjacent to / parallel to</li>
+            <li><strong>neben</strong> – near</li>
+        </ul>
+
+        <h4>Genitive Präpositionen (Genitive)</h4>
+        <ul>
+            <li><strong>wegen</strong> – because of</li>
+            <li><strong>während</strong> – during</li>
+            <li><strong>statt</strong> – instead of</li>
+            <li><strong>trotz</strong> – in spite of</li>
+            <li><strong>außerhalb</strong> – outside of</li>
+            <li><strong>innerhalb</strong> – inside of / within</li>
+            <li><strong>diesseits</strong> – this side of</li>
+            <li><strong>jenseits</strong> – that side of</li>
+            <li><strong>beiderseits</strong> – on both sides of</li>
+        </ul>
+    `,
+    ex: "Wählen Sie oben im Dropdown-Menü eine Gruppe aus, um komplexe Beispielsätze zu sehen."
+},
         //---------------------------------------------------------------------------------------------------------
             {
                 title: "Genitiv",
@@ -1455,7 +1475,46 @@ function updatePossExample(val) {
     display.innerHTML = examples[val] || "";
 }
     
-        
+ // Helper function personalPronomen  
+
+    // Helper function Präpositionen
+function updatePrepExample(val) {
+    const display = document.getElementById('prep-example-display');
+    if (!display) return;
+    
+    const examples = {
+        akk: `
+            • <strong>für:</strong> Wir kämpfen gemeinsam <em>für</em> eine gerechtere Gesellschaft, obwohl der Weg dorthin steinig ist.<br>
+            • <strong>durch:</strong> <em>Durch</em> seine zielstrebige und harte Arbeit hat er die anspruchsvolle Prüfung mit Bravour bestanden.<br>
+            • <strong>ohne:</strong> Man kann heutzutage kaum noch erfolgreich sein, <em>ohne</em> dass man sich kontinuierlich weiterbildet.<br>
+            • <strong>gegen:</strong> Die Demonstranten protestierten lautstark <em>gegen</em> die geplante Erhöhung der Studiengebühren.<br>
+            • <strong>um:</strong> Die Erde bewegt sich fortlaufend <em>um</em> die Sonne, während sie gleichzeitig um ihre eigene Achse rotiert.
+        `,
+        dat: `
+            • <strong>mit:</strong> Er hat mir <em>mit</em> großer Geduld erklärt, wie man komplexe Datenstrukturen analysiert.<br>
+            • <strong>nach:</strong> <em>Nach</em>dem er das anstrengende Projekt erfolgreich abgeschlossen hatte, nahm er sich eine wohlverdiente Auszeit.<br>
+            • <strong>seit:</strong> <em>Seit</em>dem sie nach Deutschland gezogen ist, lernt sie jeden Tag eifrig neue Vokabeln.<br>
+            • <strong>aus:</strong> Der erfahrene Ingenieur entwarf die Maschine <em>aus</em> hochwertigen und langlebigen Materialien.<br>
+            • <strong>bei:</strong> <em>Bei</em> schlechten Wetterbedingungen sollte man auf der Autobahn besonders vorsichtig fahren.
+        `,
+        wechsel: `
+            • <strong>in:</strong> Nachdem er das Stipendium erhalten hatte, zog er <em>in</em> eine wunderschöne Altbauwohnung nach Berlin.<br>
+            • <strong>auf:</strong> Das wichtige Dokument lag die ganze Nacht verdeckt <em>auf</em> dem Schreibtisch im Büro.<br>
+            • <strong>über:</strong> Dunkle Wolken zogen plötzlich <em>über</em> die hohen Bergspitzen, bevor ein schweres Gewitter begann.<br>
+            • <strong>zwischen:</strong> Die Verhandlungen <em>zwischen</em> den beiden konkurrierenden Unternehmen dauerten bis spät in die Nacht.<br>
+            • <strong>unter:</strong> <em>Unter</em> Berücksichtigung aller wirtschaftlichen Faktoren trafen sie eine strategische Entscheidung.
+        `,
+        gen: `
+            • <strong>wegen:</strong> <em>Wegen</em> des unerwartet heftigen Schneefalls mussten sämtliche Flüge am Flughafen gestrichen werden.<br>
+            • <strong>während:</strong> <em>Während</em> der langen Vorlesung machte er sich detaillierte Notizen über das komplexe Thema.<br>
+            • <strong>trotz:</strong> <em>Trotz</em> starker gesundheitlicher Bedenken nahm sie an der wichtigen Konferenz teil.<br>
+            • <strong>statt:</strong> <em>Statt</em> des versprochenen Autos kaufte er sich überraschend ein modernes Motorrad.<br>
+            • <strong>außerhalb:</strong> Viele Pendler wohnen heutzutage <em>außerhalb</em> der teuren Innenstädte im Grünen.
+        `
+    };
+    
+    display.innerHTML = examples[val] || "";
+}
 
         function initGrammar() {
             const container = document.getElementById('grammar-tiles');
