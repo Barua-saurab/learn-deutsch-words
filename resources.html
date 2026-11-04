@@ -1009,73 +1009,89 @@
     //---------------------------------------------------------------------------------------------------------
 
             {
-                title: "Passiv",
-                desc: `
-                    <h4>Was ist das Passiv? (What is Passive Voice?)</h4>
-                    <p>In a passive sentence, the action is happening, but the doer (Täter) is absent or introduced with a preposition (like <em>von</em> or <em>durch</em>).</p>
-                    <ul>
-                        <li><strong>Aktiv:</strong> Wann wird er die Information geben? <em>(doer "er" is present)</em></li>
-                        <li><strong>Passiv:</strong> Wann wird diese Information gegeben? <em>(doer is absent, focus is on the action)</em></li>
-                    </ul>
+    title: "Passiv",
+    desc: `
+        <h4>Was ist das Passiv? (What is Passive Voice?)</h4>
+        <p>In a passive sentence, the action is happening, but the doer (Täter) is absent or introduced with a preposition (like <em>von</em> or <em>durch</em>).</p>
+        <ul>
+            <li><strong>Aktiv:</strong> Wann wird er die Information geben? <em>(doer "er" is present)</em></li>
+            <li><strong>Passiv:</strong> Wann wird diese Information gegeben? <em>(doer is absent, focus is on the action)</em></li>
+        </ul>
 
-                    <h4>Passiv nach Zeiten (Passive by Tense)</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Tense</th><th>Structure</th><th>Example</th></tr></thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Präsens</strong></td>
-                                <td>werden + PP</td>
-                                <td>Weihnachten <strong>wird</strong> jedes Jahr im Dezember <strong>gefeiert</strong>.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Perfekt</strong></td>
-                                <td>sein + PP + worden</td>
-                                <td>Warum <strong>ist</strong> das Paket gestern nicht <strong>geliefert worden</strong>?</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Präteritum</strong></td>
-                                <td>wurden + PP</td>
-                                <td>Warum <strong>wurde</strong> das Paket gestern nicht <strong>geliefert</strong>?</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Futur I</strong></td>
-                                <td>werden + PP + werden</td>
-                                <td>Das Essen <strong>wird</strong> bis Ende des Tages <strong>gekocht werden</strong>.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <!-- Dropdown Example Selector -->
+        <div style="margin: 1.5rem 0 1.5rem 0; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <label for="passiv-example-select" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px;">Wähle eine Passiv-Kategorie:</label>
+            <select id="passiv-example-select" onchange="updatePassivExample(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.95rem; outline: none; background: white;">
+                <option value="zeiten">1. Passiv nach Zeiten (Präsens, Präteritum, Perfekt, Futur I)</option>
+                <option value="modal">2. Passiv mit Modalverben</option>
+                <option value="alternativen">3. Alternativen (sich lassen / sein + zu)</option>
+            </select>
+            <div id="passiv-example-display" style="margin-top: 12px; font-style: normal; color: var(--secondary); font-size: 0.9rem; line-height: 1.6;">
+                • <strong>Präsens:</strong> In der heutigen, stark digitalisierten Arbeitswelt <em>wird</em> großer Wert auf effiziente Kommunikationsstrukturen <em>gelegt</em>.<br>
+                • <strong>Präteritum:</strong> Nachdem alle Unklarheiten beseitigt waren, <em>wurde</em> der komplexe Vertrag von beiden Seiten <em>unterzeichnet</em>.<br>
+                • <strong>Perfekt:</strong> Es <em>ist</em> bedauerlicherweise <em>festgestellt worden</em>, dass bei der Datenmigration einige Fehler aufgetreten sind.<br>
+                • <strong>Futur I:</strong> Das umfassende Konzept <em>wird</em> bis zum Ende des nächsten Monats von den Experten fertiggestellt <em>werden</em>.
+            </div>
+        </div>
 
-                    <h4>Passiv mit Modalverben</h4>
-                    <p><strong>Formel:</strong> Modalverb + PP + werden</p>
-                    <ul>
-                        <li>Was <strong>kann</strong> dagegen <strong>getan werden</strong>?</li>
-                        <li>Deutsch <strong>kann gelernt werden</strong>.</li>
-                        <li>Ich <strong>möchte befördert werden</strong>.</li>
-                    </ul>
+        <h4>Passiv nach Zeiten (Passive by Tense)</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Tense</th><th>Structure</th><th>Example</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td><strong>Präsens</strong></td>
+                    <td>werden + PP</td>
+                    <td>Weihnachten <strong>wird</strong> jedes Jahr im Dezember <strong>gefeiert</strong>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Perfekt</strong></td>
+                    <td>sein + PP + worden</td>
+                    <td>Warum <strong>ist</strong> das Paket gestern nicht <strong>geliefert worden</strong>?</td>
+                </tr>
+                <tr>
+                    <td><strong>Präteritum</strong></td>
+                    <td>wurden + PP</td>
+                    <td>Warum <strong>wurde</strong> das Paket gestern nicht <strong>geliefert</strong>?</td>
+                </tr>
+                <tr>
+                    <td><strong>Futur I</strong></td>
+                    <td>werden + PP + werden</td>
+                    <td>Das Essen <strong>wird</strong> bis Ende des Tages <strong>gekocht werden</strong>.</td>
+                </tr>
+            </tbody>
+        </table>
 
-                    <h4>Alternative 1: sich lassen + Infinitiv</h4>
-                    <p>Used as a replacement for Passive with the modal verb <strong>können</strong>.</p>
-                    <table class="grammar-table">
-                        <thead><tr><th>Standard Passive (können)</th><th>Using "sich lassen"</th></tr></thead>
-                        <tbody>
-                            <tr><td>Dieses Projekt kann nicht eingereicht werden.</td><td>Dieses Projekt <strong>lässt sich</strong> nicht <strong>einreichen</strong>.</td></tr>
-                            <tr><td>Das Auto kann nicht hier geparkt werden.</td><td>Das Auto <strong>lässt sich</strong> hier nicht <strong>parken</strong>.</td></tr>
-                        </tbody>
-                    </table>
+        <h4>Passiv mit Modalverben</h4>
+        <p><strong>Formel:</strong> Modalverb + PP + werden</p>
+        <ul>
+            <li>Was <strong>kann</strong> dagegen <strong>getan werden</strong>?</li>
+            <li>Deutsch <strong>kann gelernt werden</strong>.</li>
+            <li>Ich <strong>möchte befördert werden</strong>.</li>
+        </ul>
 
-                    <h4>Alternative 2: sein + zu + Infinitiv</h4>
-                    <p>Used as a replacement for Passive with the modal verbs <strong>müssen, dürfen, sollen</strong>.</p>
-                    <table class="grammar-table">
-                        <thead><tr><th>Standard Passive (müssen/dürfen)</th><th>Using "sein + zu"</th></tr></thead>
-                        <tbody>
-                            <tr><td>In den Park dürfen keine Hunde mitgebracht werden.</td><td>In den Park <strong>sind</strong> keine Hunde <strong>mitzubringen</strong>.</td></tr>
-                            <tr><td>Hier muss Ruhe bewahrt werden.</td><td>Hier <strong>ist</strong> Ruhe <strong>zu bewahren</strong>!</td></tr>
-                            <tr><td>Die Miete muss bezahlt werden.</td><td>Die Miete <strong>ist zu bezahlen</strong>.</td></tr>
-                        </tbody>
-                    </table>
-                `,
-                ex: "Das Haus <strong>wird</strong> nächstes Jahr <strong>gebaut</strong>."
-            },
+        <h4>Alternative 1: sich lassen + Infinitiv</h4>
+        <p>Used as a replacement for Passive with the modal verb <strong>können</strong>.</p>
+        <table class="grammar-table">
+            <thead><tr><th>Standard Passive (können)</th><th>Using "sich lassen"</th></tr></thead>
+            <tbody>
+                <tr><td>Dieses Projekt kann nicht eingereicht werden.</td><td>Dieses Projekt <strong>lässt sich</strong> nicht <strong>einreichen</strong>.</td></tr>
+                <tr><td>Das Auto kann nicht hier geparkt werden.</td><td>Das Auto <strong>lässt sich</strong> hier nicht <strong>parken</strong>.</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Alternative 2: sein + zu + Infinitiv</h4>
+        <p>Used as a replacement for Passive with the modal verbs <strong>müssen, dürfen, sollen</strong>.</p>
+        <table class="grammar-table">
+            <thead><tr><th>Standard Passive (müssen/dürfen)</th><th>Using "sein + zu"</th></tr></thead>
+            <tbody>
+                <tr><td>In den Park dürfen keine Hunde mitgebracht werden.</td><td>In den Park <strong>sind</strong> keine Hunde <strong>mitzubringen</strong>.</td></tr>
+                <tr><td>Hier muss Ruhe bewahrt werden.</td><td>Hier <strong>ist</strong> Ruhe <strong>zu bewahren</strong>!</td></tr>
+                <tr><td>Die Miete muss bezahlt werden.</td><td>Die Miete <strong>ist zu bezahlen</strong>.</td></tr>
+            </tbody>
+        </table>
+    `,
+    ex: "Wählen Sie oben im Dropdown-Menü eine Kategorie aus, um erweiterte Beispielsätze zu sehen."
+},
     //---------------------------------------------------------------------------------------------------------
 
             {
@@ -1553,6 +1569,36 @@ function updateGenExample(val) {
             • <strong>Menge / Auswahl:</strong> Nur wenige <em>der anwesenden Experten</em> konnten eine präzise Prognose für die wirtschaftliche Entwicklung abgeben.<br>
             • <strong>Zugehörigkeit:</strong> Die Mitte <em>des vergangenen Jahrhunderts</em> war geprägt von rasanten technologischen und gesellschaftlichen Umbrüchen.<br>
             • <strong>Bestandteil:</strong> Jedes einzelne Kapitel <em>dieses wissenschaftlichen Buches</em> trägt wesentlich zum Gesamtverständnis des Themas bei.
+        `
+    };
+    
+    display.innerHTML = examples[val] || "";
+}
+
+
+// Helper function Passiv
+function updatePassivExample(val) {
+    const display = document.getElementById('passiv-example-display');
+    if (!display) return;
+    
+    const examples = {
+        zeiten: `
+            • <strong>Präsens:</strong> In der heutigen, stark digitalisierten Arbeitswelt <em>wird</em> großer Wert auf effiziente Kommunikationsstrukturen <em>gelegt</em>.<br>
+            • <strong>Präteritum:</strong> Nachdem alle Unklarheiten beseitigt waren, <em>wurde</em> der komplexe Vertrag von beiden Seiten <em>unterzeichnet</em>.<br>
+            • <strong>Perfekt:</strong> Es <em>ist</em> bedauerlicherweise <em>festgestellt worden</em>, dass bei der Datenmigration einige Fehler aufgetreten sind.<br>
+            • <strong>Futur I:</strong> Das umfassende Konzept <em>wird</em> bis zum Ende des nächsten Monats von den zuständigen Experten fertiggestellt <em>werden</em>.
+        `,
+        modal: `
+            • <strong>mit können:</strong> Die anfallenden Aufgaben <em>müssen</em> mithilfe moderner Automatisierungstools schneller <em>bearbeitet werden können</em>.<br>
+            • <strong>mit müssen:</strong> Es <em>muss</em> sichergestellt <em>werden</em>, dass alle datenschutzrechtlichen Richtlinien strikt eingehalten werden.<br>
+            • <strong>mit sollen:</strong> Der historische Bericht <em>soll</em> bis zur kommenden Konferenz im Detail <em>analysiert werden</em>.<br>
+            • <strong>mit mögen/möchten:</strong> Es <em>möchte</em> an dieser Stelle <em>betont werden</em>, dass Teamarbeit für den Erfolg unerlässlich ist.
+        `,
+        alternativen: `
+            • <strong>sich lassen (Ersatz für können):</strong> Das technische Problem <em>lässt sich</em> dank der neuen Software-Architektur problemlos <em>lösen</em>.<br>
+            • <strong>sich lassen (Beispiel 2):</strong> Solche komplexen Sicherheitsrisiken <em>lassen sich</em> durch präventive Maßnahmen erheblich <em>reduzieren</em>.<br>
+            • <strong>sein + zu (Ersatz für müssen):</strong> Alle ausstehenden Rechnungen <em>sind</em> bis zum Monatsende von der Buchhaltung <em>zu begleichen</em>.<br>
+            • <strong>sein + zu (Beispiel 2):</strong> Bei der Durchführung des Experiments <em>ist</em> äußerste Sorgfalt <em>zu beachten</em>.
         `
     };
     
