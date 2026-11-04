@@ -373,32 +373,57 @@
           
 //---------------------------------------------------------------------------------------------------------
             {
-                title: "Personale Pronomen",
-                desc: `
-                    <h4>Personal Pronouns</h4>
-                    <table class="grammar-table">
-                        <thead>
-                            <tr>
-                                <th>Nominativ</th>
-                                <th>Akkusativ</th>
-                                <th>Dativ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>ich (I)</td><td>mich (me)</td><td>mir (me)</td></tr>
-                            <tr><td>du (you informal)</td><td>dich (you informal)</td><td>dir (you informal)</td></tr>
-                            <tr><td>er (he)</td><td>ihn (him)</td><td>ihm (him)</td></tr>
-                            <tr><td>es (it)</td><td>es (it)</td><td>ihm (it)</td></tr>
-                            <tr><td>sie (she)</td><td>sie (her)</td><td>ihr (her)</td></tr>
-                            <tr><td>Sie (you formal)</td><td>Sie (you formal)</td><td>Ihnen (you formal)</td></tr>
-                            <tr><td>sie (they)</td><td>sie (them)</td><td>ihnen (them)</td></tr>
-                            <tr><td>wir (we)</td><td>uns (us)</td><td>uns (us)</td></tr>
-                            <tr><td>ihr (you all)</td><td>euch (you all)</td><td>euch (you all)</td></tr>
-                        </tbody>
-                    </table>
-                `,
-                ex: "<strong>Ich</strong> gebe <strong>ihm</strong> das Buch."
-            },
+    title: "Personale Pronomen",
+    desc: `
+        <h4>Personal Pronouns</h4>
+        
+        <!-- Dropdown Example Selector -->
+        <div style="margin: 1rem 0 1.5rem 0; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <label for="pers-example-select" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px;">Wähle einen Kasus (Fall):</label>
+            <select id="pers-example-select" onchange="updatePersExample(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.95rem; outline: none; background: white;">
+                <option value="nom">1. Nominativ (Wer-Fall)</option>
+                <option value="akk">2. Akkusativ (Wen-Fall)</option>
+                <option value="dat">3. Dativ (Wem-Fall)</option>
+            </select>
+            <div id="pers-example-display" style="margin-top: 12px; font-style: normal; color: var(--secondary); font-size: 0.9rem; line-height: 1.5;">
+                • <strong>ich:</strong> Ich lerne Deutsch.<br>
+                • <strong>du:</strong> Du spielst Gitarre.<br>
+                • <strong>er:</strong> Er arbeitet viel.<br>
+                • <strong>es:</strong> Es regnet heute.<br>
+                • <strong>sie (singular):</strong> Sie liest ein Buch.<br>
+                • <strong>Sie (formal):</strong> Sie sprechen gut Deutsch.<br>
+                • <strong>wir:</strong> Wir gehen nach Hause.<br>
+                • <strong>ihr:</strong> Ihr kocht das Abendessen.<br>
+                • <strong>sie (plural):</strong> Sie kommen aus Dortmund.<br>
+                • <strong>ich (Zusatz):</strong> Ich trinke einen Kaffee.<br>
+                • <strong>du (Zusatz):</strong> Du hast recht.<br>
+                • <strong>wir (Zusatz):</strong> Wir helfen dir gerne.
+            </div>
+        </div>
+
+        <table class="grammar-table">
+            <thead>
+                <tr>
+                    <th>Nominativ</th>
+                    <th>Akkusativ</th>
+                    <th>Dativ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>ich (I)</td><td>mich (me)</td><td>mir (me)</td></tr>
+                <tr><td>du (you informal)</td><td>dich (you informal)</td><td>dir (you informal)</td></tr>
+                <tr><td>er (he)</td><td>ihn (him)</td><td>ihm (him)</td></tr>
+                <tr><td>es (it)</td><td>es (it)</td><td>ihm (it)</td></tr>
+                <tr><td>sie (she)</td><td>sie (her)</td><td>ihr (her)</td></tr>
+                <tr><td>Sie (you formal)</td><td>Sie (you formal)</td><td>Ihnen (you formal)</td></tr>
+                <tr><td>sie (they)</td><td>sie (them)</td><td>ihnen (them)</td></tr>
+                <tr><td>wir (we)</td><td>uns (us)</td><td>uns (us)</td></tr>
+                <tr><td>ihr (you all)</td><td>euch (you all)</td><td>euch (you all)</td></tr>
+            </tbody>
+        </table>
+    `,
+    ex: "<strong>Ich</strong> gebe <strong>ihm</strong> das Buch."
+},
 //---------------------------------------------------------------------------------------------------------
            {
     title: "Possessive Pronomen",
@@ -1259,6 +1284,58 @@ function updateAdjExample(val) {
             • <strong>Dativ Feminine (-er):</strong> Mit kalter Milch kocht man.<br>
             • <strong>Dativ Neuter (-em):</strong> Mit frischem Wasser kocht man.<br>
             • <strong>Dativ Plural (-en):</strong> Mit frischen Brötchen frühstückt man.
+        `
+    };
+    
+    display.innerHTML = examples[val] || "";
+}
+// Helper function Personale Pronomen
+function updatePersExample(val) {
+    const display = document.getElementById('pers-example-display');
+    if (!display) return;
+    
+    const examples = {
+        nom: `
+            • <strong>ich:</strong> Ich lerne Deutsch.<br>
+            • <strong>du:</strong> Du spielst Gitarre.<br>
+            • <strong>er:</strong> Er arbeitet viel.<br>
+            • <strong>es:</strong> Es regnet heute.<br>
+            • <strong>sie (singular):</strong> Sie liest ein Buch.<br>
+            • <strong>Sie (formal):</strong> Sie sprechen gut Deutsch.<br>
+            • <strong>wir:</strong> Wir gehen nach Hause.<br>
+            • <strong>ihr:</strong> Ihr kocht das Abendessen.<br>
+            • <strong>sie (plural):</strong> Sie kommen aus Dortmund.<br>
+            • <strong>ich (Zusatz):</strong> Ich trinke einen Kaffee.<br>
+            • <strong>du (Zusatz):</strong> Du hast recht.<br>
+            • <strong>wir (Zusatz):</strong> Wir helfen dir gerne.
+        `,
+        akk: `
+            • <strong>mich:</strong> Der Hund beißt mich.<br>
+            • <strong>dich:</strong> Ich sehe dich.<br>
+            • <strong>ihn:</strong> Sie ruft ihn an.<br>
+            • <strong>es:</strong> Er versteht es nicht.<br>
+            • <strong>sie (singular):</strong> Wir besuchen sie.<br>
+            • <span><strong>Sie (formal):</strong> Ich respektiere Sie.<br>
+            • <strong>uns:</strong> Der Lehrer fragt uns.<br>
+            • <strong>euch:</strong> Ich lade euch ein.<br>
+            • <strong>sie (plural):</strong> Kennst du sie?<br>
+            • <strong>mich (Zusatz):</strong> Kannst du mich hören?<br>
+            • <strong>dich (Zusatz):</strong> Ich brauche dich.<br>
+            • <strong>uns (Zusatz):</strong> Sie wartet auf uns.
+        `,
+        dat: `
+            • <strong>mir:</strong> Das Buch gehört mir.<br>
+            • <strong>dir:</strong> Ich helfe dir.<br>
+            • <strong>ihm (er):</strong> Ich antworte ihm.<br>
+            • <strong>ihm (es):</strong> Das Kind gibt ihm einen Apfel.<br>
+            • <strong>ihr (sie):</strong> Ich schenke ihr Blumen.<br>
+            • <strong>Ihnen (formal):</strong> Ich danke Ihnen für die Hilfe.<br>
+            • <strong>uns:</strong> Er zeigt uns den Weg.<br>
+            • <strong>euch:</strong> Ich kaufe euch ein Eis.<br>
+            • <strong>ihnen (plural):</strong> Sie schreiben ihnen einen Brief.<br>
+            • <strong>mir (Zusatz):</strong> Es geht mir gut.<br>
+            • <strong>dir (Zusatz):</strong> Was fehlt dir?<br>
+            • <strong>uns (Zusatz):</strong> Das Essen schmeckt uns.
         `
     };
     
