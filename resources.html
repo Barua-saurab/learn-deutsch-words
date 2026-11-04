@@ -220,62 +220,76 @@
     <script>
         const grammarData = [
              {
-                title: "Artikel",
-                desc: `
-                    <p>Übersicht der Artikel in Nominativ, Akkusativ und Dativ.</p>
-                    
-                    <h4>There are 12 "the" in German</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>der</td><td>die</td><td>das</td><td>die</td></tr>
-                            <tr><td>Akkusativ</td><td>den</td><td>die</td><td>das</td><td>die</td></tr>
-                            <tr><td>Dativ</td><td>dem</td><td>der</td><td>dem</td><td>den</td></tr>
-                        </tbody>
-                    </table>
+    title: "Artikel",
+    desc: `
+        <p>Übersicht der Artikel in Nominativ, Akkusativ und Dativ.</p>
+        
+        <!-- Dropdown Example Selector -->
+        <div style="margin: 1rem 0 1.5rem 0; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <label for="article-example-select" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px;">Wähle ein Artikel-Beispiel:</label>
+            <select id="article-example-select" onchange="updateArticleExample(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.95rem; outline: none; background: white;">
+                <option value="def">1. Bestimmte Artikel (der/die/das)</option>
+                <option value="indef">2. Unbestimmte Artikel (ein/eine)</option>
+                <option value="dem">3. Demonstrativartikel (dieser/diese)</option>
+                <option value="rel">4. Interrogativartikel (welcher/welche)</option>
+                <option value="neg">5. Negativartikel (kein/keine)</option>
+            </select>
+            <div id="article-example-display" style="margin-top: 10px; font-style: italic; color: var(--secondary);">
+                • Das ist <strong>der</strong> Mann. Ich sehe <strong>den</strong> Mann. Wir helfen <strong>dem</strong> Mann.
+            </div>
+        </div>
 
-                    <h4>There are 9 "a/an" in German</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>ein</td><td>eine</td><td>ein</td></tr>
-                            <tr><td>Akkusativ</td><td>einen</td><td>eine</td><td>ein</td></tr>
-                            <tr><td>Dativ</td><td>einem</td><td>einer</td><td>einem</td></tr>
-                        </tbody>
-                    </table>
+        <h4>There are 12 "the" in German</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>der</td><td>die</td><td>das</td><td>die</td></tr>
+                <tr><td>Akkusativ</td><td>den</td><td>die</td><td>das</td><td>die</td></tr>
+                <tr><td>Dativ</td><td>dem</td><td>der</td><td>dem</td><td>den</td></tr>
+            </tbody>
+        </table>
 
-                    <h4>There are 12 "this/these" in German</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>dieser</td><td>diese</td><td>dieses</td><td>diese</td></tr>
-                            <tr><td>Akkusativ</td><td>diesen</td><td>diese</td><td>dieses</td><td>diese</td></tr>
-                            <tr><td>Dativ</td><td>diesem</td><td>dieser</td><td>diesem</td><td>diesen</td></tr>
-                        </tbody>
-                    </table>
+        <h4>There are 9 "a/an" in German</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>ein</td><td>eine</td><td>ein</td></tr>
+                <tr><td>Akkusativ</td><td>einen</td><td>eine</td><td>ein</td></tr>
+                <tr><td>Dativ</td><td>einem</td><td>einer</td><td>einem</td></tr>
+            </tbody>
+        </table>
 
-                    <h4>There are 12 "which" in German</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>welcher</td><td>welche</td><td>welches</td><td>welche</td></tr>
-                            <tr><td>Akkusativ</td><td>welchen</td><td>welche</td><td>welches</td><td>welche</td></tr>
-                            <tr><td>Dativ</td><td>welchem</td><td>welcher</td><td>welchem</td><td>welchen</td></tr>
-                        </tbody>
-                    </table>
+        <h4>There are 12 "this/these" in German</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>dieser</td><td>diese</td><td>dieses</td><td>diese</td></tr>
+                <tr><td>Akkusativ</td><td>diesen</td><td>diese</td><td>dieses</td><td>diese</td></tr>
+                <tr><td>Dativ</td><td>diesem</td><td>dieser</td><td>diesem</td><td>diesen</td></tr>
+            </tbody>
+        </table>
 
-                    <h4>There are 12 "not a / not any" in German</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>kein</td><td>keine</td><td>kein</td><td>keine</td></tr>
-                            <tr><td>Akkusativ</td><td>keinen</td><td>keine</td><td>kein</td><td>keine</td></tr>
-                            <tr><td>Dativ</td><td>keinem</td><td>keiner</td><td>keinem</td><td>keinen</td></tr>
-                        </tbody>
-                    </table>
-                `,
-                ex: "Das ist <strong>ein</strong> Buch. Ich sehe <strong>den</strong> Mann."
-            },
+        <h4>There are 12 "which" in German</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>welcher</td><td>welche</td><td>welches</td><td>welche</td></tr>
+                <tr><td>Akkusativ</td><td>welchen</td><td>welche</td><td>welches</td><td>welche</td></tr>
+                <tr><td>Dativ</td><td>welchem</td><td>welcher</td><td>welchem</td><td>welchen</td></tr>
+            </tbody>
+        </table>
+
+        <h4>There are 12 "not a / not any" in German</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>kein</td><td>keine</td><td>kein</td><td>keine</td></tr>
+                <tr><td>Akkusativ</td><td>keinen</td><td>keine</td><td>kein</td><td>keine</td></tr>
+                <tr><td>Dativ</td><td>keinem</td><td>keiner</td><td>keinem</td><td>keinen</td></tr>
+            </tbody>
+        </table>
+    `
+},
 
 
 //---------------------------------------------------------------------------------------------------------
