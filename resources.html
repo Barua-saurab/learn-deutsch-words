@@ -1603,31 +1603,79 @@ function updatePassivExample(val) {
 
 
 // Helper function Konnektoren
+// Helper function Konnektoren with examples for every single item
 function updateKonnExample(val) {
     const display = document.getElementById('konn-example-display');
     if (!display) return;
     
     const examples = {
         null: `
-            • <strong>denn:</strong> Er hat sich intensiv auf die herausragende Prüfung vorbereitet, <em>denn</em> er möchte unbedingt ein exzellentes Ergebnis erzielen.<br>
-            • <strong>sondern:</strong> Sie hat sich nach dem Bachelorstudium nicht für einen direkten Berufseinstieg entschieden, <em>sondern</em> sie führt ihr Masterstudium konsequent fort.<br>
-            • <strong>aber:</strong> Das Wetter zeigte sich zunächst von seiner besten Seite, <em>aber</em> die geplante Wanderung musste wegen eines plötzlichen Sturms abgebrochen werden.<br>
+            <strong>1. Null-Position Konnektoren:</strong><br>
             • <strong>und:</strong> Der erfahrene Softwareentwickler analysierte die Systemarchitektur im Detail, <em>und</em> er präsentierte direkt optimierte Lösungsvorschläge.<br>
-            • <strong>oder:</strong> Entweder arbeiten wir gemeinsam an diesem komplexen Projekt, <em>oder</em> wir müssen die Verantwortlichkeiten komplett neu aufteilen.
+            • <strong>oder:</strong> Entweder arbeiten wir gemeinsam an diesem komplexen Projekt, <em>oder</em> wir müssen die Verantwortlichkeiten komplett neu aufteilen.<br>
+            • <strong>aber:</strong> Das Wetter zeigte sich zunächst von seiner besten Seite, <em>aber</em> die geplante Wanderung musste wegen eines plötzlichen Sturms abgebrochen werden.<br>
+            • <strong>denn:</strong> Er hat sich intensiv auf die herausragende Prüfung vorbereitet, <em>denn</em> er möchte unbedingt ein exzellentes Ergebnis erzielen.<br>
+            • <strong>sondern:</strong> Sie hat sich nach dem Bachelorstudium nicht für einen direkten Berufseinstieg entschieden, <em>sondern</em> sie führt ihr Masterstudium konsequent fort.
         `,
         normal: `
-            • <strong>weil (Verb am Ende):</strong> Der erfahrene Projektmanager konnte den Zeitplan einhalten, <em>weil</em> das gesamte Team außergewöhnlich motiviert <em>gearbeitet hat</em>.<br>
-            • <strong>obwohl (Inversion/Verb-Verb):</strong> <em>Obwohl</em> der Termin extrem knapp <em>bemessen war</em>, <em>konnte</em> die Analyse rechtzeitig fertiggestellt <em>werden</em>.<br>
-            • <strong>damit:</strong> Alle beteiligten Abteilungen müssen transparent kommunizieren, <em>damit</em> Missverständnisse von vornherein vermieden <em>werden können</em>.<br>
-            • <strong>nachdem:</strong> <em>Nachdem</em> die umfangreichen Daten in die Datenbank migriert <em>worden waren</em>, <em>startete</em> das automatisierte Testverfahren.<br>
-            • <strong>ob:</strong> Der Abteilungsleiter wollte genau wissen, <em>ob</em> die neuen Serverstrukturen den steigenden Anforderungen standhalten <em>können</em>.
+            <strong>2. Normale Konnektoren (Verb am Ende):</strong><br>
+            • <strong>weil:</strong> Der Projektmanager hielt den Zeitplan ein, <em>weil</em> das gesamte Team außergewöhnlich motiviert <em>gearbeitet hat</em>.<br>
+            • <strong>da:</strong> <em>Da</em> alle Beteiligten hervorragend <em>zusammenarbeiteten</em>, <em>konnte</em> das Projekt vorfristig abgeschlossen <em>werden</em>.<br>
+            • <strong>dass:</strong> Der Professor betonte in seiner Vorlesung ausdrücklich, <em>dass</em> fundierte Datenanalyse im modernen Berufsleben unerlässlich <em>ist</em>.<br>
+            • <strong>ob:</strong> Der Abteilungsleiter wollte genau wissen, <em>ob</em> die neuen Serverstrukturen den steigenden Lastspitzen standhalten <em>können</em>.<br>
+            • <strong>obwohl:</strong> <em>Obwohl</em> der Termin extrem knapp <em>bemessen war</em>, <em>gelang</em> ihnen eine fehlerfreie Präsentation.<br>
+            • <strong>obgleich:</strong> <em>Obgleich</em> das Wetter extrem unbeständig <em>war</em>, <em>setzten</em> sie die archäologischen Ausgrabungen fort.<br>
+            • <strong>obschon:</strong> <em>Obschon</em> ihm nur wenige Ressourcen zur Verfügung <em>standen</em>, <em>erzielte</em> er beeindruckende Forschungsergebnisse.<br>
+            • <strong>ehe:</strong> Man sollte sämtliche Sicherheitsrisiken gründlich <em>analysieren</em>, <em>ehe</em> man endgültige Entscheidungen <em>trifft</em>.<br>
+            • <strong>damit:</strong> Alle Abteilungen müssen transparent kommunizieren, <em>damit</em> Missverständnisse von vornherein vermieden <em>werden können</em>.<br>
+            • <strong>so dass:</strong> Der Algorithmus verarbeitete die Datensätze fehlerfrei, <em>so dass</em> das Dashboard in Echtzeit aktualisiert <em>wurde</em>.<br>
+            • <strong>weshalb:</strong> Die Lieferkette war durch den Sturm unterbrochen worden, <em>weshalb</em> sich die Produktion um mehrere Tage <em>verzögerte</em>.<br>
+            • <strong>weswegen:</strong> Er hatte seine Unterlagen zu Hause <em>vergessen</em>, <em>weswegen</em> er noch einmal ins Büro zurückkehren <em>musste</em>.<br>
+            • <strong>wenn:</strong> <em>Wenn</em> man kontinuierlich neue Vokabeln <em>lernt</em>, <em>verbessert</em> sich das Sprachniveau spürbar.<br>
+            • <strong>als:</strong> <em>Als</em> er im vergangenen Jahr nach Dortmund <em>zog</em>, <em>begann</em> er sofort mit seinem Masterstudium.<br>
+            • <strong>falls:</strong> <em>Falls</em> technische Probleme beim Server-Hosting <em>auftreten</em>, <em>wird</em> das Backup automatisch <em>aktiviert</em>.<br>
+            • <strong>als ob:</strong> Er erklärte das komplexe System so detailliert, <em>als ob</em> er jahrelang in diesem Bereich <em>gearbeitet hätte</em>.<br>
+            • <strong>solange:</strong> <em>Solange</em> man diszipliniert an seinen Zielen <em>arbeitet</em>, <em>lassen sich</em> auch große Hindernisse <em>überwinden</em>.<br>
+            • <strong>sofern und solange:</strong> Man erhält die Fördermittel, <em>sofern und solange</em> man alle vertraglichen Auflagen fristgerecht <em>erfüllt</em>.<br>
+            • <strong>soweit:</strong> Das System läuft, <em>soweit</em> wir das nach den ersten automatisierten Tests <em>beurteilen können</em>.<br>
+            • <strong>außer wenn:</strong> Die Veranstaltung findet im Freien statt, <em>außer wenn</em> es heftig zu regnen <em>beginnt</em>.<br>
+            • <strong>nur wenn:</strong> Man kann die Prüfung erfolgreich bestehen, <em>nur wenn</em> man sich intensiv auf alle Themen <em>vorbereitet hat</em>.<br>
+            • <strong>auch wenn:</strong> <em>Auch wenn</em> die theoretischen Grundlagen komplex <em>sind</em>, <em>lohnt sich</em> das praktische Programmieren enorm.<br>
+            • <strong>wohingegen:</strong> Die Umsätze im Online-Handel stark <em>stiegen</em>, <em>wogegen</em> der stationäre Handel leichte Verluste <em>verzeichnete</em>.<br>
+            • <strong>indem:</strong> Er optimierte die Performance der Datenbank, <em>indem</em> er fehlende Indizes nachträglich <em>hinzufügte</em>.<br>
+            • <strong>bevor:</strong> Man sollte die Rohdaten gründlich <em>bereinigen</em>, <em>bevor</em> man mit dem maschinellen Lernen <em>beginnt</em>.<br>
+            • <strong>nachdem:</strong> <em>Nachdem</em> die Daten in MySQL migriert <em>worden waren</em>, <em>erstellte</em> er die Visualisierungen in Power BI.<br>
+            • <strong>seitdem:</strong> <em>Seitdem</em> sie den Intensivkurs <em>absolviert hat</em>, <em>spricht</em> sie fließend Deutsch.<br>
+            • <strong>bis:</strong> Er arbeitete hoch konzentriert an seiner Masterarbeit, <em>bis</em> die letzten Korrekturen abgeschlossen <em>waren</em>.<br>
+            • <strong>während:</strong> <em>Während</em> der leitende Ingenieur die Präsentation <em>hielt</em>, <em>notierte</em> das Team alle wichtigen Punkte.
         `,
         adverb: `
-            • <strong>deshalb (Satzglied):</strong> Die Cloud-Infrastruktur erwies sich als äußerst stabil; <em>deshalb</em> verlief die Datenmigration völlig reibungslos.<br>
-            • <strong>trotzdem:</strong> Obwohl der Verkehr auf der Autobahn extrem stockte, kam er <em>trotzdem</em> pünktlich zum wichtigen Geschäftstermin.<br>
-            • <strong>außerdem:</strong> Er hat die vollständige Dokumentation fehlerfrei verfasst; <em>außerdem</em> hat er ein interaktives Dashboard in Power BI erstellt.<br>
-            • <strong>inzwischen:</strong> Die Anwendung befand sich anfangs in einer Testphase, aber <em>inzwischen</em> wird sie produktiv im Unternehmen eingesetzt.<br>
-            • <strong>schließlich:</strong> Nach monatelanger Recherche und intensiven Tests konnte das komplexe System <em>schließlich</em> erfolgreich implementiert werden.
+            <strong>3. Keine Konnektoren / Adverbien (Satzglied-Positionen):</strong><br>
+            • <strong>deshalb:</strong> Die Cloud-Infrastruktur erwies sich als äußerst stabil; <em>deshalb</em> verlief die Datenmigration völlig reibungslos.<br>
+            • <strong>deswegen:</strong> Der Verkehrsfluss auf der Autobahn war komplett blockiert; <em>deswegen</em> kam er zu spät zum Meeting.<br>
+            • <strong>daher:</strong> Die Software wies einen kritischen Bug auf; <em>daher</em> wurde das Release kurzfristig verschoben.<br>
+            • <strong>darum:</strong> Es gab Unstimmigkeiten im Budgetplan; <em>darum</em> mussten die Ausgaben neu kalkuliert werden.<br>
+            • <strong>trotzdem:</strong> Obwohl der Staukilometer lang war, kam er <em>trotzdem</em> pünktlich an.<br>
+            • <strong>stattdessen:</strong> Er konnte das Bauteil nicht reparieren; <em>stattdessen</em> bestellte er direkt ein brandneues Ersatzteil.<br>
+            • <strong>außerdem:</strong> Er hat die vollständige Dokumentation verfasst; <em>außerdem</em> hat er ein interaktives Dashboard gebaut.<br>
+            • <strong>jedoch:</strong> Der Ansatz schvielversprechend aus; <em>jedoch</em> traten bei der praktischen Umsetzung unvorhergesehene Fehler auf.<br>
+            • <strong>endlich:</strong> Nach monatelanger Recherche konnte er das Projekt <em>endlich</em> erfolgreich abschließen.<br>
+            • <strong>dann:</strong> Erst analysieren wir die relationalen Tabellen, und <em>dann</em> migrieren wir die Daten nach MySQL.<br>
+            • <strong>danach:</strong> Zuerst wurde das SQL-Skript ausgeführt; <em>danach</em> überprüfte man die Integrität der Datensätze.<br>
+            • <strong>damals:</strong> <em>Damals</em> steckte die automatisierte Datenverarbeitung noch in den Kinderschuhen.<br>
+            • <strong>dafür:</strong> Die Aufgabe war extrem zeitaufwendig, aber er wurde <em>dafür</em> fair entlohnt.<br>
+            • <strong>dagegen:</strong> Viele Experten sprachen sich gegen den Entwurf aus, während er <em>dagegen</em> argumentierte.<br>
+            • <strong>davor:</strong> Er testete das Skript in einer isolierten Umgebung und schützte <em>davor</em> das Hauptsystem.<br>
+            • <strong>immerhin:</strong> Das Experiment schlug zwar fehl, aber sie gewannen <em>immerhin</em> wichtige Erkenntnisse.<br>
+            • <strong>inzwischen:</strong> Die Anwendung befand sich in der Testphase, aber <em>inzwischen</em> läuft sie im Live-Betrieb.<br>
+            • <strong>schließlich:</strong> Nach zahlreichen Optimierungen lief der Algorithmus <em>schließlich</em> fehlerfrei.<br>
+            • <strong>vorher:</strong> Man muss die Datenbankstruktur prüfen; <em>vorher</em> macht ein Import keinen Sinn.<br>
+            • <strong>zuvor:</strong> Er hatte sich das theoretische Wissen <em>zuvor</em> in einem intensiven Online-Kurs angeeignet.<br>
+            • <strong>allerdings:</strong> Das Konzept überzeugte das Gremium; <em>allerdings</em> gab es kleine Änderungswünsche.<br>
+            • <strong>also:</strong> Alle Module wurden erfolgreich bestanden; <em>also</em> steht dem Masterabschluss nichts mehr im Weg.<br>
+            • <strong>folglich:</strong> Die Serverkapazität war erschöpft; <em>folglich</em> kam es zu kurzen Ladezeiten.<br>
+            • <strong>Aus diesem Grund:</strong> Die Nachfrage nach Fachkräften ist hoch; <em>aus diesem Grund</em> lohnt sich die Weiterbildung.<br>
+            • <strong>sonst:</strong> Man muss das Backup rechtzeitig starten; <em>sonst</em> gehen wertvolle Daten verloren.
         `
     };
     
