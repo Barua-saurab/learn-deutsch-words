@@ -1065,6 +1065,22 @@
                 `
             }
         ];
+    
+// Helper function
+    function updateArticleExample(val) {
+    const display = document.getElementById('article-example-display');
+    if (!display) return;
+    
+    const examples = {
+        def: "• Das ist <strong>der</strong> Mann. Ich sehe <strong>den</strong> Mann. Wir helfen <strong>dem</strong> Mann.",
+        indef: "• Das ist <strong>ein</strong> Buch. Ich sehe <strong>einen</strong> Apfel. Ich helfe <strong>einem</strong> Kind.",
+        dem: "• <strong>Dieser</strong> Tisch ist neu. Ich kaufe <strong>diesen</strong> Tisch. Mit <strong>diesem</strong> Stuhl arbeiten wir.",
+        rel: "• <strong>Welcher</strong> Mann kommt? <strong>Welchen</strong> Hund siehst du? Mit <strong>welchem</strong> Auto fährst du?",
+        neg: "• Das ist <strong>kein</strong> Problem. Ich habe <strong>keinen</strong> Hunger. Er hilft <strong>keinem</strong> Kollegen."
+    };
+    
+    display.innerHTML = examples[val] || "";
+        }
 
         function initGrammar() {
             const container = document.getElementById('grammar-tiles');
