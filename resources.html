@@ -1095,120 +1095,116 @@
     //---------------------------------------------------------------------------------------------------------
 
             {
-                title: "Konnektoren",
-                desc: `
-                    <h4>1. Null Position Konnektoren</h4>
-                    <p>There are five Null Position Konnektoren. Whenever we use a Null-Position Konnektor, the second sentence remains as it is. No change takes place in the second sentence.</p>
-                    <ul style="margin-left: 20px; margin-top: 5px; margin-bottom: 15px;">
-                        <li><strong>und</strong> (and)</li>
-                        <li><strong>oder</strong> (or)</li>
-                        <li><strong>aber</strong> (but)</li>
-                        <li><strong>denn</strong> (because)</li>
-                        <li><strong>sondern</strong> (rather / but)</li>
-                    </ul>
+    title: "Konnektoren",
+    desc: `
+        <h4>Übersicht der Konnektoren und Satzstrukturen</h4>
+        
+        <!-- Dropdown Example Selector -->
+        <div style="margin: 1.5rem 0 1.5rem 0; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <label for="konn-example-select" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px;">Wähle eine Konnektoren-Kategorie:</label>
+            <select id="konn-example-select" onchange="updateKonnExample(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.95rem; outline: none; background: white;">
+                <option value="null">1. Null-Position Konnektoren (und, oder, aber...)</option>
+                <option value="normal">2. Normale Konnektoren (weil, obwohl, dass - Verb am Ende)</option>
+                <option value="adverb">3. Keine Konnektoren / Adverbien (deshalb, trotzdem, außerdem...)</option>
+            </select>
+            <div id="konn-example-display" style="margin-top: 12px; font-style: normal; color: var(--secondary); font-size: 0.9rem; line-height: 1.6;">
+                • <strong>denn:</strong> Er hat sich intensiv auf die herausfordernde Prüfung vorbereitet, <em>denn</em> er möchte unbedingt ein hervorragendes Ergebnis erzielen.<br>
+                • <strong>sondern:</strong> Sie hat sich nach dem Bachelorstudium nicht für einen direkten Berufseinstieg entschieden, <em>sondern</em> sie führt ihr Masterstudium in Wirtschaftsinformatik fort.<br>
+                • <strong>aber:</strong> Das Wetter zeigte sich von seiner besten Seite, <em>aber</em> die geplante Fahrradtour musste wegen eines plötzlichen technischen Defekts abgesagt werden.
+            </div>
+        </div>
 
-                    <h4>2. Normale Konnektoren</h4>
-                    <p>There are many Normale Konnektoren. Whenever we use a Normale Konnektor, the second sentence changes. In the second sentence, the verb of the 2nd position goes to the end. <strong>Important:</strong> The 2nd position's verb goes to the end in the conjugated form.</p>
-                    
-                    <div class="table-wrapper" style="max-height: 250px;">
-                        <table class="grammar-table">
-                            <thead><tr><th>Konnektor</th><th>Bedeutung (Meaning)</th></tr></thead>
-                            <tbody>
-                                <tr><td>weil</td><td>because</td></tr>
-                                <tr><td>da</td><td>because / as</td></tr>
-                                <tr><td>dass</td><td>that</td></tr>
-                                <tr><td>ob</td><td>whether</td></tr>
-                                <tr><td>obwohl</td><td>although / even though</td></tr>
-                                <tr><td>obgleich</td><td>although / even though / notwithstanding that</td></tr>
-                                <tr><td>obschon</td><td>although / even though</td></tr>
-                                <tr><td>ehe</td><td>before</td></tr>
-                                <tr><td>damit</td><td>so that</td></tr>
-                                <tr><td>so dass</td><td>because of which / which is why</td></tr>
-                                <tr><td>weshalb</td><td>because of which / which is why</td></tr>
-                                <tr><td>weswegen</td><td>because of which / which is why</td></tr>
-                                <tr><td>wenn</td><td>if / when / whenever</td></tr>
-                                <tr><td>als</td><td>when (in past tense only)</td></tr>
-                                <tr><td>falls</td><td>in case</td></tr>
-                                <tr><td>als ob</td><td>as if</td></tr>
-                                <tr><td>solange</td><td>as long as</td></tr>
-                                <tr><td>sofern und solange</td><td>unless and until</td></tr>
-                                <tr><td>soweit</td><td>as far as / provided that</td></tr>
-                                <tr><td>außer wenn</td><td>unless</td></tr>
-                                <tr><td>nur wenn</td><td>only if</td></tr>
-                                <tr><td>auch wenn</td><td>even if</td></tr>
-                                <tr><td>wohingegen</td><td>whereas</td></tr>
-                                <tr><td>indem</td><td>by + 2nd verb</td></tr>
-                                <tr><td>bevor</td><td>before</td></tr>
-                                <tr><td>nachdem</td><td>after</td></tr>
-                                <tr><td>seitdem</td><td>ever since</td></tr>
-                                <tr><td>bis</td><td>till / until</td></tr>
-                                <tr><td>während</td><td>while</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <h5 style="margin-top: 15px;">Verb, Verb Rule</h5>
-                    <p style="margin-bottom: 15px;">It is also possible to start a sentence with a Normale Konnektor. In the first sentence, the verb of 2nd Position will go to the end, whereas in the second sentence, the verb of the 2nd Position will come to the beginning.</p>
+        <h4>1. Null Position Konnektoren</h4>
+        <p>There are five Null Position Konnektoren. Whenever we use a Null-Position Konnektor, the second sentence remains as it is. No change takes place in the second sentence.</p>
+        <ul style="margin-left: 20px; margin-top: 5px; margin-bottom: 15px;">
+            <li><strong>und</strong> (and)</li>
+            <li><strong>oder</strong> (or)</li>
+            <li><strong>aber</strong> (but)</li>
+            <li><strong>denn</strong> (because)</li>
+            <li><strong>sondern</strong> (rather / but)</li>
+        </ul>
 
-                    <h4>3. Keine Konnektoren (Not Connectors)</h4>
-                    <p>The following words look and feel like connectors, but they are normal words. Since these words are not connectors, they are not zero-position words. Their position will be counted in a sentence. <strong>Important:</strong> These words don't have a fixed position. They function like adverbs. We can put them anywhere.</p>
-                    
-                    <div class="table-wrapper" style="max-height: 250px;">
-                        <table class="grammar-table">
-                            <thead><tr><th>Wort</th><th>Bedeutung (Meaning)</th></tr></thead>
-                            <tbody>
-                                <tr><td>deshalb</td><td>that's why / hence / therefore</td></tr>
-                                <tr><td>deswegen</td><td>that's why / hence / therefore</td></tr>
-                                <tr><td>daher</td><td>that's why / hence / therefore</td></tr>
-                                <tr><td>darum</td><td>that's why / hence / therefore</td></tr>
-                                <tr><td>trotzdem</td><td>in spite of that / nevertheless</td></tr>
-                                <tr><td>stattdessen</td><td>instead of that</td></tr>
-                                <tr><td>außerdem</td><td>other than that / moreover</td></tr>
-                                <tr><td>jedoch</td><td>however</td></tr>
-                                <tr><td>endlich</td><td>finally</td></tr>
-                                <tr><td>dann</td><td>then</td></tr>
-                                <tr><td>danach</td><td>after that</td></tr>
-                                <tr><td>damals</td><td>at that time / in those days</td></tr>
-                                <tr><td>dafür</td><td>for that</td></tr>
-                                <tr><td>dagegen</td><td>in contrast to that / opposed to that</td></tr>
-                                <tr><td>davor</td><td>before that</td></tr>
-                                <tr><td>immerhin</td><td></td></tr>
-                                <tr><td>inzwischen</td><td>in the meantime / in the meanwhile</td></tr>
-                                <tr><td>schließlich</td><td>finally / at the end</td></tr>
-                                <tr><td>vorher</td><td>earlier / before</td></tr>
-                                <tr><td>zuvor</td><td>before this</td></tr>
-                                <tr><td>allerdings</td><td>anyways / however</td></tr>
-                                <tr><td>also</td><td>so</td></tr>
-                                <tr><td>folglich</td><td>thus, as a consequence</td></tr>
-                                <tr><td>Aus diesem Grund</td><td>because of this / this is why</td></tr>
-                                <tr><td>sonst</td><td>otherwise / else</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                `,
-                ex: `
-                    <strong>Null Position Konnektoren:</strong><br>
-                    • Ich lerne Deutsch, <strong>denn</strong> ich liebe die Sprache.<br>
-                    • Er will kommen, <strong>aber</strong> er hat keine Zeit.<br>
-                    • Ich bin nicht zu der Bank gegangen, <strong>sondern</strong> ich bin in das Kino gegangen.<br><br>
-                    
-                    <strong>Normale Konnektoren:</strong><br>
-                    • Ich lerne Deutsch, <strong>weil</strong> ich die Sprache <strong>liebe</strong>.<br>
-                    • Ich lerne Deutsch, <strong>damit</strong> ich eine Stelle <strong>finden kann</strong>.<br>
-                    • Er hat eine Fremdsprache gelernt, <strong>indem</strong> er viel geübt <strong>hat</strong>.<br>
-                    <em>Verb, Verb Rule:</em><br>
-                    • <strong>Obwohl</strong> es sehr schwer <strong>regnet</strong>, <strong>gehe</strong> ich draußen mit meinen Freunden.<br>
-                    • <strong>Als</strong> wir nach Paris <strong>gefahren sind</strong>, <strong>haben</strong> wir den Eiffelturm <strong>gesehen</strong>.<br><br>
+        <h4>2. Normale Konnektoren</h4>
+        <p>There are many Normale Konnektoren. Whenever we use a Normale Konnektor, the second sentence changes. In the second sentence, the verb of the 2nd position goes to the end. <strong>Important:</strong> The 2nd position's verb goes to the end in the conjugated form.</p>
+        
+        <div class="table-wrapper" style="max-height: 250px;">
+            <table class="grammar-table">
+                <thead><tr><th>Konnektor</th><th>Bedeutung (Meaning)</th></tr></thead>
+                <tbody>
+                    <tr><td>weil</td><td>because</td></tr>
+                    <tr><td>da</td><td>because / as</td></tr>
+                    <tr><td>dass</td><td>that</td></tr>
+                    <tr><td>ob</td><td>whether</td></tr>
+                    <tr><td>obwohl</td><td>although / even though</td></tr>
+                    <tr><td>obgleich</td><td>although / even though / notwithstanding that</td></tr>
+                    <tr><td>obschon</td><td>although / even though</td></tr>
+                    <tr><td>ehe</td><td>before</td></tr>
+                    <tr><td>damit</td><td>so that</td></tr>
+                    <tr><td>so dass</td><td>because of which / which is why</td></tr>
+                    <tr><td>weshalb</td><td>because of which / which is why</td></tr>
+                    <tr><td>weswegen</td><td>because of which / which is why</td></tr>
+                    <tr><td>wenn</td><td>if / when / whenever</td></tr>
+                    <tr><td>als</td><td>when (in past tense only)</td></tr>
+                    <tr><td>falls</td><td>in case</td></tr>
+                    <tr><td>als ob</td><td>as if</td></tr>
+                    <tr><td>solange</td><td>as long as</td></tr>
+                    <tr><td>sofern und solange</td><td>unless and until</td></tr>
+                    <tr><td>soweit</td><td>as far as / provided that</td></tr>
+                    <tr><td>außer wenn</td><td>unless</td></tr>
+                    <tr><td>nur wenn</td><td>only if</td></tr>
+                    <tr><td>auch wenn</td><td>even if</td></tr>
+                    <tr><td>wohingegen</td><td>whereas</td></tr>
+                    <tr><td>indem</td><td>by + 2nd verb</td></tr>
+                    <tr><td>bevor</td><td>before</td></tr>
+                    <tr><td>nachdem</td><td>after</td></tr>
+                    <tr><td>seitdem</td><td>ever since</td></tr>
+                    <tr><td>bis</td><td>till / until</td></tr>
+                    <tr><td>während</td><td>while</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <h5 style="margin-top: 15px;">Verb, Verb Rule</h5>
+        <p style="margin-bottom: 15px;">It is also possible to start a sentence with a Normale Konnektor. In the first sentence, the verb of 2nd Position will go to the end, whereas in the second sentence, the verb of the 2nd Position will come to the beginning.</p>
 
-                    <strong>Keine Konnektoren:</strong><br>
-                    • Ich will etwas besprechen. <strong>Deshalb</strong> rufe ich dich an. <br>
-                    <span style="font-size: 0.8em; color: var(--secondary);">(ODER: Ich will etwas besprechen. Ich rufe dich <strong>deshalb</strong> an.)</span><br>
-                    • Es hat schwer geregnet. <strong>Trotzdem</strong> bin ich draußen gegangen. <br>
-                    <span style="font-size: 0.8em; color: var(--secondary);">(ODER: Es hat schwer geregnet. Ich bin <strong>trotzdem</strong> draußen gegangen.)</span><br>
-                    • Sie ist dieses Jahr nach Deutschland umgezogen. <strong>Vorher</strong> war sie in Indien. <br>
-                    <span style="font-size: 0.8em; color: var(--secondary);">(ODER: Sie ist dieses Jahr nach Deutschland umgezogen. Sie war <strong>vorher</strong> in Indien.)</span>
-                `
-            }
+        <h4>3. Keine Konnektoren (Not Connectors)</h4>
+        <p>The following words look and feel like connectors, but they are normal words. Since these words are not connectors, they are not zero-position words. Their position will be counted in a sentence. <strong>Important:</strong> These words don't have a fixed position. They function like adverbs. We can put them anywhere.</p>
+        
+        <div class="table-wrapper" style="max-height: 250px;">
+            <table class="grammar-table">
+                <thead><tr><th>Wort</th><th>Bedeutung (Meaning)</th></tr></thead>
+                <tbody>
+                    <tr><td>deshalb</td><td>that's why / hence / therefore</td></tr>
+                    <tr><td>deswegen</td><td>that's why / hence / therefore</td></tr>
+                    <tr><td>daher</td><td>that's why / hence / therefore</td></tr>
+                    <tr><td>darum</td><td>that's why / hence / therefore</td></tr>
+                    <tr><td>trotzdem</td><td>in spite of that / nevertheless</td></tr>
+                    <tr><td>stattdessen</td><td>instead of that</td></tr>
+                    <tr><td>außerdem</td><td>other than that / moreover</td></tr>
+                    <tr><td>jedoch</td><td>however</td></tr>
+                    <tr><td>endlich</td><td>finally</td></tr>
+                    <tr><td>dann</td><td>then</td></tr>
+                    <tr><td>danach</td><td>after that</td></tr>
+                    <tr><td>damals</td><td>at that time / in those days</td></tr>
+                    <tr><td>dafür</td><td>for that</td></tr>
+                    <tr><td>dagegen</td><td>in contrast to that / opposed to that</td></tr>
+                    <tr><td>davor</td><td>before that</td></tr>
+                    <tr><td>immerhin</td><td></td></tr>
+                    <tr><td>inzwischen</td><td>in the meantime / in the meanwhile</td></tr>
+                    <tr><td>schließlich</td><td>finally / at the end</td></tr>
+                    <tr><td>vorher</td><td>earlier / before</td></tr>
+                    <tr><td>zuvor</td><td>before this</td></tr>
+                    <tr><td>allerdings</td><td>anyways / however</td></tr>
+                    <tr><td>also</td><td>so</td></tr>
+                    <tr><td>folglich</td><td>thus, as a consequence</td></tr>
+                    <tr><td>Aus diesem Grund</td><td>because of this / this is why</td></tr>
+                    <tr><td>sonst</td><td>otherwise / else</td></tr>
+                </tbody>
+            </table>
+        </div>
+    `,
+    ex: "Wählen Sie oben im Dropdown-Menü eine Kategorie aus, um komplexe Beispielsätze zu sehen."
+}
         ];
 //----------------------------------------------------------------------------------------------------------------------    
 // Helper function Artikel
@@ -1599,6 +1595,39 @@ function updatePassivExample(val) {
             • <strong>sich lassen (Beispiel 2):</strong> Solche komplexen Sicherheitsrisiken <em>lassen sich</em> durch präventive Maßnahmen erheblich <em>reduzieren</em>.<br>
             • <strong>sein + zu (Ersatz für müssen):</strong> Alle ausstehenden Rechnungen <em>sind</em> bis zum Monatsende von der Buchhaltung <em>zu begleichen</em>.<br>
             • <strong>sein + zu (Beispiel 2):</strong> Bei der Durchführung des Experiments <em>ist</em> äußerste Sorgfalt <em>zu beachten</em>.
+        `
+    };
+    
+    display.innerHTML = examples[val] || "";
+}
+
+
+// Helper function Konnektoren
+function updateKonnExample(val) {
+    const display = document.getElementById('konn-example-display');
+    if (!display) return;
+    
+    const examples = {
+        null: `
+            • <strong>denn:</strong> Er hat sich intensiv auf die herausragende Prüfung vorbereitet, <em>denn</em> er möchte unbedingt ein exzellentes Ergebnis erzielen.<br>
+            • <strong>sondern:</strong> Sie hat sich nach dem Bachelorstudium nicht für einen direkten Berufseinstieg entschieden, <em>sondern</em> sie führt ihr Masterstudium konsequent fort.<br>
+            • <strong>aber:</strong> Das Wetter zeigte sich zunächst von seiner besten Seite, <em>aber</em> die geplante Wanderung musste wegen eines plötzlichen Sturms abgebrochen werden.<br>
+            • <strong>und:</strong> Der erfahrene Softwareentwickler analysierte die Systemarchitektur im Detail, <em>und</em> er präsentierte direkt optimierte Lösungsvorschläge.<br>
+            • <strong>oder:</strong> Entweder arbeiten wir gemeinsam an diesem komplexen Projekt, <em>oder</em> wir müssen die Verantwortlichkeiten komplett neu aufteilen.
+        `,
+        normal: `
+            • <strong>weil (Verb am Ende):</strong> Der erfahrene Projektmanager konnte den Zeitplan einhalten, <em>weil</em> das gesamte Team außergewöhnlich motiviert <em>gearbeitet hat</em>.<br>
+            • <strong>obwohl (Inversion/Verb-Verb):</strong> <em>Obwohl</em> der Termin extrem knapp <em>bemessen war</em>, <em>konnte</em> die Analyse rechtzeitig fertiggestellt <em>werden</em>.<br>
+            • <strong>damit:</strong> Alle beteiligten Abteilungen müssen transparent kommunizieren, <em>damit</em> Missverständnisse von vornherein vermieden <em>werden können</em>.<br>
+            • <strong>nachdem:</strong> <em>Nachdem</em> die umfangreichen Daten in die Datenbank migriert <em>worden waren</em>, <em>startete</em> das automatisierte Testverfahren.<br>
+            • <strong>ob:</strong> Der Abteilungsleiter wollte genau wissen, <em>ob</em> die neuen Serverstrukturen den steigenden Anforderungen standhalten <em>können</em>.
+        `,
+        adverb: `
+            • <strong>deshalb (Satzglied):</strong> Die Cloud-Infrastruktur erwies sich als äußerst stabil; <em>deshalb</em> verlief die Datenmigration völlig reibungslos.<br>
+            • <strong>trotzdem:</strong> Obwohl der Verkehr auf der Autobahn extrem stockte, kam er <em>trotzdem</em> pünktlich zum wichtigen Geschäftstermin.<br>
+            • <strong>außerdem:</strong> Er hat die vollständige Dokumentation fehlerfrei verfasst; <em>außerdem</em> hat er ein interaktives Dashboard in Power BI erstellt.<br>
+            • <strong>inzwischen:</strong> Die Anwendung befand sich anfangs in einer Testphase, aber <em>inzwischen</em> wird sie produktiv im Unternehmen eingesetzt.<br>
+            • <strong>schließlich:</strong> Nach monatelanger Recherche und intensiven Tests konnte das komplexe System <em>schließlich</em> erfolgreich implementiert werden.
         `
     };
     
