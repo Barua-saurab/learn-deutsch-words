@@ -669,43 +669,58 @@
     ex: "Wählen Sie oben im Dropdown-Menü eine Gruppe aus, um komplexe Beispielsätze zu sehen."
 },
         //---------------------------------------------------------------------------------------------------------
-            {
-                title: "Genitiv",
-                desc: `
-                    <h4>Rule: Masculine and Neuter Nouns</h4>
-                    <p>When using the Genitive case with Masculine or Neuter nouns, add an extra <strong>+s</strong> or <strong>+es</strong> at the end of the noun:</p>
-                    <ul>
-                        <li><strong>+es</strong> if the noun has only ONE vowel</li>
-                        <li><strong>+s</strong> if the noun has MORE than one vowel</li>
-                    </ul>
-                    <p><em>Vowels: a, e, i, o, u, ä, ö, ü, ai, ei, eu, äu, ie, au</em></p>
+           {
+    title: "Genitiv",
+    desc: `
+        <h4>Rule: Masculine and Neuter Nouns</h4>
+        <p>When using the Genitive case with Masculine or Neuter nouns, add an extra <strong>+s</strong> or <strong>+es</strong> at the end of the noun:</p>
+        <ul>
+            <li><strong>+es</strong> if the noun has only ONE vowel</li>
+            <li><strong>+s</strong> if the noun has MORE than one vowel</li>
+        </ul>
+        <p><em>Vowels: a, e, i, o, u, ä, ö, ü, ai, ei, eu, äu, ie, au</em></p>
 
-                    <h4>Beispiele (Examples)</h4>
-                    <ol>
-                        <li><strong>Das Angebot des Tages</strong> (The offer of the day)<br>
-                        <em>"Tag" has 1 vowel (a) &rarr; add +es</em></li>
-                        <li><strong>Der Name meiner Mutter ist Rita.</strong> (My mother's name is Rita.)<br>
-                        <em>Note: We do not use apostrophes for possession in German.</em></li>
-                        <li><strong>Die Gestalt der Erde ist rund.</strong> (The shape of the earth is round.)</li>
-                        <li><strong>Der Sinn der Woche</strong> (The point of the week)</li>
-                    </ol>
+        <!-- Dropdown Example Selector -->
+        <div style="margin: 1.5rem 0 1.5rem 0; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <label for="gen-example-select" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px;">Wähle eine Genitiv-Kategorie:</label>
+            <select id="gen-example-select" onchange="updateGenExample(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.95rem; outline: none; background: white;">
+                <option value="rules">1. Maskulin & Neutrum Nomen-Endungen (+s / +es)</option>
+                <option value="possession">2. Besitz & Zugehörigkeit (Possession)</option>
+                <option value="part">3. Teil eines Ganzen (Part of Something)</option>
+            </select>
+            <div id="gen-example-display" style="margin-top: 12px; font-style: normal; color: var(--secondary); font-size: 0.9rem; line-height: 1.6;">
+                • <strong>+es (1 Vokal):</strong> Das Angebot <em>des Tages</em> gilt nur für registrierte Kunden, die sich im System angemeldet haben.<br>
+                • <strong>+s (mehrere Vokale):</strong> Die präzise Analyse <em>des Marktes</em> erfordert fundierte Kenntnisse im Bereich der Wirtschaftsinformatik.<br>
+                • <strong>Komplexes Beispiel:</strong> Infolge <em>des plötzlichen Temperatursturzes</em> mussten alle Freiluftveranstaltungen kurzfristig abgesagt werden.
+            </div>
+        </div>
 
-                    <h4>Genitive Functions</h4>
-                    <p><strong>1. Possession</strong></p>
-                    <ul>
-                        <li>Das Haus des Mannes (The man's house)</li>
-                        <li>Das Auto der Frau (The woman's car)</li>
-                    </ul>
+        <h4>Beispiele (Examples)</h4>
+        <ol>
+            <li><strong>Das Angebot des Tages</strong> (The offer of the day)<br>
+            <em>"Tag" has 1 vowel (a) &rarr; add +es</em></li>
+            <li><strong>Der Name meiner Mutter ist Rita.</strong> (My mother's name is Rita.)<br>
+            <em>Note: We do not use apostrophes for possession in German.</em></li>
+            <li><strong>Die Gestalt der Erde ist rund.</strong> (The shape of the earth is round.)</li>
+            <li><strong>Der Sinn der Woche</strong> (The point of the week)</li>
+        </ol>
 
-                    <p><strong>2. Part of Something</strong></p>
-                    <ul>
-                        <li>Die Kinder reicher Leute (Children of rich people)</li>
-                    </ul>
+        <h4>Genitive Functions</h4>
+        <p><strong>1. Possession</strong></p>
+        <ul>
+            <li>Das Haus des Mannes (The man's house)</li>
+            <li>Das Auto der Frau (The woman's car)</li>
+        </ul>
 
-                    <p><strong>Note:</strong> An article placed between two nouns almost always signals the Genitive case!</p>
-                `,
-                ex: "Das ist das Auto <strong>der</strong> Frau und das Haus <strong>des</strong> Mann<strong>es</strong>."
-            },
+        <p><strong>2. Part of Something</strong></p>
+        <ul>
+            <li>Die Kinder reicher Leute (Children of rich people)</li>
+        </ul>
+
+        <p><strong>Note:</strong> An article placed between two nouns almost always signals the Genitive case!</p>
+    `,
+    ex: "Wählen Sie oben im Dropdown-Menü eine Kategorie aus, um erweiterte Beispielsätze zu sehen."
+},
     //---------------------------------------------------------------------------------------------------------
             {
                 title: "Adjektive",
@@ -1515,7 +1530,34 @@ function updatePrepExample(val) {
     
     display.innerHTML = examples[val] || "";
 }
-
+// Helper function Genitiv
+function updateGenExample(val) {
+    const display = document.getElementById('gen-example-display');
+    if (!display) return;
+    
+    const examples = {
+        rules: `
+            • <strong>+es (1 Vokal - Tag):</strong> Das attraktive Angebot <em>des Tages</em> gilt ausschließlich für Kunden, die online reserviert haben.<br>
+            • <strong>+s (mehrere Vokale - Monat):</strong> Die Veröffentlichung <em>des neuen Monatsberichtes</em> wurde wegen technischer Probleme verschoben.<br>
+            • <strong>Maskulin/Neutrum Endung:</strong> Das Fundament <em>des alten Hauses</em> musste nach dem Sturm komplett saniert werden.<br>
+            • <strong>Erweiterter Satz:</strong> Die sorgfältige Prüfung <em>des Vertrages</em> nahm angesichts der vielen Klauseln mehrere Stunden in Anspruch.
+        `,
+        possession: `
+            • <strong>Besitz (Maskulin):</strong> Die luxuriöse Villa <em>des bekannten Architekten</em> befindet sich direkt am Rand der Dortmunder Innenstadt.<br>
+            • <strong>Besitz (Feminin):</strong> Die Handschrift <em>der alten Professorin</em> ist trotz ihres hohen Alters noch erstaunlich gut lesbar.<br>
+            • <strong>Besitz (Plural):</strong> Die gemeinsamen Anstrengungen <em>unserer engagierten Mitarbeiter</em> führten zu diesem herausragenden Unternehmenserfolg.<br>
+            • <strong>Eigentum:</strong> Das moderne Fahrzeug <em>des jungen Unternehmensgründers</em> wurde gestern auf dem Firmenparkplatz gestohlen.
+        `,
+        part: `
+            • <strong>Teil eines Ganzen:</strong> Ein großer Teil <em>der weltweiten Bevölkerung</em> leidet unter den Folgen des Klimawandels.<br>
+            • <strong>Menge / Auswahl:</strong> Nur wenige <em>der anwesenden Experten</em> konnten eine präzise Prognose für die wirtschaftliche Entwicklung abgeben.<br>
+            • <strong>Zugehörigkeit:</strong> Die Mitte <em>des vergangenen Jahrhunderts</em> war geprägt von rasanten technologischen und gesellschaftlichen Umbrüchen.<br>
+            • <strong>Bestandteil:</strong> Jedes einzelne Kapitel <em>dieses wissenschaftlichen Buches</em> trägt wesentlich zum Gesamtverständnis des Themas bei.
+        `
+    };
+    
+    display.innerHTML = examples[val] || "";
+}
         function initGrammar() {
             const container = document.getElementById('grammar-tiles');
             const titleEl = document.getElementById('g-title');
