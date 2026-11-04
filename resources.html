@@ -228,14 +228,25 @@
         <div style="margin: 1rem 0 1.5rem 0; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #cbd5e1;">
             <label for="article-example-select" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px;">Wähle ein Artikel-Beispiel:</label>
             <select id="article-example-select" onchange="updateArticleExample(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.95rem; outline: none; background: white;">
-                <option value="def">1. Bestimmte Artikel (der/die/das)</option>
-                <option value="indef">2. Unbestimmte Artikel (ein/eine)</option>
-                <option value="dem">3. Demonstrativartikel (dieser/diese)</option>
-                <option value="rel">4. Interrogativartikel (welcher/welche)</option>
-                <option value="neg">5. Negativartikel (kein/keine)</option>
+                <option value="def">1. "the" (der, die, das...)</option>
+                <option value="indef">2. "a/an" (ein, eine...)</option>
+                <option value="dem">3. "this/these" (dieser, diese, dieses...)</option>
+                <option value="rel">4. "which" (welcher, welche, welches...)</option>
+                <option value="neg">5. "not a / not any" (kein, keine...)</option>
             </select>
-            <div id="article-example-display" style="margin-top: 10px; font-style: italic; color: var(--secondary);">
-                • Das ist <strong>der</strong> Mann. Ich sehe <strong>den</strong> Mann. Wir helfen <strong>dem</strong> Mann.
+            <div id="article-example-display" style="margin-top: 12px; font-style: normal; color: var(--secondary); font-size: 0.9rem; line-height: 1.5;">
+                • <strong>Nominativ Masculine (der):</strong> Der Hund schläft. (The dog is sleeping.)<br>
+                • <strong>Nominativ Feminine (die):</strong> Die Katze läuft. (The cat is running.)<br>
+                • <strong>Nominativ Neuter (das):</strong> Das Buch liegt hier. (The book lies here.)<br>
+                • <strong>Nominativ Plural (die):</strong> Die Kinder spielen. (The children are playing.)<br>
+                • <strong>Akkusativ Masculine (den):</strong> Ich sehe den Mann. (I see the man.)<br>
+                • <strong>Akkusativ Feminine (die):</strong> Ich sehe die Blume. (I see the flower.)<br>
+                • <strong>Akkusativ Neuter (das):</strong> Ich lese das Buch. (I read the book.)<br>
+                • <strong>Akkusativ Plural (die):</strong> Ich sehe die Kinder. (I see the children.)<br>
+                • <strong>Dativ Masculine (dem):</strong> Ich helfe dem Mann. (I help the man.)<br>
+                • <strong>Dativ Feminine (der):</strong> Ich helfe der Frau. (I help the woman.)<br>
+                • <strong>Dativ Neuter (dem):</strong> Ich helfe dem Kind. (I help the child.)<br>
+                • <strong>Dativ Plural (den):</strong> Ich helfe den Leuten. (I help the people.)
             </div>
         </div>
 
@@ -288,7 +299,8 @@
                 <tr><td>Dativ</td><td>keinem</td><td>keiner</td><td>keinem</td><td>keinen</td></tr>
             </tbody>
         </table>
-    `
+    `,
+    ex: "Wählen Sie oben im Dropdown-Menü eine Kategorie aus, um alle Beispielsätze zu sehen."
 },
 
 
@@ -1072,15 +1084,77 @@
     if (!display) return;
     
     const examples = {
-        def: "• Das ist <strong>der</strong> Mann. Ich sehe <strong>den</strong> Mann. Wir helfen <strong>dem</strong> Mann.",
-        indef: "• Das ist <strong>ein</strong> Buch. Ich sehe <strong>einen</strong> Apfel. Ich helfe <strong>einem</strong> Kind.",
-        dem: "• <strong>Dieser</strong> Tisch ist neu. Ich kaufe <strong>diesen</strong> Tisch. Mit <strong>diesem</strong> Stuhl arbeiten wir.",
-        rel: "• <strong>Welcher</strong> Mann kommt? <strong>Welchen</strong> Hund siehst du? Mit <strong>welchem</strong> Auto fährst du?",
-        neg: "• Das ist <strong>kein</strong> Problem. Ich habe <strong>keinen</strong> Hunger. Er hilft <strong>keinem</strong> Kollegen."
+        def: `
+            • <strong>Nominativ Masculine (der):</strong> Der Hund schläft. (The dog is sleeping.)<br>
+            • <strong>Nominativ Feminine (die):</strong> Die Katze läuft. (The cat is running.)<br>
+            • <strong>Nominativ Neuter (das):</strong> Das Buch liegt hier. (The book lies here.)<br>
+            • <strong>Nominativ Plural (die):</strong> Die Kinder spielen. (The children are playing.)<br>
+            • <strong>Akkusativ Masculine (den):</strong> Ich sehe den Mann. (I see the man.)<br>
+            • <strong>Akkusativ Feminine (die):</strong> Ich sehe die Blume. (I see the flower.)<br>
+            • <strong>Akkusativ Neuter (das):</strong> Ich lese das Buch. (I read the book.)<br>
+            • <strong>Akkusativ Plural (die):</strong> Ich sehe die Kinder. (I see the children.)<br>
+            • <strong>Dativ Masculine (dem):</strong> Ich helfe dem Mann. (I help the man.)<br>
+            • <strong>Dativ Feminine (der):</strong> Ich helfe der Frau. (I help the woman.)<br>
+            • <strong>Dativ Neuter (dem):</strong> Ich helfe dem Kind. (I help the child.)<br>
+            • <strong>Dativ Plural (den):</strong> Ich helfe den Leuten. (I help the people.)
+        `,
+        indef: `
+            • <strong>Nominativ Masculine (ein):</strong> Das ist ein Hund. (This is a dog.)<br>
+            • <strong>Nominativ Feminine (eine):</strong> Das ist eine Katze. (This is a cat.)<br>
+            • <strong>Nominativ Neuter (ein):</strong> Das ist ein Buch. (This is a book.)<br>
+            • <strong>Akkusativ Masculine (einen):</strong> Ich sehe einen Hund. (I see a dog.)<br>
+            • <strong>Akkusativ Feminine (eine):</strong> Ich sehe eine Katze. (I see a cat.)<br>
+            • <strong>Akkusativ Neuter (ein):</strong> Ich habe ein Buch. (I have a book.)<br>
+            • <strong>Dativ Masculine (einem):</strong> Ich helfe einem Mann. (I help a man.)<br>
+            • <strong>Dativ Feminine (einer):</strong> Ich helfe einer Frau. (I help a woman.)<br>
+            • <strong>Dativ Neuter (einem):</strong> Ich helfe einem Kind. (I help a child.)
+        `,
+        dem: `
+            • <strong>Nominativ Masculine (dieser):</strong> Dieser Hund ist groß. (This dog is big.)<br>
+            • <strong>Nominativ Feminine (diese):</strong> Diese Katze ist klein. (This cat is small.)<br>
+            • <strong>Nominativ Neuter (dieses):</strong> Dieses Buch ist neu. (This book is new.)<br>
+            • <strong>Nominativ Plural (diese):</strong> Diese Bücher sind alt. (These books are old.)<br>
+            • <strong>Akkusativ Masculine (diesen):</strong> Ich mag diesen Hund. (I like this dog.)<br>
+            • <strong>Akkusativ Feminine (diese):</strong> Ich mag diese Katze. (I like this cat.)<br>
+            • <strong>Akkusativ Neuter (dieses):</strong> Ich lese dieses Buch. (I read this book.)<br>
+            • <strong>Akkusativ Plural (diese):</strong> Ich lese diese Bücher. (I read these books.)<br>
+            • <strong>Dativ Masculine (diesem):</strong> Ich helfe diesem Mann. (I help this man.)<br>
+            • <strong>Dativ Feminine (dieser):</strong> Ich helfe dieser Frau. (I help this woman.)<br>
+            • <strong>Dativ Neuter (diesem):</strong> Ich helfe diesem Kind. (I help this child.)<br>
+            • <strong>Dativ Plural (diesen):</strong> Ich helfe diesen Leuten. (I help these people.)
+        `,
+        rel: `
+            • <strong>Nominativ Masculine (welcher):</strong> Welcher Hund bellt? (Which dog is barking?)<br>
+            • <strong>Nominativ Feminine (welche):</strong> Welche Katze schläft? (Which cat is sleeping?)<br>
+            • <strong>Nominativ Neuter (welches):</strong> Welches Buch ist gut? (Which book is good?)<br>
+            • <strong>Nominativ Plural (welche):</strong> Welche Bücher sind gut? (Which books are good?)<br>
+            • <strong>Akkusativ Masculine (welchen):</strong> Welchen Hund siehst du? (Which dog do you see?)<br>
+            • <strong>Akkusativ Feminine (welche):</strong> Welche Katze siehst du? (Which cat do you see?)<br>
+            • <strong>Akkusativ Neuter (welches):</strong> Welches Buch liest du? (Which book are you reading?)<br>
+            • <strong>Akkusativ Plural (welche):</strong> Welche Bücher liest du? (Which books are you reading?)<br>
+            • <strong>Dativ Masculine (welchem):</strong> Mit welchem Mann sprichst du? (Which man are you talking to?)<br>
+            • <strong>Dativ Feminine (welcher):</strong> Mit welcher Frau sprichst du? (Which woman are you talking to?)<br>
+            • <strong>Dativ Neuter (welchem):</strong> Mit welchem Kind spielst du? (Which child are you playing with?)<br>
+            • <strong>Dativ Plural (welchen):</strong> Mit welchen Leuten reist du? (Which people are you traveling with?)
+        `,
+        neg: `
+            • <strong>Nominativ Masculine (kein):</strong> Das ist kein Hund. (This is not a dog.)<br>
+            • <strong>Nominativ Feminine (keine):</strong> Das ist keine Katze. (This is not a cat.)<br>
+            • <strong>Nominativ Neuter (kein):</strong> Das ist kein Buch. (This is not a book.)<br>
+            • <strong>Nominativ Plural (keine):</strong> Das sind keine Bücher. (These are no/not any books.)<br>
+            • <strong>Akkusativ Masculine (keinen):</strong> Ich sehe keinen Hund. (I see no/not a dog.)<br>
+            • <strong>Akkusativ Feminine (keine):</strong> Ich sehe keine Katze. (I see no/not a cat.)<br>
+            • <strong>Akkusativ Neuter (kein):</strong> Ich habe kein Buch. (I have no/not a book.)<br>
+            • <strong>Akkusativ Plural (keine):</strong> Ich habe keine Bücher. (I have no/not any books.)<br>
+            • <strong>Dativ Masculine (keinem):</strong> Ich helfe keinem Mann. (I help no man.)<br>
+            • <strong>Dativ Feminine (keiner):</strong> Ich helfe keiner Frau. (I help no woman.)<br>
+            • <strong>Dativ Neuter (keinem):</strong> Ich helfe keinem Kind. (I help no child.)<br>
+            • <strong>Dativ Plural (keinen):</strong> Ich helfe keinen Leuten. (I help no people.)
+        `
     };
     
     display.innerHTML = examples[val] || "";
-        }
+}
 
         function initGrammar() {
             const container = document.getElementById('grammar-tiles');
