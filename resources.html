@@ -400,94 +400,124 @@
                 ex: "<strong>Ich</strong> gebe <strong>ihm</strong> das Buch."
             },
 //---------------------------------------------------------------------------------------------------------
-            {
-                title: "Possessive Pronomen",
-                desc: `
-                    <h4>Possessive Pronouns</h4>
-                    <p><strong>Rule:</strong> Possessive pronouns have endings that are exactly the same as the <em>ein/kein</em> chart.</p>
-                    
-                    <ul>
-                        <li><strong>mein</strong> – my</li>
-                        <li><strong>dein</strong> – your (informal)</li>
-                        <li><strong>sein</strong> – his / its</li>
-                        <li><strong>ihr</strong> – her / their</li>
-                        <li><strong>Ihr</strong> – your (formal)</li>
-                        <li><strong>unser</strong> – our</li>
-                        <li><strong>euer</strong> – your (plural)</li>
-                    </ul>
+           {
+    title: "Possessive Pronomen",
+    desc: `
+        <h4>Possessive Pronouns</h4>
+        <p><strong>Rule:</strong> Possessive pronouns have endings that are exactly the same as the <em>ein/kein</em> chart.</p>
+        
+        <!-- Dropdown Example Selector -->
+        <div style="margin: 1rem 0 1.5rem 0; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <label for="poss-example-select" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px;">Wähle ein Possessivpronomen:</label>
+            <select id="poss-example-select" onchange="updatePossExample(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.95rem; outline: none; background: white;">
+                <option value="mein">1. mein (my)</option>
+                <option value="dein">2. dein (your - informal)</option>
+                <option value="sein">3. sein (his / its)</option>
+                <option value="ihr">4. ihr (her / their)</option>
+                <option value="Ihr">5. Ihr (your - formal)</option>
+                <option value="unser">6. unser (our)</option>
+                <option value="euer">7. euer (your - plural)</option>
+            </select>
+            <div id="poss-example-display" style="margin-top: 12px; font-style: normal; color: var(--secondary); font-size: 0.9rem; line-height: 1.5;">
+                • <strong>Nominativ Maskulin:</strong> Das ist mein Hund.<br>
+                • <strong>Nominativ Feminin:</strong> Das ist meine Katze.<br>
+                • <strong>Nominativ Neutrum:</strong> Das ist mein Buch.<br>
+                • <strong>Nominativ Plural:</strong> Das sind meine Bücher.<br>
+                • <strong>Akkusativ Maskulin:</strong> Ich sehe meinen Hund.<br>
+                • <strong>Akkusativ Feminin:</strong> Ich sehe meine Katze.<br>
+                • <strong>Akkusativ Neutrum:</strong> Ich habe mein Buch.<br>
+                • <strong>Akkusativ Plural:</strong> Ich sehe meine Bücher.<br>
+                • <strong>Dativ Maskulin:</strong> Ich helfe meinem Mann.<br>
+                • <strong>Dativ Feminin:</strong> Ich helfe meiner Frau.<br>
+                • <strong>Dativ Neutrum:</strong> Ich helfe meinem Kind.<br>
+                • <strong>Dativ Plural:</strong> Ich helfe meinen Freunden.
+            </div>
+        </div>
 
-                    <h4>mein (my)</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>mein</td><td>meine</td><td>mein</td><td>meine</td></tr>
-                            <tr><td>Akkusativ</td><td>meinen</td><td>meine</td><td>mein</td><td>meine</td></tr>
-                            <tr><td>Dativ</td><td>meinem</td><td>meiner</td><td>meinem</td><td>meinen</td></tr>
-                        </tbody>
-                    </table>
+        <ul>
+            <li><strong>mein</strong> – my</li>
+            <li><strong>dein</strong> – your (informal)</li>
+            <li><strong>sein</strong> – his / its</li>
+            <li><strong>ihr</strong> – her / their</li>
+            <li><strong>Ihr</strong> – your (formal)</li>
+            <li><strong>unser</strong> – our</li>
+            <li><strong>euer</strong> – your (plural)</li>
+        </ul>
 
-                    <h4>dein (your - informal)</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>dein</td><td>deine</td><td>dein</td><td>deine</td></tr>
-                            <tr><td>Akkusativ</td><td>deinen</td><td>deine</td><td>dein</td><td>deine</td></tr>
-                            <tr><td>Dativ</td><td>deinem</td><td>deiner</td><td>deinem</td><td>deinen</td></tr>
-                        </tbody>
-                    </table>
+        <h4>mein (my)</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>mein</td><td>meine</td><td>mein</td><td>meine</td></tr>
+                <tr><td>Akkusativ</td><td>meinen</td><td>meine</td><td>mein</td><td>meine</td></tr>
+                <tr><td>Dativ</td><td>meinem</td><td>meiner</td><td>meinem</td><td>meinen</td></tr>
+            </tbody>
+        </table>
 
-                    <h4>sein (his / its)</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>sein</td><td>seine</td><td>sein</td><td>seine</td></tr>
-                            <tr><td>Akkusativ</td><td>seinen</td><td>seine</td><td>sein</td><td>seine</td></tr>
-                            <tr><td>Dativ</td><td>seinem</td><td>seiner</td><td>seinem</td><td>seinen</td></tr>
-                        </tbody>
-                    </table>
+        <h4>dein (your - informal)</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>dein</td><td>deine</td><td>dein</td><td>deine</td></tr>
+                <tr><td>Akkusativ</td><td>deinen</td><td>deine</td><td>dein</td><td>deine</td></tr>
+                <tr><td>Dativ</td><td>deinem</td><td>deiner</td><td>deinem</td><td>deinen</td></tr>
+            </tbody>
+        </table>
 
-                    <h4>ihr (her / their)</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>ihr</td><td>ihre</td><td>ihr</td><td>ihre</td></tr>
-                            <tr><td>Akkusativ</td><td>ihren</td><td>ihre</td><td>ihr</td><td>ihre</td></tr>
-                            <tr><td>Dativ</td><td>ihrem</td><td>ihrer</td><td>ihrem</td><td>ihren</td></tr>
-                        </tbody>
-                    </table>
+        <h4>sein (his / its)</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>sein</td><td>seine</td><td>sein</td><td>seine</td></tr>
+                <tr><td>Akkusativ</td><td>seinen</td><td>seine</td><td>sein</td><td>seine</td></tr>
+                <tr><td>Dativ</td><td>seinem</td><td>seiner</td><td>seinem</td><td>seinen</td></tr>
+            </tbody>
+        </table>
 
-                    <h4>Ihr (your - formal)</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>Ihr</td><td>Ihre</td><td>Ihr</td><td>Ihre</td></tr>
-                            <tr><td>Akkusativ</td><td>Ihren</td><td>Ihre</td><td>Ihr</td><td>Ihre</td></tr>
-                            <tr><td>Dativ</td><td>Ihrem</td><td>Ihrer</td><td>Ihrem</td><td>Ihren</td></tr>
-                        </tbody>
-                    </table>
+        <h4>ihr (her / their)</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>ihr</td><td>ihre</td><td>ihr</td><td>ihre</td></tr>
+                <tr><td>Akkusativ</td><td>ihren</td><td>ihre</td><td>ihr</td><td>ihre</td></tr>
+                <tr><td>Dativ</td><td>ihrem</td><td>ihrer</td><td>ihrem</td><td>ihren</td></tr>
+            </tbody>
+        </table>
 
-                    <h4>unser (our)</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>unser</td><td>unsere</td><td>unser</td><td>unsere</td></tr>
-                            <tr><td>Akkusativ</td><td>unseren</td><td>unsere</td><td>unser</td><td>unsere</td></tr>
-                            <tr><td>Dativ</td><td>unserem</td><td>unserer</td><td>unserem</td><td>unseren</td></tr>
-                        </tbody>
-                    </table>
+        <h4>Ihr (your - formal)</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>Ihr</td><td>Ihre</td><td>Ihr</td><td>Ihre</td></tr>
+                <tr><td>Akkusativ</td><td>Ihren</td><td>Ihre</td><td>Ihr</td><td>Ihre</td></tr>
+                <tr><td>Dativ</td><td>Ihrem</td><td>Ihrer</td><td>Ihrem</td><td>Ihren</td></tr>
+            </tbody>
+        </table>
 
-                    <h4>euer (your - plural)</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>euer</td><td>eure</td><td>euer</td><td>eure</td></tr>
-                            <tr><td>Akkusativ</td><td>euren</td><td>eure</td><td>euer</td><td>eure</td></tr>
-                            <tr><td>Dativ</td><td>eurem</td><td>eurer</td><td>eurem</td><td>euren</td></tr>
-                        </tbody>
-                    </table>
-                `,
-                ex: "Das ist <strong>mein</strong> Hund. Ich sehe <strong>deinen</strong> Bruder."
-            },
+        <h4>unser (our)</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>unser</td><td>unsere</td><td>unser</td><td>unsere</td></tr>
+                <tr><td>Akkusativ</td><td>unseren</td><td>unsere</td><td>unser</td><td>unsere</td></tr>
+                <tr><td>Dativ</td><td>unserem</td><td>unserer</td><td>unserem</td><td>unseren</td></tr>
+            </tbody>
+        </table>
+
+        <h4>euer (your - plural)</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr></thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>euer</td><td>eure</td><td>euer</td><td>eure</td></tr>
+                <tr><td>Akkusativ</td><td>euren</td><td>eure</td><td>euer</td><td>eure</td></tr>
+                <tr><td>Dativ</td><td>eurem</td><td>eurer</td><td>eurem</td><td>euren</td></tr>
+            </tbody>
+        </table>
+    `,
+    ex: "Das ist <strong>mein</strong> Hund. Ich sehe <strong>deinen</strong> Bruder."
+},
+//---------------------------------------------------------------------------------------------------------
+            
             {
                 title: "W-Fragen",
                 desc: `
@@ -537,6 +567,7 @@
                 `,
                 ex: "<strong>Woher</strong> kommst du? <strong>Wie viele</strong> Freunde hast du?"
             },
+//---------------------------------------------------------------------------------------------------------
             {
                 title: "Präpositionen",
                 desc: `
@@ -592,6 +623,7 @@
                 `,
                 ex: "Das Geschenk ist <strong>für</strong> dich. Ich komme <strong>mit</strong> meinem Freund."
             },
+        //---------------------------------------------------------------------------------------------------------
             {
                 title: "Genitiv",
                 desc: `
@@ -629,11 +661,13 @@
                 `,
                 ex: "Das ist das Auto <strong>der</strong> Frau und das Haus <strong>des</strong> Mann<strong>es</strong>."
             },
+    //---------------------------------------------------------------------------------------------------------
             {
                 title: "Adjektive",
                 desc: `<p>Komparativ und Superlativ Formen.</p>`,
                 ex: "Hamburg ist <strong>größer als</strong> Wuppertal."
             },
+//---------------------------------------------------------------------------------------------------------
             {
                 title: "Modalverben",
                 desc: `
@@ -714,6 +748,7 @@
                 `,
                 ex: "Ich <strong>muss</strong> um 5 Uhr <strong>aufstehen</strong>."
             },
+    //---------------------------------------------------------------------------------------------------------
             {
                 title: "Zweiteilige Konnektoren",
                 desc: `
@@ -772,6 +807,7 @@
                 `,
                 ex: "Er hat <strong>sowohl</strong> Deutsch <strong>als auch</strong> Französisch gelernt."
             },
+    //---------------------------------------------------------------------------------------------------------
            {
                 title: "Relativsatz",
                 desc: `
@@ -804,6 +840,7 @@
                 `,
                 ex: "Ich kenne den Mann, <strong>der</strong> dort steht."
             },
+        //---------------------------------------------------------------------------------------------------------
             
             {
                 title: "Konjunktiv I",
@@ -861,6 +898,7 @@
                 `,
                 ex: "Der Politiker sagt, er <strong>sei</strong> kein böser Mensch."
             },
+    //---------------------------------------------------------------------------------------------------------
             {
                 title: "Konjunktiv II",
                 desc: `
@@ -908,6 +946,7 @@
                 `,
                 ex: "Wenn ich Zeit <strong>hätte</strong>, <strong>würde</strong> ich dir helfen."
             },
+    //---------------------------------------------------------------------------------------------------------
 
             {
                 title: "Passiv",
@@ -977,6 +1016,7 @@
                 `,
                 ex: "Das Haus <strong>wird</strong> nächstes Jahr <strong>gebaut</strong>."
             },
+    //---------------------------------------------------------------------------------------------------------
 
             {
                 title: "Konnektoren",
@@ -1095,7 +1135,7 @@
             }
         ];
 //----------------------------------------------------------------------------------------------------------------------    
-// Helper function
+// Helper function Artikel
     function updateArticleExample(val) {
     const display = document.getElementById('article-example-display');
     if (!display) return;
@@ -1172,7 +1212,7 @@
     
     display.innerHTML = examples[val] || "";
 }
-
+// Helper function Adjektivendung
 function updateAdjExample(val) {
     const display = document.getElementById('adj-example-display');
     if (!display) return;
@@ -1225,6 +1265,114 @@ function updateAdjExample(val) {
     display.innerHTML = examples[val] || "";
 }
 
+function updatePossExample(val) {
+    const display = document.getElementById('poss-example-display');
+    if (!display) return;
+    
+    const examples = {
+        mein: `
+            • <strong>Nominativ Maskulin:</strong> Das ist mein Hund.<br>
+            • <strong>Nominativ Feminin:</strong> Das ist meine Katze.<br>
+            • <strong>Nominativ Neutrum:</strong> Das ist mein Buch.<br>
+            • <strong>Nominativ Plural:</strong> Das sind meine Bücher.<br>
+            • <strong>Akkusativ Maskulin:</strong> Ich sehe meinen Hund.<br>
+            • <strong>Akkusativ Feminin:</strong> Ich sehe meine Katze.<br>
+            • <strong>Akkusativ Neutrum:</strong> Ich habe mein Buch.<br>
+            • <strong>Akkusativ Plural:</strong> Ich sehe meine Bücher.<br>
+            • <strong>Dativ Maskulin:</strong> Ich helfe meinem Mann.<br>
+            • <strong>Dativ Feminin:</strong> Ich helfe meiner Frau.<br>
+            • <strong>Dativ Neutrum:</strong> Ich helfe meinem Kind.<br>
+            • <strong>Dativ Plural:</strong> Ich helfe meinen Freunden.
+        `,
+        dein: `
+            • <strong>Nominativ Maskulin:</strong> Ist das dein Hund?<br>
+            • <strong>Nominativ Feminin:</strong> Ist das deine Katze?<br>
+            • <strong>Nominativ Neutrum:</strong> Ist das dein Buch?<br>
+            • <strong>Nominativ Plural:</strong> Sind das deine Bücher?<br>
+            • <strong>Akkusativ Maskulin:</strong> Ich sehe deinen Hund.<br>
+            • <strong>Akkusativ Feminin:</strong> Ich sehe deine Katze.<br>
+            • <strong>Akkusativ Neutrum:</strong> Ich habe dein Buch.<br>
+            • <strong>Akkusativ Plural:</strong> Ich sehe deine Bücher.<br>
+            • <strong>Dativ Maskulin:</strong> Ich helfe deinem Mann.<br>
+            • <strong>Dativ Feminin:</strong> Ich helfe deiner Frau.<br>
+            • <strong>Dativ Neutrum:</strong> Ich helfe deinem Kind.<br>
+            • <strong>Dativ Plural:</strong> Ich helfe deinen Freunden.
+        `,
+        sein: `
+            • <strong>Nominativ Maskulin:</strong> Das ist sein Hund.<br>
+            • <strong>Nominativ Feminin:</strong> Das ist seine Katze.<br>
+            • <strong>Nominativ Neutrum:</strong> Das ist sein Buch.<br>
+            • <strong>Nominativ Plural:</strong> Das sind seine Bücher.<br>
+            • <strong>Akkusativ Maskulin:</strong> Er sucht seinen Hund.<br>
+            • <strong>Akkusativ Feminin:</strong> Er sucht seine Katze.<br>
+            • <strong>Akkusativ Neutrum:</strong> Er liest sein Buch.<br>
+            • <strong>Akkusativ Plural:</strong> Er sucht seine Bücher.<br>
+            • <strong>Dativ Maskulin:</strong> Er dankt seinem Vater.<br>
+            • <strong>Dativ Feminin:</strong> Er dankt seiner Mutter.<br>
+            • <strong>Dativ Neutrum:</strong> Er dankt seinem Kind.<br>
+            • <strong>Dativ Plural:</strong> Er dankt seinen Eltern.
+        `,
+        ihr: `
+            • <strong>Nominativ Maskulin:</strong> Das ist ihr Hund.<br>
+            • <strong>Nominativ Feminin:</strong> Das ist ihre Katze.<br>
+            • <strong>Nominativ Neutrum:</strong> Das ist ihr Buch.<br>
+            • <strong>Nominativ Plural:</strong> Das sind ihre Bücher.<br>
+            • <strong>Akkusativ Maskulin:</strong> Sie liebt ihren Hund.<br>
+            • <strong>Akkusativ Feminin:</strong> Sie liebt ihre Katze.<br>
+            • <strong>Akkusativ Neutrum:</strong> Sie hat ihr Buch.<br>
+            • <strong>Akkusativ Plural:</strong> Sie liebt ihre Bücher.<br>
+            • <strong>Dativ Maskulin:</strong> Sie hilft ihrem Bruder.<br>
+            • <strong>Dativ Feminin:</strong> Sie hilft ihrer Schwester.<br>
+            • <strong>Dativ Neutrum:</strong> Sie hilft ihrem Kind.<br>
+            • <strong>Dativ Plural:</strong> Sie hilft ihren Freunden.
+        `,
+        Ihr: `
+            • <strong>Nominativ Maskulin:</strong> Ist das Ihr Hund?<br>
+            • <strong>Nominativ Feminin:</strong> Ist das Ihre Katze?<br>
+            • <strong>Nominativ Neutrum:</strong> Ist das Ihr Buch?<br>
+            • <strong>Nominativ Plural:</strong> Sind das Ihre Bücher?<br>
+            • <strong>Akkusativ Maskulin:</strong> Ich sehe Ihren Hund.<br>
+            • <strong>Akkusativ Feminin:</strong> Ich sehe Ihre Katze.<br>
+            • <strong>Akkusativ Neutrum:</strong> Ich habe Ihr Buch.<br>
+            • <strong>Akkusativ Plural:</strong> Ich sehe Ihre Bücher.<br>
+            • <strong>Dativ Maskulin:</strong> Ich helfe Ihrem Mann.<br>
+            • <strong>Dativ Feminin:</strong> Ich helfe Ihrer Frau.<br>
+            • <strong>Dativ Neutrum:</strong> Ich helfe Ihrem Kind.<br>
+            • <strong>Dativ Plural:</strong> Ich helfe Ihren Kollegen.
+        `,
+        unser: `
+            • <strong>Nominativ Maskulin:</strong> Das ist unser Hund.<br>
+            • <strong>Nominativ Feminin:</strong> Das ist unsere Katze.<br>
+            • <strong>Nominativ Neutrum:</strong> Das ist unser Buch.<br>
+            • <strong>Nominativ Plural:</strong> Das sind unsere Bücher.<br>
+            • <strong>Akkusativ Maskulin:</strong> Wir lieben unseren Hund.<br>
+            • <strong>Akkusativ Feminin:</strong> Wir lieben unsere Katze.<br>
+            • <strong>Akkusativ Neutrum:</strong> Wir lesen unser Buch.<br>
+            • <strong>Akkusativ Plural:</strong> Wir lieben unsere Bücher.<br>
+            • <strong>Dativ Maskulin:</strong> Wir vertrauen unserem Chef.<br>
+            • <strong>Dativ Feminin:</strong> Wir vertrauen unserer Chefin.<br>
+            • <strong>Dativ Neutrum:</strong> Wir danken unserem Team.<br>
+            • <strong>Dativ Plural:</strong> Wir danken unseren Eltern.
+        `,
+        euer: `
+            • <strong>Nominativ Maskulin:</strong> Ist das euer Hund?<br>
+            • <strong>Nominativ Feminin:</strong> Ist das eure Katze?<br>
+            • <strong>Nominativ Neutrum:</strong> Ist das euer Buch?<br>
+            • <strong>Nominativ Plural:</strong> Sind das eure Bücher?<br>
+            • <strong>Akkusativ Maskulin:</strong> Ihr sucht euren Hund.<br>
+            • <strong>Akkusativ Feminin:</strong> Ihr sucht eure Katze.<br>
+            • <strong>Akkusativ Neutrum:</strong> Ihr habt euer Buch.<br>
+            • <strong>Akkusativ Plural:</strong> Ihr sucht eure Bücher.<br>
+            • <strong>Dativ Maskulin:</strong> Ihr helft eurem Lehrer.<br>
+            • <strong>Dativ Feminin:</strong> Ihr helft eurer Lehrerin.<br>
+            • <strong>Dativ Neutrum:</strong> Ihr helft eurem Kind.<br>
+            • <strong>Dativ Plural:</strong> Ihr helft euren Freunden.
+        `
+    };
+    
+    display.innerHTML = examples[val] || "";
+}
+    
         
 
         function initGrammar() {
