@@ -307,52 +307,69 @@
 //---------------------------------------------------------------------------------------------------------
              
             {
-                title: "Adjektive Endungen",
-                desc: `
-                    <p>Adjectives require an ending whenever they are followed by a noun. If no noun follows, there is no ending.</p>
-                    
-                    <h4>1. Mit dem bestimmten Artikel (der/die/das/dieser...)</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nom</td><td>-e</td><td>-e</td><td>-e</td><td>-en</td></tr>
-                            <tr><td>Akk</td><td>-en</td><td>-e</td><td>-e</td><td>-en</td></tr>
-                            <tr><td>Dat</td><td>-en</td><td>-en</td><td>-en</td><td>-en</td></tr>
-                            <tr><td>Gen</td><td>-en</td><td>-en</td><td>-en</td><td>-en</td></tr>
-                        </tbody>
-                    </table>
+    title: "Adjektive Endungen",
+    desc: `
+        <p>Adjectives require an ending whenever they are followed by a noun. If no noun follows, there is no ending.</p>
+        
+        <!-- Dropdown Example Selector -->
+        <div style="margin: 1rem 0 1.5rem 0; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <label for="adj-example-select" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px;">Wähle eine Adjektiv-Deklination:</label>
+            <select id="adj-example-select" onchange="updateAdjExample(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.95rem; outline: none; background: white;">
+                <option value="def">1. Mit dem bestimmten Artikel (der/die/das...)</option>
+                <option value="indef">2. Mit dem unbestimmten Artikel (ein/kein...)</option>
+                <option value="none">3. Ohne Artikel</option>
+            </select>
+            <div id="adj-example-display" style="margin-top: 12px; font-style: normal; color: var(--secondary); font-size: 0.9rem; line-height: 1.5;">
+                • <strong>Nominativ Masculine (-e):</strong> Der große Hund schläft.<br>
+                • <strong>Nominativ Feminine (-e):</strong> Die schöne Katze läuft.<br>
+                • <strong>Nominativ Neuter (-e):</strong> Das neue Buch liegt hier.<br>
+                • <strong>Nominativ Plural (-en):</strong> Die großen Kinder spielen.<br>
+                • <strong>Akkusativ Masculine (-en):</strong> Ich sehe den großen Mann.<br>
+                • <strong>Akkusativ Feminine (-e):</strong> Ich sehe die schöne Blume.<br>
+                • <strong>Akkusativ Neuter (-e):</strong> Ich lese das neue Buch.<br>
+                • <strong>Akkusativ Plural (-en):</strong> Ich sehe die großen Kinder.<br>
+                • <strong>Dativ Masculine (-en):</strong> Ich helfe dem netten Mann.<br>
+                • <strong>Dativ Feminine (-en):</strong> Ich helfe der netten Frau.<br>
+                • <strong>Dativ Neuter (-en):</strong> Ich helfe dem netten Kind.<br>
+                • <strong>Dativ Plural (-en):</strong> Ich helfe den netten Leuten.
+            </div>
+        </div>
 
-                    <h4>2. Mit dem unbestimmten Artikel (ein/kein/mein...)</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nom</td><td>-er</td><td>-e</td><td>-es</td><td>-en</td></tr>
-                            <tr><td>Akk</td><td>-en</td><td>-e</td><td>-es</td><td>-en</td></tr>
-                            <tr><td>Dat</td><td>-en</td><td>-en</td><td>-en</td><td>-en</td></tr>
-                            <tr><td>Gen</td><td>-en</td><td>-en</td><td>-en</td><td>-en</td></tr>
-                        </tbody>
-                    </table>
+        <h4>1. Mit dem bestimmten Artikel (der/die/das/dieser...)</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
+            <tbody>
+                <tr><td>Nom</td><td>-e</td><td>-e</td><td>-e</td><td>-en</td></tr>
+                <tr><td>Akk</td><td>-en</td><td>-e</td><td>-e</td><td>-en</td></tr>
+                <tr><td>Dat</td><td>-en</td><td>-en</td><td>-en</td><td>-en</td></tr>
+                <tr><td>Gen</td><td>-en</td><td>-en</td><td>-en</td><td>-en</td></tr>
+            </tbody>
+        </table>
 
-                    <h4>3. Ohne Artikel</h4>
-                    <table class="grammar-table">
-                        <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
-                        <tbody>
-                            <tr><td>Nom</td><td>-er</td><td>-e</td><td>-es</td><td>-e</td></tr>
-                            <tr><td>Akk</td><td>-en</td><td>-e</td><td>-es</td><td>-e</td></tr>
-                            <tr><td>Dat</td><td>-em</td><td>-er</td><td>-em</td><td>-en</td></tr>
-                            <tr><td>Gen</td><td>-en</td><td>-er</td><td>-en</td><td>-er</td></tr>
-                        </tbody>
-                    </table>
-                `,
-                ex: `
-                    • Ich habe ein <strong>großes</strong> Auto. (Akkusativ Neutrum, unbestimmter Artikel)<br>
-                    • Das ist eine <strong>schöne</strong> Lampe.<br>
-                    • Ich wohne mit einem <strong>netten</strong> Mann.<br><br>
-                    <strong>Keine Endung:</strong><br>
-                    • Das Auto ist <strong>groß</strong>.<br>
-                    • Die Lampe ist <strong>schön</strong>.
-                `
-            },
+        <h4>2. Mit dem unbestimmten Artikel (ein/kein/mein...)</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
+            <tbody>
+                <tr><td>Nom</td><td>-er</td><td>-e</td><td>-es</td><td>-en</td></tr>
+                <tr><td>Akk</td><td>-en</td><td>-e</td><td>-es</td><td>-en</td></tr>
+                <tr><td>Dat</td><td>-en</td><td>-en</td><td>-en</td><td>-en</td></tr>
+                <tr><td>Gen</td><td>-en</td><td>-en</td><td>-en</td><td>-en</td></tr>
+            </tbody>
+        </table>
+
+        <h4>3. Ohne Artikel</h4>
+        <table class="grammar-table">
+            <thead><tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plur</th></tr></thead>
+            <tbody>
+                <tr><td>Nom</td><td>-er</td><td>-e</td><td>-es</td><td>-e</td></tr>
+                <tr><td>Akk</td><td>-en</td><td>-e</td><td>-es</td><td>-e</td></tr>
+                <tr><td>Dat</td><td>-em</td><td>-er</td><td>-em</td><td>-en</td></tr>
+                <tr><td>Gen</td><td>-en</td><td>-er</td><td>-en</td><td>-er</td></tr>
+            </tbody>
+        </table>
+    `,
+    ex: "Wählen Sie oben im Dropdown-Menü eine Deklinationsart aus, um die Beispielsätze zu sehen."
+},
           
 //---------------------------------------------------------------------------------------------------------
             {
@@ -1077,7 +1094,7 @@
                 `
             }
         ];
-    
+//----------------------------------------------------------------------------------------------------------------------    
 // Helper function
     function updateArticleExample(val) {
     const display = document.getElementById('article-example-display');
@@ -1155,6 +1172,60 @@
     
     display.innerHTML = examples[val] || "";
 }
+
+function updateAdjExample(val) {
+    const display = document.getElementById('adj-example-display');
+    if (!display) return;
+    
+    const examples = {
+        def: `
+            • <strong>Nominativ Masculine (-e):</strong> Der große Hund schläft.<br>
+            • <strong>Nominativ Feminine (-e):</strong> Die schöne Katze läuft.<br>
+            • <strong>Nominativ Neuter (-e):</strong> Das neue Buch liegt hier.<br>
+            • <strong>Nominativ Plural (-en):</strong> Die großen Kinder spielen.<br>
+            • <strong>Akkusativ Masculine (-en):</strong> Ich sehe den großen Mann.<br>
+            • <strong>Akkusativ Feminine (-e):</strong> Ich sehe die schöne Blume.<br>
+            • <strong>Akkusativ Neuter (-e):</strong> Ich lese das neue Buch.<br>
+            • <strong>Akkusativ Plural (-en):</strong> Ich sehe die großen Kinder.<br>
+            • <strong>Dativ Masculine (-en):</strong> Ich helfe dem netten Mann.<br>
+            • <strong>Dativ Feminine (-en):</strong> Ich helfe der netten Frau.<br>
+            • <strong>Dativ Neuter (-en):</strong> Ich helfe dem netten Kind.<br>
+            • <strong>Dativ Plural (-en):</strong> Ich helfe den netten Leuten.
+        `,
+        indef: `
+            • <strong>Nominativ Masculine (-er):</strong> Das ist ein großer Hund.<br>
+            • <strong>Nominativ Feminine (-e):</strong> Das ist eine schöne Katze.<br>
+            • <strong>Nominativ Neuter (-es):</strong> Das ist ein neues Buch.<br>
+            • <strong>Nominativ Plural (-en):</strong> Das sind keine großen Hunde.<br>
+            • <strong>Akkusativ Masculine (-en):</strong> Ich sehe einen großen Hund.<br>
+            • <strong>Akkusativ Feminine (-e):</strong> Ich sehe eine schöne Katze.<br>
+            • <strong>Akkusativ Neuter (-es):</strong> Ich habe ein neues Buch.<br>
+            • <strong>Akkusativ Plural (-en):</strong> Ich sehe keine großen Hunde.<br>
+            • <strong>Dativ Masculine (-en):</strong> Ich helfe einem netten Mann.<br>
+            • <strong>Dativ Feminine (-en):</strong> Ich helfe einer netten Frau.<br>
+            • <strong>Dativ Neuter (-en):</strong> Ich helfe einem netten Kind.<br>
+            • <strong>Dativ Plural (-en):</strong> Ich helfe keinen netten Leuten.
+        `,
+        none: `
+            • <strong>Nominativ Masculine (-er):</strong> Guter Wein schmeckt gut.<br>
+            • <strong>Nominativ Feminine (-e):</strong> Kalte Milch ist gesund.<br>
+            • <strong>Nominativ Neuter (-es):</strong> Frisches Wasser ist wichtig.<br>
+            • <strong>Nominativ Plural (-e):</strong> Frische Brötchen schmecken gut.<br>
+            • <strong>Akkusativ Masculine (-en):</strong> Ich trinke kalten Wein.<br>
+            • <strong>Akkusativ Feminine (-e):</strong> Ich trinke kalte Milch.<br>
+            • <strong>Akkusativ Neuter (-es):</strong> Ich trinke frisches Wasser.<br>
+            • <strong>Akkusativ Plural (-e):</strong> Ich kaufe frische Brötchen.<br>
+            • <strong>Dativ Masculine (-em):</strong> Mit gutem Wein feiert man.<br>
+            • <strong>Dativ Feminine (-er):</strong> Mit kalter Milch kocht man.<br>
+            • <strong>Dativ Neuter (-em):</strong> Mit frischem Wasser kocht man.<br>
+            • <strong>Dativ Plural (-en):</strong> Mit frischen Brötchen frühstückt man.
+        `
+    };
+    
+    display.innerHTML = examples[val] || "";
+}
+
+        
 
         function initGrammar() {
             const container = document.getElementById('grammar-tiles');
