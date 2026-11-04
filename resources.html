@@ -864,37 +864,44 @@
             },
     //---------------------------------------------------------------------------------------------------------
            {
-                title: "Relativsatz",
-                desc: `
-                    <h4>Relative Clauses & Pronouns</h4>
-                    <p>In German, when a connector refers to a noun in the previous sentence, we replace it with the article of that noun. The relative pronoun must match the gender and number of the noun it refers to, but its case (Fall) depends on its function in the relative clause.</p>
+    title: "Relativsatz",
+    desc: `
+        <h4>Relative Clauses & Pronouns</h4>
+        <p>In German, when a connector refers to a noun in the previous sentence, we replace it with the article of that noun. The relative pronoun must match the gender and number of the noun it refers to, but its case (Fall) depends on its function in the relative clause.</p>
 
-                    <table class="grammar-table">
-                        <thead>
-                            <tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Nominativ</td><td>der</td><td>die</td><td>das</td><td>die</td></tr>
-                            <tr><td>Akkusativ</td><td>den</td><td>die</td><td>das</td><td>die</td></tr>
-                            <tr><td>Dativ</td><td>dem</td><td>der</td><td>dem</td><td>denen</td></tr>
-                            <tr><td>Genitiv</td><td>dessen</td><td>deren</td><td>dessen</td><td>deren</td></tr>
-                        </tbody>
-                    </table>
+        <!-- Dropdown Example Selector -->
+        <div style="margin: 1.5rem 0 1.5rem 0; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <label for="rel-example-select" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px;">Wähle einen Kasus (Fall) für den Relativsatz:</label>
+            <select id="rel-example-select" onchange="updateRelExample(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.95rem; outline: none; background: white;">
+                <option value="nom">1. Nominativ (der, die, das, die - Wer-Fall)</option>
+                <option value="akk">2. Akkusativ (den, die, das, die - Wen-Fall)</option>
+                <option value="dat">3. Dativ (dem, der, dem, denen - Wem-Fall)</option>
+                <option value="gen">4. Genitiv (dessen, deren - Wessen / Besitz)</option>
+            </select>
+            <div id="rel-example-display" style="margin-top: 12px; font-style: normal; color: var(--secondary); font-size: 0.9rem; line-height: 1.6;">
+                • <strong>Maskulin (der):</strong> Ich schätze den Kollegen sehr, <em>der</em> sich immer so zuverlässig um die gesamte Datenbank-Administration kümmert.<br>
+                • <strong>Feminin (die):</strong> Die erfahrene Projektmanagerin, <em>die</em> das neue Software-Release koordiniert hat, wurde heute befördert.<br>
+                • <strong>Neutrum (das):</strong> Das Unternehmen, <em>das</em> sich auf cloudbasierte Analysen spezialisiert hat, sucht derzeit neue Entwickler.<br>
+                • <strong>Plural (die):</strong> Die Studierenden, <em>die</em> ihre Masterarbeiten im Bereich Wirtschaftsinformatik schreiben, arbeiten im Labor.
+            </div>
+        </div>
 
-                    <p><strong>Note:</strong> Nominativ, Akkusativ, and Dativ articles replace <em>who, whom, that, which</em>. Genitiv articles replace <em>whose</em>.</p>
+        <table class="grammar-table">
+            <thead>
+                <tr><th>Fall</th><th>Mask</th><th>Fem</th><th>Neut</th><th>Plural</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Nominativ</td><td>der</td><td>die</td><td>das</td><td>die</td></tr>
+                <tr><td>Akkusativ</td><td>den</td><td>die</td><td>das</td><td>die</td></tr>
+                <tr><td>Dativ</td><td>dem</td><td>der</td><td>dem</td><td>denen</td></tr>
+                <tr><td>Genitiv</td><td>dessen</td><td>deren</td><td>dessen</td><td>deren</td></tr>
+            </tbody>
+        </table>
 
-                    <h4>Beispiele (Examples)</h4>
-                    <ul>
-                        <li>Ich kenne den Mann, <strong>der</strong> dort steht.<br><em>(I know the man who is standing there.)</em></li>
-                        <li>Ich mag die Lampe nicht, <strong>die</strong> ich gestern gekauft habe.<br><em>(I don’t like the lamp that I bought yesterday.)</em></li>
-                        <li>Das ist der Mann, mit <strong>dem</strong> ich wohne.<br><em>(This is the man with whom I live.)</em></li>
-                        <li>Wo ist die Frau, <strong>deren</strong> Tasche hier liegt?<br><em>(Where is the woman whose bag is lying here?)</em></li>
-                        <li>Ich kann die Kinder, mit <strong>denen</strong> ich jeden Tag spiele, nicht finden.<br><em>(I cannot find the children with whom I play every day.)</em></li>
-                        <li>Sie liebt den Mann, <strong>den</strong> wir gestern getroffen haben.<br><em>(She loves the man whom we met yesterday.)</em></li>
-                    </ul>
-                `,
-                ex: "Ich kenne den Mann, <strong>der</strong> dort steht."
-            },
+        <p><strong>Note:</strong> Nominativ, Akkusativ, and Dativ articles replace <em>who, whom, that, which</em>. Genitiv articles replace <em>whose</em>.</p>
+    `,
+    ex: "Wählen Sie oben im Dropdown-Menü einen Fall aus, um erweiterte Beispielsätze zu sehen."
+},
         //---------------------------------------------------------------------------------------------------------
             
             {
@@ -1721,7 +1728,40 @@ function updateModExample(val) {
     display.innerHTML = examples[val] || "";
 }
         
-        
+// Helper function Relativsatz
+function updateRelExample(val) {
+    const display = document.getElementById('rel-example-display');
+    if (!display) return;
+    
+    const examples = {
+        nom: `
+            • <strong>Maskulin (der):</strong> Ich schätze den Kollegen sehr, <em>der</em> sich immer so zuverlässig um die gesamte Datenbank-Administration kümmert.<br>
+            • <strong>Feminin (die):</strong> Die erfahrene Projektmanagerin, <em>die</em> das neue Software-Release koordiniert hat, wurde heute befördert.<br>
+            • <strong>Neutrum (das):</strong> Das Unternehmen, <em>das</em> sich auf cloudbasierte Analysen spezialisiert hat, sucht derzeit dringend neue Entwickler.<br>
+            • <strong>Plural (die):</strong> Die Studierenden, <em>die</em> ihre Masterarbeiten im Bereich Wirtschaftsinformatik schreiben, arbeiten im modernen CIP-Pool.
+        `,
+        akk: `
+            • <strong>Maskulin (den):</strong> Das ist der Experte, <em>den</em> wir gestern auf der Fachkonferenz in Dortmund kennengelernt haben.<br>
+            • <strong>Feminin (die):</strong> Die Programmiersprache, <em>die</em> er für die Entwicklung des Dashboards verwendet hat, ist äußerst performant.<br>
+            • <strong>Neutrum (das):</strong> Das Buch, <em>das</em> du mir für die Vorbereitung auf die SAP-Prüfung empfohlen hast, ist wirklich sehr hilfreich.<br>
+            • <strong>Plural (die):</strong> Die Dokumente, <em>die</em> gestern Abend per E-Mail verschickt worden sind, müssen noch im System geprüft werden.
+        `,
+        dat: `
+            • <strong>Maskulin (dem):</strong> Der Abteilungsleiter, mit <em>dem</em> ich die Details der Cloud-Migration besprochen habe, ist sehr kompetent.<br>
+            • <strong>Feminin (der):</strong> Die Kollegin, von <em>der</em> ich so viel über effizientes Zeitmanagement gelernt habe, geht bald in den Urlaub.<br>
+            • <strong>Neutrum (dem):</strong> Das Projekt, an <em>dem</em> wir monatelang gearbeitet haben, wurde nun offiziell im Unternehmen freigegeben.<br>
+            • <strong>Plural (denen):</strong> Die Kunden, mit <em>denen</em> wir langfristige Verträge geschlossen haben, fordern zusätzliche Sicherheitsfeatures.
+        `,
+        gen: `
+            • <strong>Maskulin (dessen):</strong> Der Wissenschaftler, <em>dessen</em> bahnbrechende Forschung im Bereich der künstlichen Intelligenz veröffentlicht wurde, hält einen Vortrag.<br>
+            • <strong>Feminin (deren):</strong> Die Firma, <em>deren</em> Serverinfrastruktur komplett auf Linux basiert, expandiert im kommenden Jahr international.<br>
+            • <strong>Neutrum (dessen):</strong> Das Gebäude, <em>dessen</em> moderne Architektur sofort ins Auge springt, beherbergt das neue Technologie-Zentrum.<br>
+            • <strong>Plural (deren):</strong> Die Mitarbeiter, <em>deren</em> Verträge demnächst verlängert werden, erhalten eine Einladung zum Schulungsgespräch.
+        `
+    };
+    
+    display.innerHTML = examples[val] || "";
+}        
         
         function initGrammar() {
             const container = document.getElementById('grammar-tiles');
