@@ -327,8 +327,15 @@
         <div class="deck-selector" id="deck-selector">
             <button class="deck-btn static-deck-btn active" data-deck="b1">B1 Words <span class="deck-count" id="count-b1"></span></button>
             <button class="deck-btn static-deck-btn" data-deck="b2">B2 Words <span class="deck-count" id="count-b2"></span></button>
-            <button class="deck-btn static-deck-btn" data-deck="learned">Learned <span class="deck-count" id="count-learned"></span></button>
-            <button class="deck-btn static-deck-btn" data-deck="favorites">Favorites <span class="deck-count" id="count-favorites"></span></button>
+            
+            <select id="learned-dropdown" class="deck-btn">
+                <option value="">-- Learned --</option>
+            </select>
+            
+            <select id="favorites-dropdown" class="deck-btn">
+                <option value="">-- Favorites --</option>
+            </select>
+            
             <select id="mywords-dropdown" class="deck-btn">
                 <option value="">-- My Words --</option>
             </select>
@@ -415,22 +422,27 @@
             learned: [],
             favorites: [],
             myWords: [],
-            myWordsSubDecks: {} 
+            myWordsSubDecks: {},
+            learnedSubDecks: {},
+            favoritesSubDecks: {}
         };
 
         let currentDeck = 'b1';
         let words = []; 
         let currentWordIndex = 0;
         let srsData = JSON.parse(localStorage.getItem('germanSrsData')) || {}; 
+        let completedWords = JSON.parse(localStorage.getItem('germanCompletedWords')) || [];
         let quizScore = 0;
         let currentQuizWord = null;
 
         /* --- UPDATE DECK COUNTS --- */
         function updateDeckCounts() {
-            if (document.getElementById('count-b1')) document.getElementById('count-b1').textContent = decks.b1.length;
-            if (document.getElementById('count-b2')) document.getElementById('count-b2').textContent = decks.b2.length;
-            if (document.getElementById('count-learned')) document.getElementById('count-learned').textContent = decks.learned.length;
-            if (document.getElementById('count-favorites')) document.getElementById('count-favorites').textContent = decks.favorites.length;
+            if (document.getElementById('count-b1')) {
+                document.getElementById('count-b1').textContent = decks.b1.length - decks.b1.filter(w => completedWords.includes(w.german)).length;
+            }
+            if (document.getElementById('count-b2')) {
+                document.getElementById('count-b2').textContent = decks.b2.length - decks.b2.filter(w => completedWords.includes(w.german)).length;
+            }
         }
 
         /* --- DIFFICULTY LOOP SORTING --- */
@@ -447,49 +459,59 @@
             if (currentDeck.startsWith('myWords_')) {
                 const range = currentDeck.split('_')[1];
                 words = decks.myWordsSubDecks[range] || [];
+            } else if (currentDeck.startsWith('learned_')) {
+                const range = currentDeck.split('_')[1];
+                words = decks.learnedSubDecks[range] || [];
+            } else if (currentDeck.startsWith('favorites_')) {
+                const range = currentDeck.split('_')[1];
+                words = decks.favoritesSubDecks[range] || [];
             } else {
-                words = decks[currentDeck] || [];
+                const baseWords = decks[currentDeck] || [];
+                words = baseWords.filter(w => !completedWords.includes(w.german));
             }
             sortWordsByDifficulty(words);
             currentWordIndex = 0;
             updateFlashcardUI();
         }
 
-        /* --- DYNAMIC SUBDECK LOGIC --- */
-        function processMyWordsSubDecks() {
-            decks.myWordsSubDecks = {};
+        /* --- GENERIC SUBDECK CHUNKER --- */
+        function createSubDecks(itemList, prefix, dropdownId, defaultLabel) {
+            const subDecks = {};
             const chunkSize = 100;
 
-            if (decks.myWords.length === 0) {
-                decks.myWordsSubDecks['1-0'] = []; 
+            if (itemList.length === 0) {
+                subDecks['1-0'] = [];
             } else {
-                for (let i = 0; i < decks.myWords.length; i += chunkSize) {
+                for (let i = 0; i < itemList.length; i += chunkSize) {
                     const start = i + 1;
-                    const end = Math.min(i + chunkSize, decks.myWords.length);
-                    const rangeLabel = `${start}-${end}`;
-                    decks.myWordsSubDecks[rangeLabel] = decks.myWords.slice(i, i + chunkSize);
+                    const end = Math.min(i + chunkSize, itemList.length);
+                    subDecks[`${start}-${end}`] = itemList.slice(i, i + chunkSize);
                 }
             }
-            renderMyWordsSubDeckSelectors();
+
+            const dropdown = document.getElementById(dropdownId);
+            if (dropdown) {
+                dropdown.innerHTML = `<option value="">-- ${defaultLabel} --</option>`;
+                Object.keys(subDecks).forEach(range => {
+                    const option = document.createElement('option');
+                    const deckId = `${prefix}_${range}`;
+                    option.value = deckId;
+                    option.textContent = `${defaultLabel} ${range} (${subDecks[range].length})`;
+                    
+                    if (currentDeck === deckId) {
+                        option.selected = true;
+                    }
+                    dropdown.appendChild(option);
+                });
+            }
+
+            return subDecks;
         }
 
-        function renderMyWordsSubDeckSelectors() {
-            const dropdown = document.getElementById('mywords-dropdown');
-            dropdown.innerHTML = '<option value="">-- My Words --</option>';
-            const ranges = Object.keys(decks.myWordsSubDecks);
-
-            ranges.forEach(range => {
-                const option = document.createElement('option');
-                const deckId = `myWords_${range}`;
-                
-                option.value = deckId;
-                option.textContent = `My Words ${range} (${decks.myWordsSubDecks[range].length})`;
-                
-                if (currentDeck === deckId) {
-                    option.selected = true;
-                }
-                dropdown.appendChild(option);
-            });
+        function processAllSubDecks() {
+            decks.myWordsSubDecks = createSubDecks(decks.myWords, 'myWords', 'mywords-dropdown', 'My Words');
+            decks.learnedSubDecks = createSubDecks(decks.learned, 'learned', 'learned-dropdown', 'Learned');
+            decks.favoritesSubDecks = createSubDecks(decks.favorites, 'favorites', 'favorites-dropdown', 'Favorites');
         }
 
         /* --- FETCH DATA --- */
@@ -516,7 +538,7 @@
                 
                 onlineWords.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
                 decks.myWords = onlineWords;
-                processMyWordsSubDecks(); 
+                processAllSubDecks(); 
 
                 if (currentDeck.startsWith('myWords_')) {
                     setActiveWords();
@@ -538,7 +560,12 @@
                 favSnapshot.forEach(doc => favList.push(doc.data()));
                 decks.favorites = favList;
 
+                processAllSubDecks();
                 updateDeckCounts();
+
+                if (currentDeck.startsWith('learned_') || currentDeck.startsWith('favorites_')) {
+                    setActiveWords();
+                }
             } catch (error) {
                 console.error("Error fetching learned/favorites:", error);
             }
@@ -568,6 +595,8 @@
         staticDeckBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 document.getElementById('mywords-dropdown').value = "";
+                document.getElementById('learned-dropdown').value = "";
+                document.getElementById('favorites-dropdown').value = "";
                 staticDeckBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
@@ -581,6 +610,30 @@
             const selectedDeckId = e.target.value;
             if (selectedDeckId) {
                 staticDeckBtns.forEach(b => b.classList.remove('active'));
+                document.getElementById('learned-dropdown').value = "";
+                document.getElementById('favorites-dropdown').value = "";
+                currentDeck = selectedDeckId;
+                setActiveWords();
+            }
+        });
+
+        document.getElementById('learned-dropdown').addEventListener('change', (e) => {
+            const selectedDeckId = e.target.value;
+            if (selectedDeckId) {
+                staticDeckBtns.forEach(b => b.classList.remove('active'));
+                document.getElementById('mywords-dropdown').value = "";
+                document.getElementById('favorites-dropdown').value = "";
+                currentDeck = selectedDeckId;
+                setActiveWords();
+            }
+        });
+
+        document.getElementById('favorites-dropdown').addEventListener('change', (e) => {
+            const selectedDeckId = e.target.value;
+            if (selectedDeckId) {
+                staticDeckBtns.forEach(b => b.classList.remove('active'));
+                document.getElementById('mywords-dropdown').value = "";
+                document.getElementById('learned-dropdown').value = "";
                 currentDeck = selectedDeckId;
                 setActiveWords();
             }
@@ -641,13 +694,20 @@
             updateFlashcardUI();
         });
 
-        /* --- MOVE ENTIRELY TO CLOUD (Learned & Favorites) --- */
+        /* --- MOVE TO LEARNED --- */
         document.getElementById('btn-mark-learned').addEventListener('click', async () => {
             if (!words || words.length === 0) return;
-            if (currentDeck === 'learned') return;
+            if (currentDeck.startsWith('learned_')) return;
 
             const currentWord = words[currentWordIndex];
             
+            // Track as completed so it hides from static B1/B2 decks
+            if (!completedWords.includes(currentWord.german)) {
+                completedWords.push(currentWord.german);
+                localStorage.setItem('germanCompletedWords', JSON.stringify(completedWords));
+            }
+
+            // Save to Learned cloud collection
             if (!decks.learned.some(w => w.german === currentWord.german)) {
                 decks.learned.push(currentWord);
                 try {
@@ -657,6 +717,7 @@
                 }
             }
 
+            // Clean up if it was in custom "My Words"
             if (currentDeck.startsWith('myWords_')) {
                 try {
                     const querySnapshot = await getDocs(collection(db, "myWords"));
@@ -666,31 +727,30 @@
                         }
                     });
                     decks.myWords = decks.myWords.filter(w => w.german !== currentWord.german);
-                    processMyWordsSubDecks();
                 } catch (error) {
                     console.error("Error removing from myWords:", error);
                 }
             }
 
-            words.splice(currentWordIndex, 1);
+            processAllSubDecks();
+            setActiveWords();
             updateDeckCounts();
-
-            if (words.length > 0) {
-                currentWordIndex = currentWordIndex >= words.length ? 0 : currentWordIndex;
-                updateFlashcardUI();
-            } else {
-                wordGerman.textContent = "No words here yet!";
-                wordEnglish.textContent = "Add some words to this deck.";
-                wordExample.textContent = "";
-            }
         });
 
+        /* --- MOVE TO FAVORITES --- */
         document.getElementById('btn-mark-favorite').addEventListener('click', async () => {
             if (!words || words.length === 0) return;
-            if (currentDeck === 'favorites') return;
+            if (currentDeck.startsWith('favorites_')) return;
 
             const currentWord = words[currentWordIndex];
             
+            // Track as completed so it hides from static B1/B2 decks
+            if (!completedWords.includes(currentWord.german)) {
+                completedWords.push(currentWord.german);
+                localStorage.setItem('germanCompletedWords', JSON.stringify(completedWords));
+            }
+
+            // Save to Favorites cloud collection
             if (!decks.favorites.some(w => w.german === currentWord.german)) {
                 decks.favorites.push(currentWord);
                 try {
@@ -700,6 +760,7 @@
                 }
             }
 
+            // Clean up if it was in custom "My Words"
             if (currentDeck.startsWith('myWords_')) {
                 try {
                     const querySnapshot = await getDocs(collection(db, "myWords"));
@@ -709,23 +770,14 @@
                         }
                     });
                     decks.myWords = decks.myWords.filter(w => w.german !== currentWord.german);
-                    processMyWordsSubDecks();
                 } catch (error) {
                     console.error("Error removing from myWords:", error);
                 }
             }
 
-            words.splice(currentWordIndex, 1);
+            processAllSubDecks();
+            setActiveWords();
             updateDeckCounts();
-
-            if (words.length > 0) {
-                currentWordIndex = currentWordIndex >= words.length ? 0 : currentWordIndex;
-                updateFlashcardUI();
-            } else {
-                wordGerman.textContent = "No words here yet!";
-                wordEnglish.textContent = "Add some words to this deck.";
-                wordExample.textContent = "";
-            }
         });
 
         /* --- SRS & DIFFICULTY LOOP --- */
@@ -774,7 +826,7 @@
             try {
                 await addDoc(collection(db, "myWords"), newWord);
                 decks.myWords.push(newWord);
-                processMyWordsSubDecks(); 
+                processAllSubDecks(); 
                 
                 if (currentDeck.startsWith('myWords_')) {
                     setActiveWords();
