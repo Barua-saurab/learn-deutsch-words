@@ -1340,7 +1340,55 @@ function updateAdjExample(val) {
     
     display.innerHTML = examples[val] || "";
 }
+// Helper function Konjunktiv I
+function updateKonj1Example(val) {
+    const display = document.getElementById('konj1-example-display');
+    if (!display) return;
 
+    const examples = {
+        haupt: `
+            • <strong>haben (ich/er/sie/es):</strong> Alicja sagt, sie <em>habe</em> den Fehler im SQL-Skript bereits behoben.<br>
+            • <strong>haben (du):</strong> Er fragt dich, ob du genug Zeit <em>habest</em>, um das Ticket zu prüfen.<br>
+            • <strong>haben (wir/sie/Sie):</strong> Die Kollegen berichten, sie <em>haben</em> alle Testfälle erfolgreich ausgeführt.<br>
+            • <strong>sein (er/sie/es):</strong> Der Sprecher erklärt, die neue Datenbank <em>sei</em> jetzt stabil und schnell.<br>
+            • <strong>sein (Vergangenheit):</strong> Anna erzählt, sie <em>sei</em> gestern lange im Labor geblieben.<br>
+            • <strong>sein (wir/sie/Sie):</strong> Sie geben an, sie <em>seien</em> mit dem Ergebnis sehr zufrieden.<br>
+            • <strong>werden (du):</strong> Maria fragt, ob du die Aufgabe nächste Woche erledigen <em>werdest</em>.<br>
+            • <strong>werden (er/sie/es):</strong> Der Produktmanager meint, der neue Feature-Rollout <em>werde</em> bald starten.<br>
+            • <strong>werden (wir/sie/Sie):</strong> Sie sagen, sie <em>werden</em> das System im nächsten Monat aktualisieren.<br>
+            • <strong>lassen (er/sie/es):</strong> Der Teamleiter meint, man <em>lasse</em> den Prozess problemlos automatisieren.<br>
+            • <strong>lassen (du):</strong> Er fragt, ob du den Server heute Abend neu starten <em>lassest</em>.<br>
+            • <strong>lassen (wir/sie/Sie):</strong> Die Entwickler erklären, sie <em>lassen</em> den Code vor dem Merge prüfen.
+            • <strong>gehen:</strong> Lukas sagt, er <em>gehe</em> heute Abend noch ins Büro, um den Bericht fertigzustellen.<br>
+            • <strong>kommen:</strong> Sie berichtet, ihr Team <em>komme</em> morgen früh mit neuen Daten in das Meeting.<br>
+            • <strong>sagen:</strong> Der Projektleiter erklärt, er <em>sage</em> die Wahrheit über den aktuellen Zeitplan.<br>
+            • <strong>nehmen:</strong> Er meint, er <em>nehme</em> für diese Aufgabe lieber das aktuelle Python-Skript.<br>
+            • <strong>lesen:</strong> Anna erzählt, sie <em>lese</em> gerade eine interessante Studie über Cloud-Architekturen.<br>
+            • <strong>fahren:</strong> Thomas gibt an, er <em>fahre</em> am Wochenende mit dem Zug nach Berlin.
+        `,
+        modal: `
+            • <strong>wollen:</strong> Jonas behauptet, er <em>wolle</em> das Modell noch vor Freitag fertig trainieren.<br>
+            • <strong>sollen:</strong> Die Kollegin sagt, wir <em>sollen</em> die Zugangsdaten erst nach dem Test freigeben.<br>
+            • <strong>können:</strong> Er erklärt, das System <em>könne</em> die Anfrage in wenigen Sekunden beantworten.<br>
+            • <strong>müssen:</strong> Sie betont, man <em>müsse</em> die Rohdaten vor der Analyse gründlich prüfen.<br>
+            • <strong>mögen:</strong> Paul sagt, er <em>möge</em> einfache Dashboards lieber als überladene Berichte.<br>
+            • <strong>dürfen:</strong> Der Admin weist darauf hin, niemand <em>dürfe</em> die Haupttabelle direkt löschen.
+        `,
+        hilfs: `
+            • <strong>haben:</strong> Alicja sagt, sie <em>habe</em> den Fehler im SQL-Skript bereits behoben.<br>
+            • <strong>sein:</strong> Der Sprecher erklärt, die neue Datenbank <em>sei</em> jetzt stabil und schnell.<br>
+            • <strong>werden:</strong> Maria fragt, ob du die Aufgabe nächste Woche erledigen <em>werdest</em>.<br>
+            • <strong>lassen:</strong> Der Teamleiter meint, man <em>lasse</em> den Prozess problemlos automatisieren.
+        `,
+        passiv: `
+            • <strong>Vorgangspassiv (werden):</strong> Der Lehrer informiert, dass das Thema morgen besprochen <em>werde</em>.<br>
+            • <strong>Vorgangspassiv Vergangenheit (sein + worden):</strong> Stefan sagt, das Buch <em>sei</em> in der Auktion verkauft <em>worden</em>.<br>
+            • <strong>Passiv mit Modalverb:</strong> Sie erklärt, der Fehler <em>könne</em> schnell korrigiert <em>werden</em>.
+        `
+    };
+
+    display.innerHTML = examples[val] || "";
+}
         
 // Helper function Personale Pronomen
 function updatePersExample(val) {
