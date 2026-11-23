@@ -1355,46 +1355,108 @@ function updateKonj1Example(val) {
     if (!display) return;
 
     const examples = {
-        haupt: `
-            • <strong>haben (ich/er/sie/es):</strong> Alicja sagt, sie <em>habe</em> den Fehler im SQL-Skript bereits behoben.<br>
-            • <strong>haben (du):</strong> Er fragt dich, ob du genug Zeit <em>habest</em>, um das Ticket zu prüfen.<br>
-            • <strong>haben (wir/sie/Sie):</strong> Die Kollegen berichten, sie <em>haben</em> alle Testfälle erfolgreich ausgeführt.<br>
-            • <strong>sein (er/sie/es):</strong> Der Sprecher erklärt, die neue Datenbank <em>sei</em> jetzt stabil und schnell.<br>
-            • <strong>sein (Vergangenheit):</strong> Anna erzählt, sie <em>sei</em> gestern lange im Labor geblieben.<br>
-            • <strong>sein (wir/sie/Sie):</strong> Sie geben an, sie <em>seien</em> mit dem Ergebnis sehr zufrieden.<br>
-            • <strong>werden (du):</strong> Maria fragt, ob du die Aufgabe nächste Woche erledigen <em>werdest</em>.<br>
-            • <strong>werden (er/sie/es):</strong> Der Produktmanager meint, der neue Feature-Rollout <em>werde</em> bald starten.<br>
-            • <strong>werden (wir/sie/Sie):</strong> Sie sagen, sie <em>werden</em> das System im nächsten Monat aktualisieren.<br>
-            • <strong>lassen (er/sie/es):</strong> Der Teamleiter meint, man <em>lasse</em> den Prozess problemlos automatisieren.<br>
-            • <strong>lassen (du):</strong> Er fragt, ob du den Server heute Abend neu starten <em>lassest</em>.<br>
-            • <strong>lassen (wir/sie/Sie):</strong> Die Entwickler erklären, sie <em>lassen</em> den Code vor dem Merge prüfen.
-            • <strong>gehen:</strong> Lukas sagt, er <em>gehe</em> heute Abend noch ins Büro, um den Bericht fertigzustellen.<br>
-            • <strong>kommen:</strong> Sie berichtet, ihr Team <em>komme</em> morgen früh mit neuen Daten in das Meeting.<br>
-            • <strong>sagen:</strong> Der Projektleiter erklärt, er <em>sage</em> die Wahrheit über den aktuellen Zeitplan.<br>
-            • <strong>nehmen:</strong> Er meint, er <em>nehme</em> für diese Aufgabe lieber das aktuelle Python-Skript.<br>
-            • <strong>lesen:</strong> Anna erzählt, sie <em>lese</em> gerade eine interessante Studie über Cloud-Architekturen.<br>
-            • <strong>fahren:</strong> Thomas gibt an, er <em>fahre</em> am Wochenende mit dem Zug nach Berlin.
-        `,
-        modal: `
-            • <strong>wollen:</strong> Jonas behauptet, er <em>wolle</em> das Modell noch vor Freitag fertig trainieren.<br>
-            • <strong>sollen:</strong> Die Kollegin sagt, wir <em>sollen</em> die Zugangsdaten erst nach dem Test freigeben.<br>
-            • <strong>können:</strong> Er erklärt, das System <em>könne</em> die Anfrage in wenigen Sekunden beantworten.<br>
-            • <strong>müssen:</strong> Sie betont, man <em>müsse</em> die Rohdaten vor der Analyse gründlich prüfen.<br>
-            • <strong>mögen:</strong> Paul sagt, er <em>möge</em> einfache Dashboards lieber als überladene Berichte.<br>
-            • <strong>dürfen:</strong> Der Admin weist darauf hin, niemand <em>dürfe</em> die Haupttabelle direkt löschen.
-        `,
-        hilfs: `
-            • <strong>haben:</strong> Alicja sagt, sie <em>habe</em> den Fehler im SQL-Skript bereits behoben.<br>
-            • <strong>sein:</strong> Der Sprecher erklärt, die neue Datenbank <em>sei</em> jetzt stabil und schnell.<br>
-            • <strong>werden:</strong> Maria fragt, ob du die Aufgabe nächste Woche erledigen <em>werdest</em>.<br>
-            • <strong>lassen:</strong> Der Teamleiter meint, man <em>lasse</em> den Prozess problemlos automatisieren.
-        `,
-        passiv: `
-            • <strong>Vorgangspassiv (werden):</strong> Der Lehrer informiert, dass das Thema morgen besprochen <em>werde</em>.<br>
-            • <strong>Vorgangspassiv Vergangenheit (sein + worden):</strong> Stefan sagt, das Buch <em>sei</em> in der Auktion verkauft <em>worden</em>.<br>
-            • <strong>Passiv mit Modalverb:</strong> Sie erklärt, der Fehler <em>könne</em> schnell korrigiert <em>werden</em>.
-        `
-    };
+    haupt: `
+- <strong>haben (ich/er/sie/es):</strong><br>
+  <em>Direkt:</em> Alicja: „Ich habe den Fehler im SQL-Skript bereits behoben.“<br>
+  <em>Konjunktiv I:</em> Alicja sagt, sie <em>habe</em> den Fehler im SQL-Skript bereits behoben.<br><br>
+- <strong>haben (du):</strong><br>
+  <em>Direkt:</em> Er fragt dich: „Hast du genug Zeit, um das Ticket zu prüfen?“<br>
+  <em>Konjunktiv I:</em> Er fragt dich, ob du genug Zeit <em>habest</em>, um das Ticket zu prüfen.<br><br>
+- <strong>haben (wir/sie/Sie):</strong><br>
+  <em>Direkt:</em> Die Kollegen: „Wir haben alle Testfälle erfolgreich ausgeführt.“<br>
+  <em>Konjunktiv I:</em> Die Kollegen berichten, sie <em>haben</em> alle Testfälle erfolgreich ausgeführt.<br><br>
+- <strong>sein (er/sie/es):</strong><br>
+  <em>Direkt:</em> Der Sprecher: „Die neue Datenbank ist jetzt stabil und schnell.“<br>
+  <em>Konjunktiv I:</em> Der Sprecher erklärt, die neue Datenbank <em>sei</em> jetzt stabil und schnell.<br><br>
+- <strong>sein (Vergangenheit):</strong><br>
+  <em>Direkt:</em> Anna: „Ich bin gestern lange im Labor geblieben.“<br>
+  <em>Konjunktiv I:</em> Anna erzählt, sie <em>sei</em> gestern lange im Labor geblieben.<br><br>
+- <strong>sein (wir/sie/Sie):</strong><br>
+  <em>Direkt:</em> Sie sagen: „Wir sind mit dem Ergebnis sehr zufrieden.“<br>
+  <em>Konjunktiv I:</em> Sie geben an, sie <em>seien</em> mit dem Ergebnis sehr zufrieden.<br><br>
+- <strong>werden (du):</strong><br>
+  <em>Direkt:</em> Maria fragt: „Wirst du die Aufgabe nächste Woche erledigen?“<br>
+  <em>Konjunktiv I:</em> Maria fragt, ob du die Aufgabe nächste Woche erledigen <em>werdest</em>.<br><br>
+- <strong>werden (er/sie/es):</strong><br>
+  <em>Direkt:</em> Der Produktmanager: „Der neue Feature-Rollout wird bald starten.“<br>
+  <em>Konjunktiv I:</em> Der Produktmanager meint, der neue Feature-Rollout <em>werde</em> bald starten.<br><br>
+- <strong>werden (wir/sie/Sie):</strong><br>
+  <em>Direkt:</em> Sie sagen: „Wir werden das System im nächsten Monat aktualisieren.“<br>
+  <em>Konjunktiv I:</em> Sie sagen, sie <em>werden</em> das System im nächsten Monat aktualisieren.<br><br>
+- <strong>lassen (er/sie/es):</strong><br>
+  <em>Direkt:</em> Der Teamleiter: „Man lässt den Prozess problemlos automatisieren.“<br>
+  <em>Konjunktiv I:</em> Der Teamleiter meint, man <em>lasse</em> den Prozess problemlos automatisieren.<br><br>
+- <strong>lassen (du):</strong><br>
+  <em>Direkt:</em> Er fragt: „Lässt du den Server heute Abend neu starten?“<br>
+  <em>Konjunktiv I:</em> Er fragt, ob du den Server heute Abend neu starten <em>lassest</em>.<br><br>
+- <strong>lassen (wir/sie/Sie):</strong><br>
+  <em>Direkt:</em> Die Entwickler: „Wir lassen den Code vor dem Merge prüfen.“<br>
+  <em>Konjunktiv I:</em> Die Entwickler erklären, sie <em>lassen</em> den Code vor dem Merge prüfen.<br><br>
+- <strong>gehen:</strong><br>
+  <em>Direkt:</em> Lukas: „Ich gehe heute Abend noch ins Büro, um den Bericht fertigzustellen.“<br>
+  <em>Konjunktiv I:</em> Lukas sagt, er <em>gehe</em> heute Abend noch ins Büro, um den Bericht fertigzustellen.<br><br>
+- <strong>kommen:</strong><br>
+  <em>Direkt:</em> Sie berichtet: „Mein Team kommt morgen früh mit neuen Daten in das Meeting.“<br>
+  <em>Konjunktiv I:</em> Sie berichtet, ihr Team <em>komme</em> morgen früh mit neuen Daten in das Meeting.<br><br>
+- <strong>sagen:</strong><br>
+  <em>Direkt:</em> Der Projektleiter: „Ich sage die Wahrheit über den aktuellen Zeitplan.“<br>
+  <em>Konjunktiv I:</em> Der Projektleiter erklärt, er <em>sage</em> die Wahrheit über den aktuellen Zeitplan.<br><br>
+- <strong>nehmen:</strong><br>
+  <em>Direkt:</em> Er meint: „Ich nehme für diese Aufgabe lieber das aktuelle Python-Skript.“<br>
+  <em>Konjunktiv I:</em> Er meint, er <em>nehme</em> für diese Aufgabe lieber das aktuelle Python-Skript.<br><br>
+- <strong>lesen:</strong><br>
+  <em>Direkt:</em> Anna: „Ich lese gerade eine interessante Studie über Cloud-Architekturen.“<br>
+  <em>Konjunktiv I:</em> Anna erzählt, sie <em>lese</em> gerade eine interessante Studie über Cloud-Architekturen.<br><br>
+- <strong>fahren:</strong><br>
+  <em>Direkt:</em> Thomas: „Ich fahre am Wochenende mit dem Zug nach Berlin.“<br>
+  <em>Konjunktiv I:</em> Thomas gibt an, er <em>fahre</em> am Wochenende mit dem Zug nach Berlin.<br>
+    `,
+    modal: `
+- <strong>wollen:</strong><br>
+  <em>Direkt:</em> Jonas: „Ich will das Modell noch vor Freitag fertig trainieren.“<br>
+  <em>Konjunktiv I:</em> Jonas behauptet, er <em>wolle</em> das Modell noch vor Freitag fertig trainieren.<br><br>
+- <strong>sollen:</strong><br>
+  <em>Direkt:</em> Die Kollegin: „Wir sollen die Zugangsdaten erst nach dem Test freigeben.“<br>
+  <em>Konjunktiv I:</em> Die Kollegin sagt, wir <em>sollen</em> die Zugangsdaten erst nach dem Test freigeben.<br><br>
+- <strong>können:</strong><br>
+  <em>Direkt:</em> Er erklärt: „Das System kann die Anfrage in wenigen Sekunden beantworten.“<br>
+  <em>Konjunktiv I:</em> Er erklärt, das System <em>könne</em> die Anfrage in wenigen Sekunden beantworten.<br><br>
+- <strong>müssen:</strong><br>
+  <em>Direkt:</em> Sie betont: „Man muss die Rohdaten vor der Analyse gründlich prüfen.“<br>
+  <em>Konjunktiv I:</em> Sie betont, man <em>müsse</em> die Rohdaten vor der Analyse gründlich prüfen.<br><br>
+- <strong>mögen:</strong><br>
+  <em>Direkt:</em> Paul: „Ich mag einfache Dashboards lieber als überladene Berichte.“<br>
+  <em>Konjunktiv I:</em> Paul sagt, er <em>möge</em> einfache Dashboards lieber als überladene Berichte.<br><br>
+- <strong>dürfen:</strong><br>
+  <em>Direkt:</em> Der Admin: „Niemand darf die Haupttabelle direkt löschen.“<br>
+  <em>Konjunktiv I:</em> Der Admin weist darauf hin, niemand <em>dürfe</em> die Haupttabelle direkt löschen.<br>
+    `,
+    hilfs: `
+- <strong>haben:</strong><br>
+  <em>Direkt:</em> Alicja: „Ich habe den Fehler im SQL-Skript bereits behoben.“<br>
+  <em>Konjunktiv I:</em> Alicja sagt, sie <em>habe</em> den Fehler im SQL-Skript bereits behoben.<br><br>
+- <strong>sein:</strong><br>
+  <em>Direkt:</em> Der Sprecher: „Die neue Datenbank ist jetzt stabil und schnell.“<br>
+  <em>Konjunktiv I:</em> Der Sprecher erklärt, die neue Datenbank <em>sei</em> jetzt stabil und schnell.<br><br>
+- <strong>werden:</strong><br>
+  <em>Direkt:</em> Maria fragt: „Wirst du die Aufgabe nächste Woche erledigen?“<br>
+  <em>Konjunktiv I:</em> Maria fragt, ob du die Aufgabe nächste Woche erledigen <em>werdest</em>.<br><br>
+- <strong>lassen:</strong><br>
+  <em>Direkt:</em> Der Teamleiter: „Man lässt den Prozess problemlos automatisieren.“<br>
+  <em>Konjunktiv I:</em> Der Teamleiter meint, man <em>lasse</em> den Prozess problemlos automatisieren.<br>
+    `,
+    passiv: `
+- <strong>Vorgangspassiv (werden):</strong><br>
+  <em>Direkt:</em> Der Lehrer: „Das Thema wird morgen besprochen.“<br>
+  <em>Konjunktiv I:</em> Der Lehrer informiert, dass das Thema morgen besprochen <em>werde</em>.<br><br>
+- <strong>Vorgangspassiv Vergangenheit (sein + worden):</strong><br>
+  <em>Direkt:</em> Stefan: „Das Buch ist in der Auktion verkauft worden.“<br>
+  <em>Konjunktiv I:</em> Stefan sagt, das Buch <em>sei</em> in der Auktion verkauft <em>worden</em>.<br><br>
+- <strong>Passiv mit Modalverb:</strong><br>
+  <em>Direkt:</em> Sie erklärt: „Der Fehler kann schnell korrigiert werden.“<br>
+  <em>Konjunktiv I:</em> Sie erklärt, der Fehler <em>könne</em> schnell korrigiert <em>werden</em>.<br>
+    `
+};
 
     display.innerHTML = examples[val] || "";
 }
