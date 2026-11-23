@@ -905,12 +905,31 @@
         //---------------------------------------------------------------------------------------------------------
             
             {
-                title: "Konjunktiv I",
+               title: "Konjunktiv I",
                 desc: `
                     <h4>Indirekte Rede (Indirect Speech)</h4>
                     <p>Wir benutzen Konjunktiv I, wenn wir die Aussage einer anderen Person in unseren eigenen Worten wiedergeben.</p>
                     <p><strong>Verbendungen:</strong> ich (-e), du (-est), er/sie/es (-e), wir/sie/Sie (-en), ihr (-et).</p>
                     <p><strong>Wichtig:</strong> Wenn es ein Hilfsverb im Satz gibt, benutzen wir die Konjunktiv I Form des Hilfsverbs, nicht des Hauptverbs.</p>
+
+                    <!-- Dropdown Example Selector -->
+                    <div style="margin: 1.5rem 0 1.5rem 0; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #cbd5e1;">
+                        <label for="konj1-example-select" style="font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 6px;">Wähle eine Konjunktiv-I-Kategorie:</label>
+                        <select id="konj1-example-select" onchange="updateKonj1Example(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.95rem; outline: none; background: white;">
+                            <option value="haupt">1. Hauptverben (gehen, kommen, sagen...)</option>
+                            <option value="modal">2. Modalverben (wollen, können, müssen...)</option>
+                            <option value="hilfs">3. haben, sein, werden, lassen</option>
+                            <option value="passiv">4. Indirekte Rede im Passiv</option>
+                        </select>
+                        <div id="konj1-example-display" style="margin-top: 12px; font-style: normal; color: var(--secondary); font-size: 0.9rem; line-height: 1.6;">
+                            • <strong>gehen:</strong> Lukas sagt, er <em>gehe</em> heute Abend noch ins Büro, um den Bericht fertigzustellen.<br>
+                            • <strong>kommen:</strong> Sie berichtet, ihr Team <em>komme</em> morgen früh mit neuen Daten in das Meeting.<br>
+                            • <strong>sagen:</strong> Der Projektleiter erklärt, er <em>sage</em> die Wahrheit über den aktuellen Zeitplan.<br>
+                            • <strong>nehmen:</strong> Er meint, er <em>nehme</em> für diese Aufgabe lieber das aktuelle Python-Skript.<br>
+                            • <strong>lesen:</strong> Anna erzählt, sie <em>lese</em> gerade eine interessante Studie über Cloud-Architekturen.<br>
+                            • <strong>fahren:</strong> Thomas gibt an, er <em>fahre</em> am Wochenende mit dem Zug nach Berlin.
+                        </div>
+                    </div>
 
                     <h4>Modalverben</h4>
                     <table class="grammar-table">
@@ -947,18 +966,8 @@
                             <tr><td>ihr</td><td>werdet</td><td>lasset</td><td>habet</td><td>seiet</td></tr>
                         </tbody>
                     </table>
-
-                    <h4>Beispielsätze</h4>
-                    <ul>
-                        <li><strong>Peter:</strong> "Ich gehe zum Markt." &rarr; Peter sagt, er <strong>gehe</strong> zum Markt.</li>
-                        <li><strong>Alicja:</strong> "Ich habe es nicht gemacht." &rarr; Alicja sagt, sie <strong>habe</strong> es nicht gemacht.</li>
-                        <li><strong>Der Politiker:</strong> "Ich bin kein böser Mensch." &rarr; Der Politiker sagt, er <strong>sei</strong> kein böser Mensch.</li>
-                        <li><strong>Maria:</strong> "Wirst du es nächste Woche machen?" &rarr; Maria fragt, ob du es nächste Woche machen <strong>werdest</strong>.</li>
-                        <li><strong>Stefan:</strong> "Das Buch ist in der Auktion verkauft worden." &rarr; Stefan sagt, dass das Buch in der Auktion verkauft worden <strong>sei</strong>.</li>
-                        <li><strong>Lehrer:</strong> "Das Thema wird morgen besprochen." &rarr; Der Lehrer hat informiert, dass das Thema morgen besprochen <strong>werde</strong>.</li>
-                    </ul>
                 `,
-                ex: "Der Politiker sagt, er <strong>sei</strong> kein böser Mensch."
+                ex: "Wählen Sie oben im Dropdown-Menü eine Kategorie aus, um Beispielsätze zu sehen."
             },
     //---------------------------------------------------------------------------------------------------------
             {
